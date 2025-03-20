@@ -7,20 +7,20 @@
 
 namespace Sound 
 {
-	void LoadSounds();
-	void PlaySound(std::string);
-	void StopSound(std::string);
-	void StopAllSounds();
-	void SetVolume(std::string, float);
-	
-	void LoadMusic();
-	void PlayMusic(std::string);
-	void StopMusic(std::string);
+
+	void InitSoundManager();
+	void getOption(int& _musicVolume, int& _soundVolume);
+	void SaveOption();
+	void PlaySound(std::string _name);
+
+	void PlayMusic(std::string _name);
+	void StopMusic(std::string _name);
 	void StopAllMusic();
-	void SetMusicVolume(std::string, float);
-	void SetMusicLoop(std::string, bool);
-	void setFutureMusic(std::string);
+	void setFutureMusic(std::string _music);
 	void changeMusic();
 
+	void updateMusic();
+	void changeMusicVolume(float _volume);
+	void changeSoundVolume(float _volume);
 
 }
