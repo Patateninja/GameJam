@@ -1,9 +1,9 @@
 #pragma once
-#define NUM_SOUNDS 10
-#include <SFML/Audio.hpp>
+#include "SFML/audio.hpp"
 #include <iostream>
 #include <string>
 #include <map>
+#define NUM_SOUNDS 10 
 
 namespace Sound 
 {
