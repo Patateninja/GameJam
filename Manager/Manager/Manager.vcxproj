@@ -136,12 +136,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="tools.cpp" />
+    <ClCompile Include="View.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="tools.h" />
+    <ClInclude Include="View.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

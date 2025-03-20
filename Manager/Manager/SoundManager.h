@@ -7,7 +7,6 @@
 
 namespace Sound 
 {
-
 	void InitSoundManager();
 	void getOption(int& _musicVolume, int& _soundVolume);
 	void SaveOption();
@@ -22,5 +21,4 @@ namespace Sound
 	void updateMusic();
 	void changeMusicVolume(float _volume);
 	void changeSoundVolume(float _volume);
-
 }
