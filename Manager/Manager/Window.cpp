@@ -31,15 +31,40 @@ Window::Window(std::string _title, sf::Vector2i _size, bool _isFullscreen, bool 
 	}
 
 	m_window->setVerticalSyncEnabled(m_isVSync);
+}
 
-	m_renderTexture = new sf::RenderTexture();
-	m_renderTexture->create(m_size.x, m_size.y);
+Window::Window(const char* _title, sf::Vector2i _size, bool _isFullscreen, bool _isVSync, bool _isAntialiasing)
+{
+	m_title = _title;
+	m_size = _size;
+	m_isFullscreen = _isFullscreen;
+	m_isVSync = _isVSync;
+	m_isAntialiasing = _isAntialiasing;
+	m_isFocused = false;
+	m_event = sf::Event();
+	sf::ContextSettings settings;
+	if (m_isAntialiasing)
+	{
+		settings.antialiasingLevel = 8;
+	}
+	else
+	{
+		settings.antialiasingLevel = 0;
+	}
+	if (m_isFullscreen)
+	{
+		m_window = new sf::RenderWindow(sf::VideoMode(m_size.x, m_size.y), m_title, sf::Style::Fullscreen, settings);
+	}
+	else
+	{
+		m_window = new sf::RenderWindow(sf::VideoMode(m_size.x, m_size.y), m_title, sf::Style::Default, settings);
+	}
+	m_window->setVerticalSyncEnabled(m_isVSync);
 }
 
 Window::~Window()
 {
 	delete m_window;
-	delete m_renderTexture;
 }
 
 void Window::Update()
@@ -55,10 +80,6 @@ void Window::Update()
 
 	while (m_window->pollEvent(m_event))
 	{
-
-#ifdef USING_IMGUI
-		ImGui::SFML::ProcessEvent(m_event);
-#endif
 		if (m_event.type == sf::Event::Closed)
 		{
 			m_window->close();
@@ -101,35 +122,33 @@ void Window::Update()
 void Window::Clear()
 {
 	m_window->clear();
-	m_renderTexture->clear();
 }
 
 void Window::Draw(sf::Drawable& _drawable)
 {
-	m_renderTexture->draw(_drawable);
+	m_window->draw(_drawable);
 }
 
 void Window::Draw(sf::Drawable& _drawable, sf::RenderStates _states)
 {
-	m_renderTexture->draw(_drawable, _states);
+	m_window->draw(_drawable, _states);
 }
 
 void Window::Draw(sf::Drawable& _drawable, sf::Shader& _shader)
 {
-	m_renderTexture->draw(_drawable, sf::RenderStates(&_shader));
+	m_window->draw(_drawable, &_shader);
 }
 
 void Window::Draw(sf::Drawable& _drawable, sf::Texture& _texture)
 {
-	m_renderTexture->draw(_drawable, sf::RenderStates(&_texture));
+	sf::RenderTexture* m_renderTexture = new sf::RenderTexture();
+	m_renderTexture->create(m_size.x, m_size.y);
+	m_renderTexture->draw(_drawable);
+	m_renderTexture->display();
 }
 
 void Window::Display()
 {
-	Window::m_sprite.setTexture(m_renderTexture->getTexture());
-	Window::m_sprite.setPosition(0.f, (float)getSize().y);
-	Window::m_sprite.setScale(1.f, -1.f);
-	m_window->draw(Window::m_sprite);
 	m_window->display();
 }
 

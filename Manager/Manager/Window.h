@@ -6,7 +6,6 @@ class Window
 {
 	private:
 		sf::RenderWindow* m_window;
-		sf::RenderTexture* m_renderTexture;
 		std::optional<View*> m_view;
 		inline static sf::Sprite m_sprite;
 		std::string m_title;
@@ -44,7 +43,6 @@ class Window
 		inline sf::Vector2i getSize() { return m_size; }
 		inline sf::Vector2f getPointWindowPos(sf::Vector2i _point);
 		inline sf::RenderWindow* getWindow() { return m_window; }
-		inline sf::RenderTexture* getRenderTexture() { return m_renderTexture; }
 
 		inline void setFullscreen(bool _isFullscreen) { m_isFullscreen = _isFullscreen; }
 		inline void setVSync(bool _isVSync);
