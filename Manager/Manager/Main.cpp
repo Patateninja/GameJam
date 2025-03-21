@@ -9,6 +9,7 @@
 #include "StateMachine.hpp"
 
 #include "Player.h"
+#include "Ultime.h"
 
 
 int main()
@@ -27,15 +28,24 @@ int main()
 	//Player
 	Player::Init();
 
+	Ultime::InitUltime();
+
 	StateMachine::StateInit();
 
 	while (window.isOpen())
 	{
 		window.Update();
 		Player::Update();
+		Ultime::UpdateUltime();
+		updateDeltaTime();
 		Mouse::updateMousePosition(*window.getWindow());
 
 		StateMachine::StateUpdate();
+
+		window.Clear();
+
+		Ultime::DisplayUltime(*window.getWindow());
+
 
 		StateMachine::StateDisplay(*window.getWindow());
 	}
