@@ -18,8 +18,6 @@ namespace Math
 	sf::Vector2f slerp(sf::Vector2f a, sf::Vector2f b, float t);
 	sf::Vector2f nlerp(sf::Vector2f a, sf::Vector2f b, float t);
 	sf::Vector2f reflect(sf::Vector2f a, sf::Vector2f normal);
-	sf::Vector2f project(sf::Vector2f a, sf::Vector2f b);
-	sf::Vector2f reject(sf::Vector2f a, sf::Vector2f b);
 	sf::Vector2f perp(sf::Vector2f a);
 	sf::Vector2f perpClockwise(sf::Vector2f a);
 	sf::Vector2f perpCounterClockwise(sf::Vector2f a);

@@ -67,16 +67,6 @@ sf::Vector2f Math::reflect(sf::Vector2f a, sf::Vector2f normal)
 	return a - 2 * dot(a, normal) * normal;
 }
 
-sf::Vector2f Math::project(sf::Vector2f a, sf::Vector2f b)
-{
-	return dot(a, b) / pow(magnitude(b), 2) * b;
-}
-
-sf::Vector2f Math::reject(sf::Vector2f a, sf::Vector2f b)
-{
-	return a - project(a, b);
-}
-
 sf::Vector2f Math::perp(sf::Vector2f a)
 {
 	return sf::Vector2f(-a.y, a.x);
