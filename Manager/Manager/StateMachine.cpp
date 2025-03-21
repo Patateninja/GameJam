@@ -63,8 +63,10 @@ void StateMachine::StateUpdate()
 	}
 }
 
-void StateMachine::StateDisplay(Window& _window)
+void StateMachine::StateDisplay(sf::RenderWindow& _window)
 {
+	_window.clear();
+
 	switch (m_CurrentState)
 	{
 		case MENU :
@@ -73,5 +75,9 @@ void StateMachine::StateDisplay(Window& _window)
 		case GAME :
 			StateGame::Display(_window);
 			break;
+		case QUIT :
+			_window.close();
+			break;
 	}
+	_window.display();
 }

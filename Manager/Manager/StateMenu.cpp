@@ -4,27 +4,24 @@
 
 namespace
 {
-	sf::RectangleShape rect;
+	ActualMenu MainMenu = ActualMenu();
 }
 
 void StateMenu::Init()
 {
-	rect.setSize(sf::Vector2f(10, 10));
-	rect.setPosition(sf::Vector2f(400, 300));
-
-	StateMachine::MainMenu = ActualMenu();
+	MainMenu = ActualMenu();
 }
 
 void StateMenu::Update()
 {
-	if (StateMachine::MainMenu.GetList().size() == 0)
+	if (MainMenu.GetList().size() == 0)
 	{
-		StateMachine::MainMenu.Add(new Button(TO_MENU, sf::Vector2f(150.f, 75.f), StateMachine::MainMenu));
-		StateMachine::MainMenu.Add(new Button(TO_GAME, sf::Vector2f(150.f, 75.f), StateMachine::MainMenu));
-		StateMachine::MainMenu.Add(new Button(TO_QUIT, sf::Vector2f(150.f, 75.f), StateMachine::MainMenu));
+		MainMenu.Add(new Button(TO_MENU, sf::Vector2f(150.f, 75.f), MainMenu));
+		MainMenu.Add(new Button(TO_GAME, sf::Vector2f(150.f, 275.f), MainMenu));
+		MainMenu.Add(new Button(TO_QUIT, sf::Vector2f(150.f, 475.f), MainMenu));
 	}
 
-	switch (StateMachine::MainMenu.Update())
+	switch (MainMenu.Update())
 	{
 		case TO_MENU :
 			StateMachine::ChangeState(MENU);
@@ -38,9 +35,9 @@ void StateMenu::Update()
 	}
 }
 
-void StateMenu::Display(Window& _window)
+void StateMenu::Display(sf::RenderWindow& _window)
 {
-	_window.Draw(rect);
+	MainMenu.Display(_window);
 }
 
 void StateMenu::DeInit()

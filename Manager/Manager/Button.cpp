@@ -53,23 +53,28 @@ std::vector<Button*> ActualMenu::GetList()
 
 Action ActualMenu::Update()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	if (this->m_Timer.getElapsedTime().asSeconds() > 0.25)
 	{
-		this->selectedButton--;
-		if (this->selectedButton < 0)
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			this->selectedButton = this->ButtonList.size() - 1;
+			this->m_Timer.restart();
+			this->selectedButton--;
+			if (this->selectedButton < 0)
+			{
+				this->selectedButton = this->ButtonList.size() - 1;
+			}
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			this->m_Timer.restart();
+			this->selectedButton++;
+			if (this->selectedButton > this->ButtonList.size() - 1)
+			{
+				this->selectedButton = 0;
+			}
 		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		this->selectedButton++;
-		if (this->selectedButton > this->ButtonList.size() - 1)
-		{
-			this->selectedButton = 0;
-		}
-	}
-
 
 	for (Button* button : this->ButtonList)
 	{
@@ -82,9 +87,9 @@ Action ActualMenu::Update()
 			button->SetSelected(false);
 		}
 	}
-	
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 	{
 		return this->ButtonList[this->selectedButton]->GetAction();
 	}

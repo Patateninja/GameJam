@@ -5,6 +5,6 @@ namespace StateGame
 {
 	void Init();
 	void Update();
-	void Display(Window& _window);
+	void Display(sf::RenderWindow& _window);
 	void DeInit();
 };

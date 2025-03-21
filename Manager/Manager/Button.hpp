@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "tools.h"
 #include <vector>
 
 class ActualMenu;
@@ -23,7 +24,7 @@ class Button
 		Button(Action _action, sf::Vector2f _pos, ActualMenu _menu);
 		~Button();
 
-		sf::RectangleShape GetRect() { return this->m_Rect; };
+		sf::RectangleShape& GetRect() { return this->m_Rect; };
 		Action GetAction() { return this->m_Action; };
 		bool GetSelected() { return this->m_Selected; };
 
@@ -34,10 +35,11 @@ class Button
 
 class ActualMenu
 {
-	private:
+	private :
+		sf::Clock m_Timer;
 		int selectedButton = 0;
 		std::vector<Button*> ButtonList;
-	public:
+	public :
 		ActualMenu() = default;
 		~ActualMenu() = default;
 
