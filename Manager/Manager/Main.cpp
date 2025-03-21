@@ -1,7 +1,15 @@
 #include "tools.h"
 #include "SoundManager.h"
 #include <iostream>
+
+#include "tools.h"
+#include "Window.h"
+#include "View.h"
+#include "Mouse.h"
+#include "StateMachine.hpp"
+
 #include "Player.h"
+
 
 int main()
 {
@@ -11,12 +19,15 @@ int main()
 	Sound::getOption(musicvolume, soundVolume);
 	float time = 0;
 
+
+	Window window("GameJam 2025" , sf::Vector2i(1920, 1080), false, true, false);
+	View view(window);
+	window.setView(&view);
+
 	//Player
 	Player::Init();
 
-	Window window("GameJam 2025" , sf::Vector2i(1920, 1080), true, true, false);
-	View view(window);
-	window.setView(&view);
+	StateMachine::StateInit();
 
 	while (window.isOpen())
 	{
@@ -24,12 +35,10 @@ int main()
 		Player::Update();
 		Mouse::updateMousePosition(*window.getWindow());
 
-		window.Clear();
+		StateMachine::StateUpdate();
 
-		Player::Display(*window.getWindow());
-
-		window.Display();
+		StateMachine::StateDisplay(*window.getWindow());
 	}
 
-	return 0;
+	return 42;
 }
