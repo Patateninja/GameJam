@@ -1,4 +1,5 @@
-#include "Ennemy.h"
+#include "Ennemy.hpp"
+#include "Graph.hpp"
 
 Ennemy::Ennemy(sf::Vector2f pos, EnemyClass type)
 {
@@ -11,6 +12,7 @@ Ennemy::Ennemy(sf::Vector2f pos, EnemyClass type)
 
 Ennemy::~Ennemy()
 {
+
 }
 
 void Ennemy::update()
