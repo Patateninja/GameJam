@@ -16,6 +16,7 @@ void StateGame::Init()
 	initCannon();
 	gunBig = Cannon(BIGCANNON);
 	gunSmol = Cannon(SMOLCANNON);
+	Player::Init();
 }
 
 void StateGame::Update()
@@ -24,8 +25,8 @@ void StateGame::Update()
 
 	gunBig.Update();
 	gunBig.Rotate(
-		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::K) -
-		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Semicolon)
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) -
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right)
 	);
 
 
@@ -38,10 +39,14 @@ void StateGame::Update()
 
 void StateGame::Display(sf::RenderWindow& _window)
 {
+	gunBig.Display(_window);
+	gunSmol.Display(_window);
+	Player::Display(_window);
 	_window.draw(rect);
 }
 
 void StateGame::DeInit()
 {
-	//DeInit
+	gunBig.~Cannon();
+	gunSmol.~Cannon();
 }

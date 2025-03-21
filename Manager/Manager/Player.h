@@ -11,6 +11,8 @@ namespace Player
 	float GetRotateSpeed();
 	void SetRotateSpeed(float value);
 
+	sf::Vector2f GetPlayerPosition();
+
 	void Init();
 
 	void Update();

@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Cannon.h"
+#include "Player.h"
 
 namespace holder {
 	sf::Sprite sprite;
@@ -90,7 +91,7 @@ void Cannon::Shoot()
 
 void Cannon::Display(sf::RenderWindow& _window)
 {
-	holder::sprite.setPosition(Mouse::getRelativeMousePos() + pos);
+	holder::sprite.setPosition(Player::GetPlayerPosition() + pos);
 	holder::sprite.setOrigin(holder::texture.getSize().x * 0.5f, holder::texture.getSize().y * 0.5f);
 	holder::sprite.setRotation(rotDeg);
 	holder::sprite.setTexture(holder::texture);
