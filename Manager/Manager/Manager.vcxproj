@@ -18,6 +18,37 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="Ennemy.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Math.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="StateGame.cpp" />
+    <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="StateMenu.cpp" />
+    <ClCompile Include="tools.cpp" />
+    <ClCompile Include="View.cpp" />
+    <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Button.hpp" />
+    <ClInclude Include="Cannon.h" />
+    <ClInclude Include="Ennemy.h" />
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="StateGame.hpp" />
+    <ClInclude Include="StateMachine.hpp" />
+    <ClInclude Include="StateMenu.hpp" />
+    <ClInclude Include="tools.h" />
+    <ClInclude Include="View.h" />
+    <ClInclude Include="Window.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -134,27 +165,6 @@
       <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Ennemy.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Math.cpp" />
-    <ClCompile Include="Mouse.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="tools.cpp" />
-    <ClCompile Include="View.cpp" />
-    <ClCompile Include="Window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Ennemy.h" />
-    <ClInclude Include="Math.h" />
-    <ClInclude Include="Mouse.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="tools.h" />
-    <ClInclude Include="View.h" />
-    <ClInclude Include="Window.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

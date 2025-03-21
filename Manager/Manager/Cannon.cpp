@@ -44,8 +44,8 @@ Cannon::Cannon(enumBienGuez _type) // warnings? shut
 		Cannon::shootCooldown = 0.9f;
 		Cannon::rotSpeed = 20.f;
 		Cannon::rotDeg = 0.f;
-		Cannon::rot_MIN = Cannon::rotDeg - 40.f;
-		Cannon::rot_MAX = Cannon::rotDeg + 40.f;
+		Cannon::rot_MIN = Cannon::rotDeg - 20.f;
+		Cannon::rot_MAX = Cannon::rotDeg + 20.f;
 		break;
 	case SMOLCANNON:
 		Cannon::pos = { 0.f, 50.f };

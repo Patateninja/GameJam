@@ -3,6 +3,7 @@
 #include <optional>
 #include "Window.h"
 #include "Mouse.h"
+#include "View.h"
 
 
 float getDeltaTime();
