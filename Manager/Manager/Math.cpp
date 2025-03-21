@@ -128,3 +128,18 @@ bool Math::isEquals(sf::Vector2f a, sf::Vector2f b)
 {
 	return isZero(a - b);
 }
+
+float Math::moveTowardf(float _from, float _to, float _step)
+{
+	return fabsf(_to - _from) <= _step ? _to : _from + signf(_to - _from) * _step;
+}
+
+float Math::signf(const float val)
+{
+	return val > 0.0f ? +1.0f : (val < 0.0f ? -1.0f : 0.0f);
+}
+
+float Math::getAngle(sf::Vector2f a, sf::Vector2f b)
+{
+	return atan2(b.y - a.y, b.x - a.x) * 180 / PI;
+}

@@ -106,13 +106,18 @@ void Window::Update()
 			{
 				m_isFullscreen = !m_isFullscreen;
 
+				//recupere les settings actuels
+				sf::ContextSettings settings = m_window->getSettings();
+
 				if (m_isFullscreen)
 				{
-					m_window->create(sf::VideoMode(m_size.x, m_size.y), m_title, sf::Style::Fullscreen);
+					m_window->create(sf::VideoMode(m_size.x, m_size.y), m_title, sf::Style::Fullscreen, settings);
+					m_window->setVerticalSyncEnabled(m_isVSync);
 				}
 				else
 				{
-					m_window->create(sf::VideoMode(m_size.x, m_size.y), m_title, sf::Style::Default);
+					m_window->create(sf::VideoMode(m_size.x, m_size.y), m_title, sf::Style::Default, settings);
+					m_window->setVerticalSyncEnabled(m_isVSync);
 				}
 			}
 		}

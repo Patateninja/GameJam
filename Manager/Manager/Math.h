@@ -28,4 +28,7 @@ namespace Math
 	bool isZero(float a);
 	bool isZero(sf::Vector2f a);
 	bool isEquals(sf::Vector2f a, sf::Vector2f b);
+	float moveTowardf(float _from, float _to, float _step);
+	float signf(const float val);
+	float getAngle(sf::Vector2f a, sf::Vector2f b);
 }

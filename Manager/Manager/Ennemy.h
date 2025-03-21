@@ -22,6 +22,7 @@ public:
 	~Ennemy();
 
 	void update();
+	bool IsColliding(const sf::IntRect rect);
 	void display(sf::RenderWindow& window);
 
 	//getters

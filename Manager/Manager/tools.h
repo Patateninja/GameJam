@@ -6,4 +6,6 @@
 #include "View.h"
 #include "Mouse.h"
 
-float getdeltaTime();
+float getDeltaTime();
+
+void updateDeltaTime();

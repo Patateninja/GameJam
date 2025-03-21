@@ -1,13 +1,20 @@
 #include "tools.h"
 
-float getdeltaTime()
+namespace
 {
-	static sf::Clock clock;
-	static float deltaTime = 0;
-	deltaTime = clock.restart().asSeconds();
-	if (deltaTime > 0.1f)
-	{
-		deltaTime = 0.1f;
-	}
-	return deltaTime;
+	sf::Clock m_clock;
+	float m_deltaTime;
+}
+
+float getDeltaTime()
+{
+	return m_deltaTime;
+}
+
+
+void updateDeltaTime()
+{
+	m_deltaTime = m_clock.restart().asSeconds();
+	if(m_deltaTime > 0.1f)
+		m_deltaTime = 0.1f;
 }
