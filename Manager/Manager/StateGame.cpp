@@ -9,8 +9,9 @@ void StateGame::Update()
 {
 }
 
-void StateGame::Display(sf::RenderWindow& _window)
+void StateGame::Display(Window& _window)
 {
+
 }
 
 void StateGame::DeInit()

@@ -1,10 +1,11 @@
 #include "SoundManager.h"
 #include <iostream>
 #include "tools.h"
-#include "StateMachine.hpp"
 #include "Window.h"
 #include "View.h"
 #include "Mouse.h"
+
+#include "StateMachine.hpp"
 
 int main()
 {
@@ -68,13 +69,13 @@ int main()
 		{
 			time = 0;
 			musicvolume += 1;
-			Sound::changeMusicVolume(musicvolume);
+			Sound::changeMusicVolume(static_cast<float>(musicvolume));
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && musicvolume > 0 && time > 0.1f)
 		{
 			time = 0;
 			musicvolume -= 1;
-			Sound::changeMusicVolume(musicvolume);
+			Sound::changeMusicVolume(static_cast<float>(musicvolume));
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && time > 0.1f)
@@ -96,12 +97,11 @@ int main()
 			time = 0;
 			Sound::SaveOption();
 		}
+		
 		window.Clear();
 
-		window.clear();
-
 		window.Draw(shape);
-
+		
 		StateMachine::StateDisplay(window);
 
 		window.Display();

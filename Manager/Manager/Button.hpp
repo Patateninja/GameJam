@@ -11,7 +11,7 @@ typedef enum Action
 	TO_OPTION,
 	TO_QUIT,
 	NOTHING,
-};
+} Action;
 
 class Button
 {

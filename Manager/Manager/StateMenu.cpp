@@ -11,6 +11,8 @@ void StateMenu::Init()
 {
 	rect.setSize(sf::Vector2f(10, 10));
 	rect.setPosition(sf::Vector2f(400, 300));
+
+	StateMachine::MainMenu = ActualMenu();
 }
 
 void StateMenu::Update()
@@ -36,9 +38,9 @@ void StateMenu::Update()
 	}
 }
 
-void StateMenu::Display(sf::RenderWindow& _window)
+void StateMenu::Display(Window& _window)
 {
-	_window.draw(rect);
+	_window.Draw(rect);
 }
 
 void StateMenu::DeInit()

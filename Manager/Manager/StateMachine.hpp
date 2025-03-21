@@ -1,6 +1,7 @@
 #pragma once
 #include "StateMenu.hpp"
 #include "StateGame.hpp"
+#include "Window.h"
 
 #include "Button.hpp"
 
@@ -9,11 +10,11 @@ typedef enum State
 	MENU,
 	GAME,
 	QUIT,
-};
+} State;
 
 namespace StateMachine
 {
-	ActualMenu MainMenu;
+	ActualMenu MainMenu = ActualMenu();
 
 	State GetState(); // Get the current state
 
@@ -22,5 +23,5 @@ namespace StateMachine
 	void StateInit();
 	void StateEvent();
 	void StateUpdate();
-	void StateDisplay(sf::RenderWindow& _window);
+	void StateDisplay(Window& _window);
 };

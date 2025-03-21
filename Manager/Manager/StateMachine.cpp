@@ -16,12 +16,12 @@ void StateMachine::ChangeState(State _state)
 	{
 		switch (m_CurrentState)
 		{
-		case MENU:
-			StateMenu::DeInit();
-			break;
-		case GAME:
-			StateGame::DeInit();
-			break;
+			case MENU:
+				StateMenu::DeInit();
+				break;
+			case GAME:
+				StateGame::DeInit();
+				break;
 		}
 
 		m_CurrentState = _state;
@@ -34,12 +34,12 @@ void StateMachine::StateInit()
 {
 	switch (m_CurrentState)
 	{
-	case MENU:
-		StateMenu::Init();
-		break;
-	case GAME:
-		StateGame::Init();
-		break;
+		case MENU:
+			StateMenu::Init();
+			break;
+		case GAME:
+			StateGame::Init();
+			break;
 	}
 }
 
@@ -63,7 +63,7 @@ void StateMachine::StateUpdate()
 	}
 }
 
-void StateMachine::StateDisplay(sf::RenderWindow& _window)
+void StateMachine::StateDisplay(Window& _window)
 {
 	switch (m_CurrentState)
 	{
