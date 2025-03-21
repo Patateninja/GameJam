@@ -31,11 +31,11 @@ void Tir::Update() {
     if (!m_alive) return;
 
     // Déplacer le tir
-    m_position += m_velocity * getdeltaTime();
+    m_position += m_velocity * getDeltaTime();
 
     // Vérifier si le tir est hors de l'écran
     if (m_position.x < 0 || m_position.x > 1920 || m_position.y < 0 || m_position.y > 1080) {
-        m_alive = false;
+                         m_alive = false;
     }
 }
 
