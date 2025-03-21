@@ -5,6 +5,12 @@
 
 namespace Player
 {
+	float GetPlayerSpeed();
+	void SetPlayerSpeed(float value);
+
+	float GetRotateSpeed();
+	void SetRotateSpeed(float value);
+
 	void Init();
 
 	void Update();
