@@ -1,5 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <optional>
+#include "Window.h"
+#include "Mouse.h"
 
-float getdeltaTime();
+
+float getDeltaTime();
+void updateDeltaTime();

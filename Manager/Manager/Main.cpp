@@ -1,9 +1,8 @@
 #include "SoundManager.h"
 #include <iostream>
 #include "tools.h"
-#include "Window.h"
 #include "View.h"
-#include "Mouse.h"
+#include "Cannon.h"
 
 int main()
 {
@@ -12,6 +11,10 @@ int main()
 	Sound::InitSoundManager();
 	Sound::getOption(musicvolume, soundVolume);
 	float time = 0;
+
+	Cannon gun = Cannon(BIGCANNON);
+	Cannon gunSmol = Cannon(SMOLCANNON);
+	initCannon();
 
 	Window window("GameJam 2025" , sf::Vector2i(1920, 1080), true, true, false);
 	View view(window);
@@ -23,13 +26,15 @@ int main()
 
 	while (window.isOpen())
 	{
+		updateDeltaTime();
 		window.Update();
 		Mouse::updateMousePosition(*window.getWindow());
 
 		pos = Mouse::getRelativeMousePos();
 		shape.setPosition(pos);
 
-		time += getdeltaTime();
+#pragma region sound
+		time += getDeltaTime();
 		Sound::updateMusic();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && time > 0.2f)
 		{
@@ -94,8 +99,24 @@ int main()
 			time = 0;
 			Sound::SaveOption();
 		}
+#pragma endregion
 		window.Clear();
 
+		gun.Update();
+		gun.Rotate(
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::K) -
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Semicolon)
+		);
+		
+
+		gunSmol.Update();
+		gunSmol.Rotate(
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D) -
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)
+		);
+
+		gun.Display(*window.getWindow());
+		gunSmol.Display(*window.getWindow());
 		window.Draw(shape);
 
 		window.Display();
