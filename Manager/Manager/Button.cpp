@@ -1,12 +1,12 @@
 #include "Button.hpp"
 
-Button::Button(Action _action, sf::Vector2f _pos)
+Button::Button(Action _action, sf::Vector2f _pos, ActualMenu _menu)
 {
 	this->m_Rect = sf::RectangleShape(sf::Vector2f(250.f, 75.f));
 	this->SetRectPos(_pos);
 	this->m_Selected = false;
 	this->m_Action = _action;
-	ButtonList::Add(this);
+	_menu.Add(this);
 }
 
 Button::~Button()
@@ -31,44 +31,49 @@ void Button::SetSelected(bool _selected)
 
 /////////////////////////////////////////////////////////////////////
 
-void ButtonList::Add(Button* _button)
+void ActualMenu::Add(Button* _button)
 {
-	ButtonList::ButtonList.push_back(_button);
+	this->ButtonList.push_back(_button);
 }
 
-Button* ButtonList::Get(int _index)
+Button* ActualMenu::Get(int _index)
 {
-	if (_index < ButtonList::ButtonList.size())
+	if (_index < this->ButtonList.size())
 	{
-		return ButtonList::ButtonList[ButtonList::selectedButton];
+		return this->ButtonList[this->selectedButton];
 	}
 	
 	return nullptr;
 }
 
-Action ButtonList::Update()
+std::vector<Button*> ActualMenu::GetList()
+{
+	return this->ButtonList;
+}
+
+Action ActualMenu::Update()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		ButtonList::selectedButton--;
-		if (ButtonList::selectedButton < 0)
+		this->selectedButton--;
+		if (this->selectedButton < 0)
 		{
-			ButtonList::selectedButton = ButtonList::ButtonList.size() - 1;
+			this->selectedButton = this->ButtonList.size() - 1;
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		ButtonList::selectedButton++;
-		if (ButtonList::selectedButton > ButtonList::ButtonList.size() - 1)
+		this->selectedButton++;
+		if (this->selectedButton > this->ButtonList.size() - 1)
 		{
-			ButtonList::selectedButton = 0;
+			this->selectedButton = 0;
 		}
 	}
 
 
-	for (Button* button : ButtonList::ButtonList)
+	for (Button* button : this->ButtonList)
 	{
-		if (button == ButtonList::ButtonList[ButtonList::selectedButton])
+		if (button == this->ButtonList[this->selectedButton])
 		{
 			button->SetSelected(true);
 		}
@@ -81,7 +86,7 @@ Action ButtonList::Update()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		return ButtonList::ButtonList[ButtonList::selectedButton]->GetAction();
+		return this->ButtonList[this->selectedButton]->GetAction();
 	}
 	else
 	{
@@ -89,9 +94,9 @@ Action ButtonList::Update()
 	}
 }
 
-void ButtonList::Display(sf::RenderWindow& _window)
+void ActualMenu::Display(sf::RenderWindow& _window)
 {
-	for (Button* button : ButtonList::ButtonList)
+	for (Button* button : this->ButtonList)
 	{
 		if (button->GetSelected())
 		{

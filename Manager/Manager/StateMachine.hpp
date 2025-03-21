@@ -2,6 +2,8 @@
 #include "StateMenu.hpp"
 #include "StateGame.hpp"
 
+#include "Button.hpp"
+
 typedef enum State
 {
 	MENU,
@@ -11,12 +13,14 @@ typedef enum State
 
 namespace StateMachine
 {
-		State GetState(); // Get the current state
+	ActualMenu MainMenu;
 
-		void ChangeState(State _state); //Set the current state
+	State GetState(); // Get the current state
 
-		void StateInit();
-		void StateEvent();
-		void StateUpdate();
-		void StateDisplay(sf::RenderWindow& _window);
+	void ChangeState(State _state); //Set the current state
+
+	void StateInit();
+	void StateEvent();
+	void StateUpdate();
+	void StateDisplay(sf::RenderWindow& _window);
 };

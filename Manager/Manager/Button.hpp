@@ -2,6 +2,8 @@
 #include "SFML/Graphics.hpp"
 #include <vector>
 
+class ActualMenu;
+
 typedef enum Action
 {
 	TO_MENU,
@@ -18,7 +20,7 @@ class Button
 		Action m_Action;
 		bool m_Selected;
 	public :
-		Button(Action _action, sf::Vector2f _pos);
+		Button(Action _action, sf::Vector2f _pos, ActualMenu _menu);
 		~Button();
 
 		sf::RectangleShape GetRect() { return this->m_Rect; };
@@ -30,12 +32,19 @@ class Button
 		void SetSelected(bool _selected);
 };
 
-namespace ButtonList
+class ActualMenu
 {
-	int selectedButton;
-	std::vector<Button*> ButtonList;
-	void Add(Button* _button);
-	Button* Get(int _index);
-	Action Update();
-	void Display(sf::RenderWindow& _window);
-}
+	private:
+		int selectedButton = 0;
+		std::vector<Button*> ButtonList;
+	public:
+		ActualMenu() = default;
+		~ActualMenu() = default;
+
+		void Add(Button* _button);
+		Button* Get(int _index);
+		std::vector<Button*> GetList();
+
+		Action Update();
+		void Display(sf::RenderWindow& _window);
+};

@@ -15,14 +15,14 @@ void StateMenu::Init()
 
 void StateMenu::Update()
 {
-	if (ButtonList::ButtonList.size() == 0)
+	if (StateMachine::MainMenu.GetList().size() == 0)
 	{
-		ButtonList::Add(new Button(TO_MENU, sf::Vector2f(150.f, 75.f)));
-		ButtonList::Add(new Button(TO_GAME, sf::Vector2f(150.f, 75.f)));
-		ButtonList::Add(new Button(TO_QUIT, sf::Vector2f(150.f, 75.f)));
+		StateMachine::MainMenu.Add(new Button(TO_MENU, sf::Vector2f(150.f, 75.f), StateMachine::MainMenu));
+		StateMachine::MainMenu.Add(new Button(TO_GAME, sf::Vector2f(150.f, 75.f), StateMachine::MainMenu));
+		StateMachine::MainMenu.Add(new Button(TO_QUIT, sf::Vector2f(150.f, 75.f), StateMachine::MainMenu));
 	}
 
-	switch (ButtonList::Update())
+	switch (StateMachine::MainMenu.Update())
 	{
 		case TO_MENU :
 			StateMachine::ChangeState(MENU);
