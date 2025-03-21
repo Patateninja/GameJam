@@ -24,3 +24,17 @@ void Ennemy::display(sf::RenderWindow& window)
 {
 
 }
+
+void Ennemy::followPath()
+{
+	if (!this->path.empty())
+	{
+		this->currentNode = this->path.back();
+		this->x = this->currentNode->getX();
+		this->y = this->currentNode->getY();
+		if (this->currentNode != this->path.front())
+		{
+			this->path.pop_back();
+		}
+	}
+}
