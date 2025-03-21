@@ -29,8 +29,6 @@ void Button::SetSelected(bool _selected)
 	this->m_Selected = _selected;
 }
 
-/////////////////////////////////////////////////////////////////////
-
 void ActualMenu::Add(Button* _button)
 {
 	this->ButtonList.push_back(_button);
