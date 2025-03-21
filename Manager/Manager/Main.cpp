@@ -4,7 +4,6 @@
 #include "Window.h"
 #include "View.h"
 #include "Mouse.h"
-
 #include "StateMachine.hpp"
 
 int main()

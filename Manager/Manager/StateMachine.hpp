@@ -3,8 +3,6 @@
 #include "StateGame.hpp"
 #include "Window.h"
 
-#include "Button.hpp"
-
 typedef enum State
 {
 	MENU,
