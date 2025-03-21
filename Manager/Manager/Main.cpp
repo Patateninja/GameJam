@@ -8,19 +8,6 @@
 #include "Player.h"
 #include "Tir.h"
 
-namespace
-{
-	std::list<Tir> TirList;
-}
-
-void addTir(float _angle, sf::Vector2f _pos,TypeTir _type)
-{
-	TirList.push_back(Tir(_angle, _pos, _type));
-}
-
->>>>>>> Stashed changes
-
-
 int main()
 {
 	int musicvolume = 50;
@@ -45,32 +32,10 @@ int main()
 		Player::Update();
 		Mouse::updateMousePosition(*window.getWindow());
 
-		//TODO deplacer dans le game
-		time += getdeltaTime();
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && time > 0.2f)
-		{
-			time = 0;
-			addTir(90.f, sf::Vector2f(600.f, 600.f), PETIT);
-		}
-
-		for (auto& m : TirList)
-		{
-			m.UpdateTir();
-			if (m.getTirVie() == 0)
-			{
-				m.~Tir();
-			}
-			else
-			{
-				m.DisplayTir(*window.getWindow());
-			}
-		}
-
 		StateMachine::StateUpdate();
 
 		StateMachine::StateDisplay(*window.getWindow());
 	}
 
-	return 42;
+	return 0;
 }

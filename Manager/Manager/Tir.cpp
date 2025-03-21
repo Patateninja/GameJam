@@ -7,6 +7,13 @@ namespace
 	sf::Sprite spriteTir;
 	sf::Texture textureTir;
 	TypeTir oldType;
+
+	std::list<Tir> TirList;
+}
+
+void addTir(float _angle, sf::Vector2f _pos, TypeTir _type)
+{
+	TirList.push_back(Tir(_angle, _pos, _type));
 }
 
 void InitTir()
@@ -35,9 +42,19 @@ Tir::Tir(float _angleTir, sf::Vector2f _posTir, TypeTir _type)
 
 void Tir::UpdateTir()
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		addTir(90.f, sf::Vector2f(600.f, 600.f), PETIT);
+	}
 
-
-	m_posTir += m_velocityTir * getdeltaTime();
+	for (auto& m : TirList)
+	{
+		m.UpdateTir();
+		if (m.getTirVie() == 0)
+		{
+			m.~Tir();
+		}
+	}
 }
 
 void Tir::DisplayTir(sf::RenderWindow& _window)

@@ -3,6 +3,12 @@
 
 void InitTir();
 
+enum TypeTir
+{
+	PETIT,
+	GROS
+};
+
 class Tir
 {
 private:
