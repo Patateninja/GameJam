@@ -1,19 +1,11 @@
 #include "StateGame.hpp"
 #include "Ennemy.hpp"
+#include "IA.hpp"
 
 namespace
 {
 	sf::RectangleShape rect;
-
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "A* Pathfinding", sf::Style::Fullscreen);
-	sf::RectangleShape rectangle(sf::Vector2f(64.f, 64.f));
-	sf::CircleShape circle(32.f);
-	sf::Clock clock;
-
-	Graph tilemap(10, 10, false);
-	IA starFinder('e', nullptr, nullptr);
-	Ennemy player(starFinder.getPath());
-	bool editing = true;
+	Enemy enemy(sf::Vector2f(300.f, 400.f), NORMAL);
 }
 
 void StateGame::Init()
@@ -24,15 +16,13 @@ void StateGame::Init()
 
 void StateGame::Update()
 {
-	starFinder.Astar(&tilemap);
-	player.setPlayerPath(starFinder.getPath());
-	player.followPath();
-	clock.restart();
+	enemy.update();
 }
 
 void StateGame::Display(sf::RenderWindow& _window)
 {
 	_window.draw(rect);
+	enemy.display(_window);
 }
 
 void StateGame::DeInit()

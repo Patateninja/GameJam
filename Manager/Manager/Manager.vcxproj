@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Ennemy.cpp" />
+    <ClCompile Include="IA.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Mouse.cpp" />
@@ -145,13 +146,14 @@
     <ClCompile Include="StateGame.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="StateMenu.cpp" />
-    <ClCompile Include="tools.cpp" />
+    <ClCompile Include="Tools.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="Ennemy.hpp" />
+    <ClInclude Include="IA.hpp" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Player.h" />
@@ -159,7 +161,7 @@
     <ClInclude Include="StateGame.hpp" />
     <ClInclude Include="StateMachine.hpp" />
     <ClInclude Include="StateMenu.hpp" />
-    <ClInclude Include="tools.h" />
+    <ClInclude Include="Tools.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

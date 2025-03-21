@@ -1,28 +1,27 @@
 #pragma once
-#include "tools.h"
-#include "Graph.hpp"
+#include "Tools.h"
+#include "Math.h"
 
 typedef enum EnemyClass
 {
 	NORMAL,
 	TANK,
 	SPEEDSTER,
-};
+} EnemyClass;
 
-class Ennemy
+class Enemy
 {
 	private:
 		sf::Vector2f m_pos;
 		EnemyClass m_class;
 		int m_pv;
+		float m_speed;
 		sf::Vector2f m_velocity;
 		float angle;
 
-		std::vector<Node*> m_path;
-
 	public:
-		Ennemy(sf::Vector2f pos, EnemyClass type);
-		~Ennemy();
+		Enemy(sf::Vector2f pos, EnemyClass type);
+		~Enemy();
 
 		void update();
 		void display(sf::RenderWindow& window);
@@ -40,6 +39,6 @@ class Ennemy
 		inline void setVelocity(sf::Vector2f _velocity) { m_velocity = _velocity; };
 		inline void setAngle(float _angle) { angle = _angle; };
 
-		//Pathfinfing
-		void followPath();
+		//IA
+		void Seek(sf::Vector2f _target);
 };

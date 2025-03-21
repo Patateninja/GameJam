@@ -1,8 +1,8 @@
-#include "tools.h"
+#include "Tools.h"
 #include "SoundManager.h"
 #include <iostream>
 
-#include "tools.h"
+#include "Tools.h"
 #include "Window.h"
 #include "View.h"
 #include "Mouse.h"
