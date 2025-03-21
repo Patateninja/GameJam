@@ -1,9 +1,6 @@
+#include "tools.h"
 #include "SoundManager.h"
 #include <iostream>
-#include "tools.h"
-#include "Window.h"
-#include "View.h"
-#include "Mouse.h"
 
 int main()
 {
