@@ -1,6 +1,6 @@
 #pragma once
-#include "Menu.hpp"
-#include "Game.hpp"
+#include "StateMenu.hpp"
+#include "StateGame.hpp"
 
 typedef enum State
 {
@@ -15,6 +15,7 @@ namespace StateMachine
 
 		void ChangeState(State _state); //Set the current state
 
+		void StateInit();
 		void StateEvent();
 		void StateUpdate();
 		void StateDisplay(sf::RenderWindow& _window);

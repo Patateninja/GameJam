@@ -135,12 +135,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="StateGame.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="StateMenu.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="tools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.hpp" />
+    <ClInclude Include="StateGame.hpp" />
+    <ClInclude Include="StateMenu.hpp" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="StateMachine.hpp" />
     <ClInclude Include="tools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

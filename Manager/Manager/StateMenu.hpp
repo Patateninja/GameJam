@@ -1,7 +1,9 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 
-namespace Menu
+#include "Button.hpp"
+
+namespace StateMenu
 {
 	void Init();
 	void Update();

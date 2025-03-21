@@ -11,6 +11,7 @@ int main()
 	Sound::getOption(musicvolume, soundVolume);
 	float time = 0;
 	sf::RenderWindow window(sf::VideoMode(800, 600), "GameJam 2025");
+	StateMachine::StateInit();
 	
 	while (window.isOpen())
 	{
@@ -76,7 +77,7 @@ int main()
 		}
 
 		window.clear();
-		StateMachine::StateDisplay();
+		StateMachine::StateDisplay(window);
 		window.display();
 	}
 
