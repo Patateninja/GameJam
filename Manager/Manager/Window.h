@@ -2,6 +2,8 @@
 #include "tools.h"
 #include "View.h"
 
+class View;
+
 class Window
 {
 	private:
