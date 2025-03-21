@@ -41,7 +41,7 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && timer > 0.2f)
 		{
 			timer = 0;
-			tirs.push_back(Tir(90, sf::Vector2f(800,600), TypeTir::PETIT));
+			tirs.push_back(Tir(10, sf::Vector2f(800,600), TypeTir::PETIT));
 		}
 
 
