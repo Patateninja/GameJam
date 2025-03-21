@@ -227,6 +227,26 @@ namespace Player
 	}
 }
 
+float Player::GetPlayerSpeed()
+{
+	return moveSpeed;
+}
+
+void Player::SetPlayerSpeed(float value)
+{
+	moveSpeed = value;
+}
+
+float Player::GetRotateSpeed()
+{
+	return rotationSpeed;
+}
+
+void Player::SetRotateSpeed(float value)
+{
+	rotationSpeed = value;
+}
+
 void Player::Init()
 {
 	playerTexture.loadFromFile("../Ressources/Textures/Player.png");
