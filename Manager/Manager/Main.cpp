@@ -1,8 +1,13 @@
+#include "tools.h"
 #include "SoundManager.h"
 #include <iostream>
 #include "tools.h"
 #include "View.h"
 #include "Cannon.h"
+#include "Mouse.h"
+#include "StateMachine.hpp"
+#include "Player.h"
+
 
 int main()
 {
@@ -16,22 +21,24 @@ int main()
 	Cannon gunSmol = Cannon(SMOLCANNON);
 	initCannon();
 
-	Window window("GameJam 2025" , sf::Vector2i(1920, 1080), true, true, false);
+	Window window("GameJam 2025" , sf::Vector2i(1920, 1080), false, true, false);
+
 	View view(window);
 	window.setView(&view);
 
-	sf::RectangleShape shape(sf::Vector2f(100, 100));
-	shape.setFillColor(sf::Color::Red);
-	sf::Vector2f pos = sf::Vector2f(0, 0);
+	//Player
+	Player::Init();
+
+	StateMachine::StateInit();
 
 	while (window.isOpen())
 	{
 		updateDeltaTime();
 		window.Update();
+		Player::Update();
 		Mouse::updateMousePosition(*window.getWindow());
 
-		pos = Mouse::getRelativeMousePos();
-		shape.setPosition(pos);
+		StateMachine::StateUpdate();
 
 #pragma region sound
 		time += getDeltaTime();
@@ -120,7 +127,10 @@ int main()
 		window.Draw(shape);
 
 		window.Display();
+
+		StateMachine::StateDisplay(*window.getWindow());
+
 	}
 
-	return 0;
+	return 42;
 }

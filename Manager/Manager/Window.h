@@ -1,6 +1,9 @@
 #pragma once
 #include "tools.h"
-#include "View.h"
+
+class View;
+
+class View;
 
 class View;
 
