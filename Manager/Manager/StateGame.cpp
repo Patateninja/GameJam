@@ -21,6 +21,8 @@ void StateGame::Update()
 	if (obsList.size() == 0)
 	{
 		obsList.push_back(new Obstacle(sf::Vector2f(600.f, 600.f)));
+		obsList.push_back(new Obstacle(sf::Vector2f(800.f, 600.f)));
+
 	}
 
 	enemy.update(obsList);
