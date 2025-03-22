@@ -22,6 +22,7 @@ public:
 	~Ennemy();
 
 	void update();
+	void explode(std::list<Ennemy> listEnemy);
 	void display(sf::RenderWindow& window);
 
 	//getters

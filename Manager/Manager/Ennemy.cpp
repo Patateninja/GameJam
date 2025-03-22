@@ -11,11 +11,18 @@ Ennemy::Ennemy(sf::Vector2f pos, EnemyClass type)
 
 Ennemy::~Ennemy()
 {
+
 }
 
 void Ennemy::update()
 {
 	m_pos += m_velocity;
+}
+
+void Ennemy::explode(std::list<Ennemy> listEnemy)
+{
+	m_pv = 0;
+
 }
 
 void Ennemy::display(sf::RenderWindow& window)

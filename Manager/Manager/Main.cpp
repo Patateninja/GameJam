@@ -11,6 +11,8 @@
 #include "Player.h"
 #include "Ultime.h"
 
+#include "Surchauffe.h"
+
 
 int main()
 {
@@ -37,6 +39,7 @@ int main()
 		window.Update();
 		Player::Update();
 		Ultime::UpdateUltime();
+		Surchauffe::update();
 		updateDeltaTime();
 		Mouse::updateMousePosition(*window.getWindow());
 
