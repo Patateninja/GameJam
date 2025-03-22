@@ -73,8 +73,14 @@ void StateGame::DeInit()
 	gunSmol2.~Cannon();
 }
 
-//sf::Vector2f smallGun1MuzzleL = { -11, -39 };
-//sf::Vector2f smallGun1MuzzleR = { 14, -39 };
-//sf::Vector2f smallGun2MuzzleL = { 10, -39 };
-//sf::Vector2f smallGun2MuzzleR = { -14, -39 };
-//sf::Vector2f bigGunMuzzle = { 16,137 };
+//bool isMovingUp = false;
+//bool isMovingDown = false;
+//
+//bool isMovingUpRight = false;
+//bool isMovingUpLeft = false;
+//
+//bool isMovingDownRight = false;
+//bool isMovingDownLeft = false;
+//
+//bool isRotateLeft = false;
+//bool isRotateRight = false;

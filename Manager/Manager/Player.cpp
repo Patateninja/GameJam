@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "Math.h"
 
+
+
 namespace Player
 {
 	float moveSpeed = 175.0f;
@@ -24,7 +26,8 @@ namespace Player
 	sf::Sprite track1Sprite;
 	sf::Sprite track2Sprite;
 	sf::Texture playerTexture;
-	sf::Texture trackTexture;
+	sf::Texture track1Texture;
+	sf::Texture track2Texture;
 
 	sf::Vector2f direction(0.f, 1.f);
 
@@ -268,31 +271,97 @@ void Player::SetRotateSpeed(float value)
 void Player::Init()
 {
 	playerTexture.loadFromFile("../Ressources/Textures/car.png");
-	trackTexture.loadFromFile("../Ressources/Textures/track1.png");
+	track1Texture.loadFromFile("../Ressources/Textures/track1.png");
+	track2Texture.loadFromFile("../Ressources/Textures/track2.png");
 	playerSprite.setTexture(playerTexture);
-	track1Sprite.setTexture(trackTexture);
-	track1Sprite.setOrigin(track1Sprite.getGlobalBounds().width * 0.5f, track1Sprite.getGlobalBounds().height * 0.5f);
-	track2Sprite.setTexture(trackTexture);
-	track2Sprite.setOrigin(track2Sprite.getGlobalBounds().width * 0.5f, track2Sprite.getGlobalBounds().height * 0.5f);
+	track1Sprite.setTexture(track1Texture);
+	track2Sprite.setTexture(track2Texture);
 
 	// Set the origin of the sprite to the center
 	playerSprite.setOrigin(playerSprite.getGlobalBounds().getSize() * 0.5f);
+	track1Sprite.setOrigin(sf::Vector2f(30, 64));
+	track1Sprite.setOrigin(sf::Vector2f(-30, 78));
+	track2Sprite.setOrigin(track2Sprite.getGlobalBounds().getSize() * 0.5f);
+	track1Sprite.setTextureRect(sf::IntRect(30, 0, 29, 128));
+	track2Sprite.setTextureRect(sf::IntRect(32, 0, 32, 156));
 
 	// Scale the sprite
 	playerSprite.setScale(0.5f, 0.5f);
+	track1Sprite.setScale(0.7f, 0.7f);
+	track2Sprite.setScale(0.7f, 0.7f);
 }
 
 void Player::Update()
 {
 	UpdateInput();
 	UpdatePosition();
+
 	playerSprite.setPosition(position);
 	playerSprite.setRotation(rotation);
+
+#pragma region Anim
+	static float timer = 0.f;
+	static int animX = 0;
+	timer += getDeltaTime();
+
+	if (timer > 0.2f)
+	{
+		timer = 0.f;
+		animX = !animX;
+		if (isMovingUp)
+		{
+			track1Sprite.setTextureRect(sf::IntRect(30 * animX, 0, 29, 128));
+			track2Sprite.setTextureRect(sf::IntRect(32 * animX, 0, 32, 156));
+		}
+		else if (isMovingDown)
+		{
+			track1Sprite.setTextureRect(sf::IntRect(30 * !animX, 0, 29, 128));
+			track2Sprite.setTextureRect(sf::IntRect(32 * !animX, 0, 32, 156));
+		}
+		else if (isMovingUpRight)
+		{
+			track2Sprite.setTextureRect(sf::IntRect(32 * animX, 0, 32, 156));
+		}
+		else if (isMovingUpLeft)
+		{
+			track1Sprite.setTextureRect(sf::IntRect(30 * animX, 0, 29, 128));
+		}
+		else if (isMovingDownRight)
+		{
+			track2Sprite.setTextureRect(sf::IntRect(32 * !animX, 0, 32, 156));
+		}
+		else if (isMovingDownLeft)
+		{
+			track1Sprite.setTextureRect(sf::IntRect(30 * !animX, 0, 29, 128));
+		}
+		else if (isRotateLeft)
+		{
+			track1Sprite.setTextureRect(sf::IntRect(30 * !animX, 0, 29, 128));
+			track2Sprite.setTextureRect(sf::IntRect(32 * animX, 0, 32, 156));
+		}
+		else if (isRotateRight)
+		{
+			track1Sprite.setTextureRect(sf::IntRect(30 * animX, 0, 29, 128));
+			track2Sprite.setTextureRect(sf::IntRect(32 * !animX, 0, 32, 156));
+		}
+	}
+#pragma endregion
 }
 
 
 void Player::Display(sf::RenderWindow& _window)
 {
 	_window.draw(playerSprite);
+	for (int i = 0; i < 2; i++)
+	{
+		track1Sprite.setPosition(position + sf::Vector2f(0, i*50.f));
+		track1Sprite.setRotation(rotation);
+
+		track2Sprite.setPosition(position + sf::Vector2f(0, i * 50.f));
+		track2Sprite.setRotation(rotation);
+
+		_window.draw(track1Sprite);
+		_window.draw(track2Sprite);
+	}
 }
 

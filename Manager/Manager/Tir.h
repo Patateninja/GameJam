@@ -15,7 +15,6 @@ public:
 	void Update();
 	void Display(sf::RenderWindow& window);
 	bool isAlive() const;
-	void setAlive(bool alive);
 	void destroyIfDead();
 
 private:

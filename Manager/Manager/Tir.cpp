@@ -47,16 +47,10 @@ Tir::Tir(float angle, sf::Vector2f position, TypeTir type)
 
 void Tir::Update() {
 	if (!m_alive) return;
-	if ((lifeTimer -= getDeltaTime()) < 0.f)
-		m_alive = false;
+	if ((lifeTimer -= getDeltaTime()) < 0.f) m_alive = false;
 
 	// Déplacer le tir
 	m_position += m_velocity * getDeltaTime();
-
-	// Vérifier si le tir est hors de l'écran
-	if (m_position.x < 0 || m_position.x > 1920 || m_position.y < 0 || m_position.y > 1080) {
-						 m_alive = false;
-	}
 }
 
 void Tir::Display(sf::RenderWindow& window) {
@@ -75,10 +69,6 @@ void Tir::Display(sf::RenderWindow& window) {
 
 bool Tir::isAlive() const {
 	return m_alive;
-}
-
-void Tir::setAlive(bool alive) {
-	m_alive = alive;
 }
 
 void Tir::destroyIfDead()
