@@ -8,4 +8,5 @@
 
 
 float getDeltaTime();
+
 void updateDeltaTime();

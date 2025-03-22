@@ -119,6 +119,7 @@ void Window::Update()
 					m_window->create(sf::VideoMode(m_size.x, m_size.y), m_title, sf::Style::Default, settings);
 					m_window->setVerticalSyncEnabled(m_isVSync);
 				}
+				m_window->setVerticalSyncEnabled(m_isVSync);
 			}
 		}
 	}
@@ -194,6 +195,7 @@ void Window::setAntialiasing(bool _isAntialiasing)
 	{
 		m_window = new sf::RenderWindow(sf::VideoMode(m_size.x, m_size.y), m_title, sf::Style::Default, settings);
 	}
+	m_window->setVerticalSyncEnabled(m_isVSync);
 }
 
 void Window::setSize(sf::Vector2i _size)
