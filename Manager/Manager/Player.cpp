@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "Math.h"
 
+
+
 #define track1Length 128
 #define track2Length 156
 
@@ -160,7 +162,7 @@ namespace Player
 		direction.y = -std::cos(angle * DEG2RAD); // Le signe négatif pour l'axe Y (sinon l'orientation est inversée)
 	}
 
-	void UpdatePosition()
+	void UpdatePosition(std::vector<Obstacle*>& obsList)
 	{
 
 		PlayerDirection();
@@ -170,29 +172,84 @@ namespace Player
 		// MoveUp Right
 		if (isMovingUpRight)
 		{
-			position -= direction * moveSpeed * getDeltaTime();
-			rotation -= rotationSpeed * getDeltaTime();  // Tourner à gauche
+			bool check = true;
+			for (Obstacle* obs : obsList)
+			{
+
+				if (obs->m_Rect.getGlobalBounds().intersects(Player::playerSprite.getGlobalBounds() ))
+				{
+					check = false;
+				}
+
+				if (obs->m_Rect.getGlobalBounds().contains(Player::position - Player::direction * Player::moveSpeed))
+				{
+					check = false;
+				}
+			}
+
+			if (check)
+			{
+				position -= direction * moveSpeed * getDeltaTime();
+				rotation -= rotationSpeed * getDeltaTime();  // Tourner à gauche
+			}
+			
 		}
 
 		// MoveDown Right
 		if (isMovingDownRight)
 		{
-			position += direction * moveSpeed * getDeltaTime();
-			rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
+			bool check = true;
+			for (Obstacle* obs : obsList)
+			{
+				if (obs->m_Rect.getGlobalBounds().contains(Player::position + Player::direction * Player::moveSpeed))
+				{
+					check = false;
+				}
+			}
+
+			if (check)
+			{
+				position += direction * moveSpeed * getDeltaTime();
+				rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
+			}
 		}
 
 		// MoveUp Left
 		if (isMovingUpLeft)
 		{
-			position -= direction * moveSpeed * getDeltaTime();
-			rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
+			bool check = true;
+			for (Obstacle* obs : obsList)
+			{
+				if (obs->m_Rect.getGlobalBounds().contains(Player::position - Player::direction * Player::moveSpeed))
+				{
+					check = false;
+				}
+			}
+
+			if (check)
+			{
+				position -= direction * moveSpeed * getDeltaTime();
+				rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
+			}
 		}
 
 		// MoveDown Right
 		if (isMovingDownLeft)
 		{
-			position += direction * moveSpeed * getDeltaTime();
-			rotation -= rotationSpeed * getDeltaTime();  // Tourner à droite
+			bool check = true;
+			for (Obstacle* obs : obsList)
+			{
+				if (obs->m_Rect.getGlobalBounds().contains(Player::position + Player::direction * Player::moveSpeed))
+				{
+					check = false;
+				}
+			}
+
+			if (check)
+			{
+				position += direction * moveSpeed * getDeltaTime();
+				rotation -= rotationSpeed * getDeltaTime();  // Tourner à droite
+			}
 		}
 
 #pragma endregion
@@ -205,6 +262,15 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
+			bool check = true;
+			for (Obstacle* obs : obsList)
+			{
+				if (obs->m_Rect.getGlobalBounds().contains(Player::position - (Player::direction * Player::moveSpeed * getDeltaTime())))
+				{
+					check = false;
+				}
+			}
+
 			rotation -= rotationSpeed * getDeltaTime();  // Rotation lente à gauche
 		}
 
@@ -214,7 +280,19 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
-			rotation += rotationSpeed * getDeltaTime();  // Rotation lente à droite
+			bool check = true;
+			for (Obstacle* obs : obsList)
+			{
+				if (obs->m_Rect.getGlobalBounds().contains(Player::position + (Player::direction * Player::moveSpeed * getDeltaTime())))
+				{
+					check = false;
+				}
+			}
+
+			if (check)
+			{
+				rotation += rotationSpeed * getDeltaTime();  // Rotation lente à droite
+			}
 		}
 
 		// MoveUp
@@ -223,7 +301,19 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
-			position -= direction * moveSpeed * getDeltaTime();
+			bool check = true;
+			for (Obstacle* obs : obsList)
+			{
+				if (obs->m_Rect.getGlobalBounds().contains(Player::position - (Player::direction * Player::moveSpeed * getDeltaTime())))
+				{
+					check = false;
+				}
+			}
+
+			if (check)
+			{
+				position -= direction * moveSpeed * getDeltaTime();
+			}
 		}
 
 		// MoveDown
@@ -232,7 +322,19 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
-			position += direction * moveSpeed * getDeltaTime();
+			bool check = true;
+			for (Obstacle* obs : obsList)
+			{
+				if (obs->m_Rect.getGlobalBounds().contains(Player::position + (Player::direction * Player::moveSpeed * getDeltaTime())))
+				{
+					check = false;
+				}
+			}
+
+			if (check)
+			{
+				position += direction * moveSpeed * getDeltaTime();
+			}
 		}
 
 #pragma endregion
@@ -294,10 +396,10 @@ void Player::Init()
 	track2Sprite.setScale(0.5f, 0.5f);
 }
 
-void Player::Update()
+void Player::Update(std::vector<Obstacle*>& obsList)
 {
 	UpdateInput();
-	UpdatePosition();
+	UpdatePosition(obsList);
 
 	playerSprite.setPosition(position);
 	playerSprite.setRotation(rotation);

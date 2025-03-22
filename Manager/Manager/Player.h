@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Tools.h"
+#include "Ennemy.hpp"
 
 namespace Player
 {
@@ -15,8 +16,8 @@ namespace Player
 
 	void Init();
 
-	void Update();
+	void Update(std::vector<Obstacle*>& obsList);
 
 	void Display(sf::RenderWindow& _window);
 
-}
+}                                                                            

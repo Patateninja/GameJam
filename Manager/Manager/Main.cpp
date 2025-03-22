@@ -11,6 +11,8 @@
 
 int main()
 {
+	std::vector<Obstacle*> obsList;
+
 	Sound::InitSoundManager();
 	Window window("GameJam 2025" , sf::Vector2i(1920, 1080), false, true, false);
 
@@ -23,7 +25,7 @@ int main()
 	{
 		updateDeltaTime();
 		window.Update();
-		Player::Update();
+		//Player::Update(obsList);
 		Ultime::UpdateUltime();
 		Mouse::updateMousePosition(*window.getWindow());
 

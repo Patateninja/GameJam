@@ -44,7 +44,7 @@ void StateGame::Init()
 
 void StateGame::Update()
 {
-	Player::Update();
+	Player::Update(obsList);
 	Ultime::UpdateUltime();
 
 	gunBig.Update();
@@ -105,6 +105,10 @@ void StateGame::Display(sf::RenderWindow& _window)
 	
 	for (Obstacle* obs : obsList)
 	{
+		sf::RectangleShape rect(obs->m_Rect.getGlobalBounds().getSize());
+		rect.setPosition(obs->m_Rect.getGlobalBounds().getPosition());
+		_window.draw(rect);
+
 		obs->Draw(_window);
 	}
 }
