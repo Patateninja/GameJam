@@ -2,11 +2,16 @@
 
 #include <iostream>
 
+void CreateObstacle(sf::Vector2f _pos, ObstacleType _type, std::vector<Obstacle*>& _list)
+{
+	_list.push_back(new Obstacle(_pos, _type));
+}
+
 Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 {
 	this->m_pos = pos;
 	this->m_class = type;
-	this->m_pv = 100;
+	this->m_hp = 100;
 	this->m_speed = 5.f;
 	this->m_velocity = sf::Vector2f(0, 0);
 	this->angle = 0;
@@ -17,25 +22,34 @@ Enemy::~Enemy()
 
 }
 
-void Enemy::update(std::vector<Obstacle*> _obstacleList)
+bool Enemy::update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _list)
 {
 	sf::Vector2f Current_Pos = this->m_pos;
-	auto ObstaclesInRange = _obstacleList | std::views::filter([Current_Pos] (Obstacle* currentObstacle) { return Math::distance(currentObstacle->m_circle.getGlobalBounds().getPosition(), Current_Pos) <= 500;});
+	auto ObstaclesInRange = _obstacleList | std::views::filter([Current_Pos] (Obstacle* currentObstacle) { return Math::distance(currentObstacle->GetPosition(), Current_Pos) <= 500;});
 	
 	float closestDistance = -1;
 	Obstacle* ClosestObstacle  = nullptr;
 
 	for (Obstacle* n : ObstaclesInRange)
 	{
-		if(Math::distance(n->m_circle.getGlobalBounds().getPosition(), Current_Pos) <= closestDistance || closestDistance == -1)
+		if(Math::distance(n->GetPosition(), Current_Pos) <= closestDistance || closestDistance == -1)
 		{
-			closestDistance = Math::distance(n->m_circle.getGlobalBounds().getPosition(), Current_Pos);
+			closestDistance = Math::distance(n->GetPosition(), Current_Pos);
 			ClosestObstacle = n;
 		}
 	}
 
 	this->Seek(Mouse::getRelativeMousePos(), ClosestObstacle);
 	this->m_pos += m_velocity;
+
+	this->m_hp -= (getDeltaTime() * 5.f);
+
+	if (this->m_hp <= 0)
+	{
+		this->Die(_list);
+		return false;
+	}
+	return true;
 }
 
 void Enemy::display(sf::RenderWindow& window)
@@ -55,13 +69,16 @@ void Enemy::display(sf::RenderWindow& window)
 
 void Enemy::Seek(sf::Vector2f _target, Obstacle* _closestObstacle)
 {
-	float threshold = 120.f;
+	
 
 	sf::Vector2f avoidance(0.f, 0.f);
 
 	if (_closestObstacle != nullptr)
 	{
-		sf::Vector2f dist = _closestObstacle->m_circle.getPosition() - this->m_pos;
+
+		float threshold = _closestObstacle->thresholdAvoidance;
+
+		sf::Vector2f dist = _closestObstacle->GetPosition() - this->m_pos;
 		float len = Math::magnitude(dist);
 		if (len < threshold)
 		{
@@ -74,4 +91,25 @@ void Enemy::Seek(sf::Vector2f _target, Obstacle* _closestObstacle)
 	float speed = (this->m_speed > ramped_speed ? ramped_speed : this->m_speed);
 	sf::Vector2f NormalizedToTarget = Math::normalize(ToTarget) * speed;
 	this->m_velocity += NormalizedToTarget - this->m_velocity - avoidance;
+}
+
+void Enemy::Die(std::list<Enemy*>& _list)
+{
+	for (std::list<Enemy*>::iterator it = _list.begin(); it != _list.end();)
+	{
+		if (*it == this)
+		{
+			delete this;
+			it = _list.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+
+void Spawn(sf::Vector2f _pos, EnemyClass _type, std::list<Enemy*>& _list)
+{
+	_list.push_back(new Enemy(_pos, _type));
 }
