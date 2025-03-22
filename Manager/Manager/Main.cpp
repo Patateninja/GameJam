@@ -14,11 +14,7 @@
 
 int main()
 {
-	int musicvolume = 50;
-	int soundVolume = 50;
 	Sound::InitSoundManager();
-	Sound::getOption(musicvolume, soundVolume);
-	float time = 0;
 
 
 	Window window("GameJam 2025" , sf::Vector2i(1920, 1080), false, true, false);
@@ -49,6 +45,8 @@ int main()
 
 		StateMachine::StateDisplay(*window.getWindow());
 	}
+	Sound::SaveOption();
+
 
 	return 42;
 }
