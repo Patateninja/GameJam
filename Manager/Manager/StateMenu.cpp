@@ -58,12 +58,15 @@ void StateMenu::Update()
 	switch (MainMenu.Update())
 	{
 		case TO_SETTINGS :
+			//click sound
 			StateMachine::toggleIsPaused();
 			break;
 		case TO_GAME :
+			//click sound
 			StateMachine::ChangeState(GAME);
 			break;
 		case TO_QUIT :
+			//click sound
 			StateMachine::ChangeState(QUIT);
 			break;
 	}

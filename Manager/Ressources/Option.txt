@@ -1,2 +1,2 @@
-MusicVolume 78
-SoundVolume 50
+MusicVolume 51
+SoundVolume 51

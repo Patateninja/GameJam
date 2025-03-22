@@ -70,6 +70,7 @@ Action ActualMenu::Update()
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
+			Sound::PlaySound("hover");
 			this->m_Timer.restart();
 			this->selectedButton--;
 			if (this->selectedButton < 0)
@@ -79,6 +80,7 @@ Action ActualMenu::Update()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
+			Sound::PlaySound("hover");
 			this->m_Timer.restart();
 			this->selectedButton++;
 			if (this->selectedButton > this->ButtonList.size() - 1)
@@ -104,6 +106,7 @@ Action ActualMenu::Update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && tim > 0.25f)
 	{
 		tim = 0.0f;
+		Sound::PlaySound("click");
 		return this->ButtonList[this->selectedButton]->GetAction();
 	}
 	else

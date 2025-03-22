@@ -4,6 +4,7 @@
 #include "Window.h"
 #include "Mouse.h"
 #include "View.h"
+#include "SoundManager.h"
 
 
 float getDeltaTime();
