@@ -9,7 +9,7 @@ typedef enum Action
 {
 	TO_MENU,
 	TO_GAME,
-	TO_OPTION,
+	TO_SETTINGS,
 	TO_QUIT,
 	NOTHING,
 } Action;
@@ -47,6 +47,7 @@ class ActualMenu
 		Button* Get(int _index);
 		int GetSelectedButton();
 		std::vector<Button*> GetList();
+		void ResetClock();
 
 		Action Update();
 		void Display(sf::RenderWindow& _window);

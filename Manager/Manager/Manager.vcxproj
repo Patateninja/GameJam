@@ -142,6 +142,7 @@
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="StateSettings.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="StateGame.cpp" />
     <ClCompile Include="StateMachine.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Math.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="StateSettings.hpp" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="StateGame.hpp" />
     <ClInclude Include="StateMachine.hpp" />

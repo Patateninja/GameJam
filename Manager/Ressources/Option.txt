@@ -1,2 +1,2 @@
-MusicVolume 24
+MusicVolume 78
 SoundVolume 50
