@@ -1,8 +1,16 @@
 #include "StateGame.hpp"
+#include "Cannon.h"
+#include "Player.h"
+#include "Ultime.h"
+#include "Tir.h"
 #include "Ennemy.hpp"
 
 namespace
 {
+	Cannon gunBig;
+	Cannon gunSmol1;
+	Cannon gunSmol2;
+
 	sf::RectangleShape rect;
 
 	std::vector<Obstacle*> obsList;
@@ -13,6 +21,14 @@ namespace
 void StateGame::Init()
 {
 	Sound::StopMusic("MusicMenu");
+	Player::Init();
+	initCannon();
+	initTir();
+	gunBig = Cannon(BIGCANNON);
+	gunSmol1 = Cannon(SMOLCANNON1);
+	gunSmol2 = Cannon(SMOLCANNON2);
+
+	Ultime::InitUltime();
 	rect.setSize(sf::Vector2f(10, 10));
 	rect.setPosition(sf::Vector2f(400, 300));
 
@@ -29,6 +45,32 @@ void StateGame::Init()
 
 void StateGame::Update()
 {
+	Player::Update();
+	Ultime::UpdateUltime();
+
+	gunBig.Update();
+	gunBig.Rotate(
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) -
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right)
+	); 
+
+	gunSmol1.Update();
+	gunSmol1.Rotate(
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A) -
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)
+	);
+	gunSmol2.Update();
+	gunSmol2.Rotate(
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A) -
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)
+	);
+
+	for (auto& tir : getTirList())
+	{
+		tir.Update();
+		tir.destroyIfDead();
+	}
+
 	for (std::list<Enemy*>::iterator it = _EnemyList.begin(); it != _EnemyList.end();)
 	{
 		Enemy* enemy = *it;
@@ -41,11 +83,19 @@ void StateGame::Update()
 			break;
 		}
 	}
-	
 }
 
 void StateGame::Display(sf::RenderWindow& _window)
 {
+	Player::Display(_window);
+	gunBig.Display(_window);
+	gunSmol1.Display(_window);
+	gunSmol2.Display(_window);
+	Ultime::DisplayUltime(_window);
+	for (auto& tir : getTirList())
+	{
+		tir.Display(_window);
+	}
 	_window.draw(rect);
 
 	for (Enemy* enemy : _EnemyList)
@@ -62,6 +112,9 @@ void StateGame::Display(sf::RenderWindow& _window)
 
 void StateGame::DeInit()
 {
+	gunBig.~Cannon();
+	gunSmol1.~Cannon();
+	gunSmol2.~Cannon();
 	_EnemyList.clear();
 	obsList.clear();
 }
