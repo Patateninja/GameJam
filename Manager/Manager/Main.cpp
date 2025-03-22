@@ -34,10 +34,10 @@ int main()
 
 	while (window.isOpen())
 	{
+		updateDeltaTime();
 		window.Update();
 		Player::Update();
 		Ultime::UpdateUltime();
-		updateDeltaTime();
 		Mouse::updateMousePosition(*window.getWindow());
 
 		StateMachine::StateUpdate();
