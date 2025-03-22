@@ -63,11 +63,6 @@ struct Obstacle
 
 		void Draw(sf::RenderWindow& _window)
 		{
-			sf::CircleShape circle(this->thresholdAvoidance);
-			circle.setPosition(this->GetPosition());
-			circle.setOrigin(circle.getGlobalBounds().getSize() / 2.f);
-			_window.draw(circle);
-
 			_window.draw(this->m_Rect);
 		}
 };
