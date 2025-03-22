@@ -1,5 +1,6 @@
 #pragma once
 #include "tools.h"
+#include "Tir.h"
 
 enum enumBienGuez {
 	BIGCANNON,
@@ -11,11 +12,16 @@ class Cannon
 {
 private:
 	enumBienGuez type;
+	sf::Vector2f basePos;
+	sf::Vector2f muzzleLPos;
+	sf::Vector2f muzzleRPos;
+	sf::Vector2f origin;
 	float rot_MIN;
 	float rot_MAX;
 	float rotSpeed;
 	float rotDeg;
 
+	float shootTimer = 0.f;
 	float shootCooldown;
 	int damage;
 	// add bullet
@@ -34,7 +40,7 @@ public:
 
 	void Update();
 	void Rotate(int _dir); // RIGHT - LEFT (1 for right, -1 for left)
-	void Shoot();
+	void Shoot(TypeTir _type);
 	void Display(sf::RenderWindow& _window);
 };
 

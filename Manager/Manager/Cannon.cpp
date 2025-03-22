@@ -3,6 +3,7 @@
 #include "Cannon.h"
 #include "Player.h"
 #include "Math.h"
+#include "Tir.h"
 
 #define smallGunXOffset 25.f // HARD, GET FROM SPRITE
 #define smallGunYOffset 85.f // HARD, GET FROM SPRITE
@@ -29,7 +30,7 @@ namespace {
 
 void initCannon()
 {
-	rect.setSize(sf::Vector2f(10, 10));
+	rect.setSize(sf::Vector2f(1, 1));
 	bigCannonTexture.loadFromFile("../Ressources/Textures/cannonBig.png");
 	smallCannon1Texture.loadFromFile("../Ressources/Textures/cannon1Small.png");
 	smallCannon2Texture.loadFromFile("../Ressources/Textures/cannon2Small.png");
@@ -107,7 +108,38 @@ inline void Cannon::setRotDegrees(float _rotDegrees) { rotDeg = _rotDegrees; }
 
 void Cannon::Update()
 {
-	//sf::Vector2f playerPos = Player::GetPlayerPosition();
+	shootTimer += getDeltaTime();
+	float plrRot = Player::GetPlayerRotation();
+	sf::Vector2f plrPos = Player::GetPlayerPosition();
+	
+
+	switch (type)
+	{
+	case BIGCANNON:
+		origin = Math::mult2(static_cast<sf::Vector2f>(bigCannonTexture.getSize()), { 0.5f, 1.f }); // HARD, GET MAGIC MULT VALUES FROM SPRITE
+		basePos = plrPos + Math::rotateVector(bigGunOffSet, DEG2RAD * plrRot);
+		muzzleLPos = basePos + Math::rotateVector(bigGunMuzzle, DEG2RAD * (plrRot - rotDeg));
+		muzzleRPos = basePos + Math::rotateVector(bigGunMuzzle, DEG2RAD * (plrRot - rotDeg));
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift)) Shoot(TypeTir::GROS);
+		break;
+	case SMOLCANNON1:
+		origin = Math::mult2(static_cast<sf::Vector2f>(smallCannon1Texture.getSize()), { 0.5f, 0.8f }); // HARD, GET MAGIC MULT VALUES FROM SPRITE
+		basePos = plrPos + Math::rotateVector(smallGun1OffSet, DEG2RAD * plrRot);
+		muzzleLPos = basePos + Math::rotateVector(smallGun1MuzzleL, DEG2RAD * (plrRot - rotDeg));
+		muzzleRPos = basePos + Math::rotateVector(smallGun1MuzzleR, DEG2RAD * (plrRot - rotDeg));
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift)) Shoot(TypeTir::PETIT);
+		break;
+	case SMOLCANNON2:
+		origin = Math::mult2(static_cast<sf::Vector2f>(smallCannon2Texture.getSize()), { 0.5f, 0.8f }); // HARD, GET MAGIC MULT VALUES FROM SPRITE
+		basePos = plrPos + Math::rotateVector(smallGun2OffSet, DEG2RAD * plrRot);
+		muzzleLPos = basePos + Math::rotateVector(smallGun2MuzzleL, DEG2RAD * (plrRot - rotDeg));
+		muzzleRPos = basePos + Math::rotateVector(smallGun2MuzzleR, DEG2RAD * (plrRot - rotDeg));
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift)) Shoot(TypeTir::PETIT);
+		break;
+	}
 }
 
 void Cannon::Rotate(int _dir)
@@ -116,71 +148,45 @@ void Cannon::Rotate(int _dir)
 	rotDeg = std::max(rot_MIN, std::min(rot_MAX, rotDeg + _dir * rotSpeed * getDeltaTime()));
 }
 
-void Cannon::Shoot()
+void Cannon::Shoot(TypeTir _type)
 {
-	// Call Bullet
+	if (shootTimer < shootCooldown) return;
+
+	std::list<Tir>& t = getTirList();
+
+	t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleLPos, _type));
+	if (!_type == GROS) t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleRPos, _type));
+
+	shootTimer = 0.f;
 }
 
 
 void Cannon::Display(sf::RenderWindow& _window)
 {
 	float plrRot = Player::GetPlayerRotation();
-	sf::Vector2f plrPos = Player::GetPlayerPosition();
 
-	sf::Vector2f origin;
+	spriteCannon.setOrigin(origin);
+	spriteCannon.setPosition(basePos);
+
+	rect.setPosition(muzzleLPos);
+	rect.setRotation(plrRot - rotDeg);
+	_window.draw(rect);
+	rect.setPosition(muzzleRPos);
+	_window.draw(rect);
+
 	switch (type)
 	{
 	case BIGCANNON:
-		origin = Math::mult2(static_cast<sf::Vector2f>(bigCannonTexture.getSize()), { 0.5f, 1.f }); // HARD, GET MAGIC MULT VALUES FROM SPRITE
 		spriteCannon.setTexture(bigCannonTexture, true);
-		spriteCannon.setOrigin(origin);
-		spriteCannon.setPosition(plrPos + Math::rotateVector(bigGunOffSet, DEG2RAD * plrRot));
-		
-		rect.setOrigin(5.f,5.f);
-		rect.setPosition(plrPos + Math::rotateVector(bigGunMuzzle, DEG2RAD * (plrRot - rotDeg)) + Math::rotateVector(bigGunOffSet, DEG2RAD * plrRot));
-		rect.setRotation(plrRot - rotDeg);
-		_window.draw(rect);
-		
 		break;
 	case SMOLCANNON1:
-		origin = Math::mult2(static_cast<sf::Vector2f>(smallCannon1Texture.getSize()), { 0.5f, 0.8f }); // HARD, GET MAGIC MULT VALUES FROM SPRITE
 		spriteCannon.setTexture(smallCannon1Texture, true);
-		spriteCannon.setOrigin(origin);
-		spriteCannon.setPosition(plrPos + Math::rotateVector(smallGun1OffSet, DEG2RAD * plrRot));
-		
-		rect.setOrigin(5.f, 5.f);
-		rect.setPosition(plrPos + Math::rotateVector(smallGun1MuzzleL, DEG2RAD * (plrRot - rotDeg)) + Math::rotateVector(smallGun1OffSet, DEG2RAD * plrRot));
-		rect.setRotation(plrRot - rotDeg);
-		_window.draw(rect);
-
-		rect.setOrigin(5.f, 5.f);
-		rect.setPosition(plrPos + Math::rotateVector(smallGun1MuzzleR, DEG2RAD * (plrRot - rotDeg)) + Math::rotateVector(smallGun1OffSet, DEG2RAD * plrRot));
-		rect.setRotation(plrRot - rotDeg);
-		_window.draw(rect);
-
 		break;
 	case SMOLCANNON2:
-		origin = Math::mult2(static_cast<sf::Vector2f>(smallCannon2Texture.getSize()), { 0.5f, 0.8f }); // HARD, GET MAGIC MULT VALUES FROM SPRITE
 		spriteCannon.setTexture(smallCannon2Texture, true);
-		spriteCannon.setOrigin(origin);
-		spriteCannon.setPosition(plrPos + Math::rotateVector(smallGun2OffSet, DEG2RAD * plrRot));
-
-		rect.setOrigin(5.f, 5.f);
-		rect.setPosition(plrPos + Math::rotateVector(smallGun2MuzzleL, DEG2RAD * (plrRot - rotDeg)) + Math::rotateVector(smallGun2OffSet, DEG2RAD * plrRot));
-		rect.setRotation(plrRot - rotDeg);
-		_window.draw(rect);
-
-		rect.setOrigin(5.f, 5.f);
-		rect.setPosition(plrPos + Math::rotateVector(smallGun2MuzzleR, DEG2RAD * (plrRot - rotDeg)) + Math::rotateVector(smallGun2OffSet, DEG2RAD * plrRot));
-		rect.setRotation(plrRot - rotDeg);
-		_window.draw(rect);
-
 		break;
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space))
-	{
-		spriteCannon.setRotation(plrRot - rotDeg);
-		_window.draw(spriteCannon);
-	}
+	spriteCannon.setRotation(plrRot - rotDeg);
+	_window.draw(spriteCannon);
 }

@@ -2,6 +2,7 @@
 #include "Cannon.h"
 #include "Player.h"
 #include "Ultime.h"
+#include "Tir.h"
 
 namespace
 {
@@ -12,11 +13,12 @@ namespace
 
 void StateGame::Init()
 {
+	Player::Init();
 	initCannon();
+	initTir();
 	gunBig = Cannon(BIGCANNON);
 	gunSmol1 = Cannon(SMOLCANNON1);
 	gunSmol2 = Cannon(SMOLCANNON2);
-	Player::Init();
 
 	Ultime::InitUltime();
 }
@@ -30,8 +32,7 @@ void StateGame::Update()
 	gunBig.Rotate(
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) -
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right)
-	);
-
+	); 
 
 	gunSmol1.Update();
 	gunSmol1.Rotate(
@@ -43,6 +44,13 @@ void StateGame::Update()
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A) -
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)
 	);
+
+	for (auto& tir : getTirList())
+	{
+		tir.Update();
+		tir.destroyIfDead();
+	}
+
 }
 
 void StateGame::Display(sf::RenderWindow& _window)
@@ -52,6 +60,10 @@ void StateGame::Display(sf::RenderWindow& _window)
 	gunSmol1.Display(_window);
 	gunSmol2.Display(_window);
 	Ultime::DisplayUltime(_window);
+	for (auto& tir : getTirList())
+	{
+		tir.Display(_window);
+	}
 }
 
 void StateGame::DeInit()
