@@ -1,8 +1,8 @@
-#include "tools.h"
+#include "Tools.h"
 #include "SoundManager.h"
 #include <iostream>
 
-#include "tools.h"
+#include "Tools.h"
 #include "Window.h"
 #include "View.h"
 #include "Mouse.h"
@@ -30,10 +30,10 @@ int main()
 
 	while (window.isOpen())
 	{
+		updateDeltaTime();
 		window.Update();
 		Player::Update();
 		Ultime::UpdateUltime();
-		updateDeltaTime();
 		Mouse::updateMousePosition(*window.getWindow());
 
 		StateMachine::StateUpdate();

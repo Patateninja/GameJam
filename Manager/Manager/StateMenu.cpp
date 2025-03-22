@@ -1,6 +1,6 @@
 #include "StateMenu.hpp"
-
 #include "StateMachine.hpp"
+#include <iostream>
 
 namespace
 {
@@ -67,6 +67,8 @@ void StateMenu::Update()
 			StateMachine::ChangeState(QUIT);
 			break;
 	}
+
+
 }
 
 void StateMenu::Display(sf::RenderWindow& _window)

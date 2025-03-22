@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "tools.h"
+#include "Tools.h"
 #include <vector>
 
 class ActualMenu;
