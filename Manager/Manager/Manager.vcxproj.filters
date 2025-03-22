@@ -60,7 +60,7 @@
     <ClCompile Include="KeyAnimation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ToSup.cpp">
+    <ClCompile Include="UI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,7 +107,7 @@
     <ClInclude Include="KeyAnimation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ToSup.h">
+    <ClInclude Include="UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -147,7 +147,7 @@
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="StateMenu.cpp" />
     <ClCompile Include="tools.cpp" />
-    <ClCompile Include="ToSup.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Ultime.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -164,7 +164,7 @@
     <ClInclude Include="StateMachine.hpp" />
     <ClInclude Include="StateMenu.hpp" />
     <ClInclude Include="tools.h" />
-    <ClInclude Include="ToSup.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Ultime.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="Window.h" />
