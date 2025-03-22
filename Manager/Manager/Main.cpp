@@ -33,6 +33,7 @@ int main()
 	{
 		window.Update();
 		Player::Update();
+		updateDeltaTime();
 		Mouse::updateMousePosition(*window.getWindow());
 
 		StateMachine::StateUpdate();
