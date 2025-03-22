@@ -46,6 +46,11 @@ Button* ActualMenu::Get(int _index)
 	return nullptr;
 }
 
+int ActualMenu::GetSelectedButton()
+{
+	return this->selectedButton;
+}
+	
 std::vector<Button*> ActualMenu::GetList()
 {
 	return this->ButtonList;
