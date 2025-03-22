@@ -1,6 +1,7 @@
 #include "StateGame.hpp"
 #include "Cannon.h"
 #include "Player.h"
+#include "Ultime.h"
 
 namespace
 {
@@ -16,11 +17,14 @@ void StateGame::Init()
 	gunSmol1 = Cannon(SMOLCANNON1);
 	gunSmol2 = Cannon(SMOLCANNON2);
 	Player::Init();
+
+	Ultime::InitUltime();
 }
 
 void StateGame::Update()
 {
 	Player::Update();
+	Ultime::UpdateUltime();
 
 	gunBig.Update();
 	gunBig.Rotate(
@@ -47,6 +51,7 @@ void StateGame::Display(sf::RenderWindow& _window)
 	gunBig.Display(_window);
 	gunSmol1.Display(_window);
 	gunSmol2.Display(_window);
+	Ultime::DisplayUltime(_window);
 }
 
 void StateGame::DeInit()
