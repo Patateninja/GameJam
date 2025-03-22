@@ -1,3 +1,4 @@
+
 #include "Button.hpp"
 
 Button::Button(Action _action, sf::Vector2f _pos, ActualMenu _menu)

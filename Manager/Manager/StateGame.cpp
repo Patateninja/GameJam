@@ -12,6 +12,7 @@ namespace
 
 void StateGame::Init()
 {
+	Sound::StopMusic("MusicMenu");
 	rect.setSize(sf::Vector2f(10, 10));
 	rect.setPosition(sf::Vector2f(400, 300));
 
@@ -22,6 +23,7 @@ void StateGame::Init()
 	Spawn(sf::Vector2f(10.f, 10.), NORMAL, _EnemyList);
 	Spawn(sf::Vector2f(500.f, 10.), NORMAL, _EnemyList);
 	Spawn(sf::Vector2f(10.f, 500.), NORMAL, _EnemyList);
+	Sound::PlayMusic("MusicGame");
 
 }
 

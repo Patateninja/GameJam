@@ -34,7 +34,9 @@ void StateSettings::Init()
 void StateSettings::Update()
 {
 	static float timer = 0.f;
+	static float sliderSong = 0.f;
 	timer += getDeltaTime();
+	sliderSong += getDeltaTime();
 	Sound::getOption(musicVolume, soundVolume);
 	caret1Sprite.setTextureRect(sf::IntRect(1146, 41, 25, 112));
 	caret2Sprite.setTextureRect(sf::IntRect(1146, 41, 25, 112));
@@ -57,17 +59,44 @@ void StateSettings::Update()
 		switch (selIndex)
 		{
 		case 1: //SFX
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { Sound::changeSoundVolume(std::min(soundVolume+1, 100)); };
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  { Sound::changeSoundVolume(std::max(soundVolume-1, 0)); };
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{ 
+				if (sliderSong > 0.3f)
+				{
+					Sound::PlaySound("click");
+					sliderSong = 0.0f;
+				}
+				Sound::changeSoundVolume(std::min(soundVolume+1, 100)); 
+			};
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{ 
+				if (sliderSong > 0.3f)
+				{
+					Sound::PlaySound("click");
+					sliderSong = 0.0f;
+				}
+				Sound::changeSoundVolume(std::max(soundVolume-1, 0)); 
+			};
+
 			break;
 		case 2: //MUS
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { Sound::changeMusicVolume(std::min(musicVolume+1, 100)); };
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  { Sound::changeMusicVolume(std::max(musicVolume-1, 0)); };
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				Sound::changeMusicVolume(std::min(musicVolume+1, 100));
+			};
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) 
+			{
+				Sound::changeMusicVolume(std::max(musicVolume-1, 0)); 
+			};
+
 			break;
 		case 3: //QUIT
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) 
 			{
 				StateMachine::toggleIsPaused();
+				Sound::PlaySound("click");
 				timer = 0.f;
 			}
 			break;
@@ -75,11 +104,13 @@ void StateSettings::Update()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
 			selIndex = std::min(selIndex+1, 3);
+			Sound::PlaySound("hover");
 			timer = 0.f;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
 			selIndex = std::max(selIndex-1, 1);
+			Sound::PlaySound("hover");
 			timer = 0.f;
 		}
 	}

@@ -16,6 +16,7 @@ namespace
 
 void StateMenu::Init()
 {
+	Sound::StopMusic("MusicGame");
 	textureMenu.loadFromFile("../Ressources/Textures/main_menu.png");
 	textureMenuHover.loadFromFile("../Ressources/Textures/main_menu_hover.png");
 	
@@ -26,6 +27,7 @@ void StateMenu::Init()
 
 	MainMenu = ActualMenu();
 	MainMenu.ResetClock();
+	Sound::PlayMusic("MusicMenu");
 }
 
 void StateMenu::Update()
@@ -58,15 +60,12 @@ void StateMenu::Update()
 	switch (MainMenu.Update())
 	{
 		case TO_SETTINGS :
-			//click sound
 			StateMachine::toggleIsPaused();
 			break;
 		case TO_GAME :
-			//click sound
 			StateMachine::ChangeState(GAME);
 			break;
 		case TO_QUIT :
-			//click sound
 			StateMachine::ChangeState(QUIT);
 			break;
 	}
