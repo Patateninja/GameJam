@@ -25,6 +25,7 @@ void StateMenu::Init()
 	//spriteMenuHover.setOrigin(spriteMenuHover.getGlobalBounds().width / 2, spriteMenuHover.getGlobalBounds().height / 2);
 
 	MainMenu = ActualMenu();
+	MainMenu.ResetClock();
 }
 
 void StateMenu::Update()

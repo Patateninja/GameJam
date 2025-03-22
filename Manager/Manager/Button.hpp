@@ -47,6 +47,7 @@ class ActualMenu
 		Button* Get(int _index);
 		int GetSelectedButton();
 		std::vector<Button*> GetList();
+		void ResetClock();
 
 		Action Update();
 		void Display(sf::RenderWindow& _window);
