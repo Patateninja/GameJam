@@ -21,7 +21,10 @@ namespace Player
 	bool isRotateRight = false;
 
 	sf::Sprite playerSprite;
+	sf::Sprite track1Sprite;
+	sf::Sprite track2Sprite;
 	sf::Texture playerTexture;
+	sf::Texture trackTexture;
 
 	sf::Vector2f direction(0.f, 1.f);
 
@@ -230,6 +233,7 @@ namespace Player
 	}
 }
 
+
 float Player::GetPlayerSpeed()
 {
 	return moveSpeed;
@@ -264,10 +268,15 @@ void Player::SetRotateSpeed(float value)
 void Player::Init()
 {
 	playerTexture.loadFromFile("../Ressources/Textures/car.png");
+	trackTexture.loadFromFile("../Ressources/Textures/track1.png");
 	playerSprite.setTexture(playerTexture);
+	track1Sprite.setTexture(trackTexture);
+	track1Sprite.setOrigin(track1Sprite.getGlobalBounds().width * 0.5f, track1Sprite.getGlobalBounds().height * 0.5f);
+	track2Sprite.setTexture(trackTexture);
+	track2Sprite.setOrigin(track2Sprite.getGlobalBounds().width * 0.5f, track2Sprite.getGlobalBounds().height * 0.5f);
 
 	// Set the origin of the sprite to the center
-	playerSprite.setOrigin(playerSprite.getGlobalBounds().width * 0.5f, playerSprite.getGlobalBounds().height * 0.5f);
+	playerSprite.setOrigin(playerSprite.getGlobalBounds().getSize() * 0.5f);
 
 	// Scale the sprite
 	playerSprite.setScale(0.5f, 0.5f);
