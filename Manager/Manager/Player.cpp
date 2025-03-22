@@ -8,6 +8,8 @@ namespace Player
 	sf::Vector2f position = { 400.f, 400.f };
 	float rotation = 0;
 
+	bool teslaOn = false;
+
 	bool isMovingUp = false;
 	bool isMovingDown = false;
 
@@ -21,7 +23,9 @@ namespace Player
 	bool isRotateRight = false;
 
 	sf::Sprite playerSprite;
+	sf::Sprite teslaSprite;
 	sf::Texture playerTexture;
+	sf::Texture teslaTexture;
 
 	sf::Vector2f direction(0.f, 1.f);
 
@@ -262,18 +266,29 @@ void Player::SetRotateSpeed(float value)
 	rotationSpeed = value;
 }
 
+void Player::setTeslaState(const bool state)
+{
+	teslaOn = state;
+}
+
 void Player::Init()
 {
 	playerTexture.loadFromFile("../Ressources/Textures/voiture de con.png");
+	teslaTexture.loadFromFile("../Ressources/Textures/tesla laser.png");
 	playerSprite.setTexture(playerTexture);
+	teslaSprite.setTexture(teslaTexture);
+	teslaSprite.setTextureRect(sf::IntRect(0, 0, 67, 67));
 	playerSprite.setTextureRect(sf::IntRect(0, 0, 204, 428));
 
 	// Set the origin of the sprite to the center
 	playerSprite.setOrigin(playerSprite.getGlobalBounds().getSize() * 0.5f);
+	teslaSprite.setOrigin(teslaSprite.getGlobalBounds().getSize() * 0.5f);
 
 	// Scale the sprite
 	playerSprite.setScale(0.5f, 0.5f);
 }
+
+
 
 void Player::Update()
 {
@@ -282,6 +297,8 @@ void Player::Update()
 
 	playerSprite.setPosition(position);
 	playerSprite.setRotation(rotation);
+	teslaSprite.setPosition(position + Math::rotateVector(sf::Vector2f(0,-25), rotation * DEG2RAD));
+	teslaSprite.setRotation(rotation);
 
 #pragma region Anim
 	static float timer = 0.f;
@@ -331,6 +348,10 @@ void Player::Update()
 
 void Player::Display(sf::RenderWindow& _window)
 {
+	if (teslaOn) teslaSprite.setTextureRect(sf::IntRect(67, 0, 67, 67));
+	else teslaSprite.setTextureRect(sf::IntRect(0, 0, 67, 67));
+
 	_window.draw(playerSprite);
+	_window.draw(teslaSprite);
 }
 

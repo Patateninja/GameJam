@@ -10,6 +10,7 @@ namespace Player
 
 	float GetRotateSpeed();
 	void SetRotateSpeed(float value);
+	void setTeslaState(const bool state);
 
 	sf::Vector2f GetPlayerPosition();
 	float GetPlayerRotation();
