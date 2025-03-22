@@ -1,12 +1,6 @@
 #include "Player.h"
 #include "Math.h"
 
-#define track1Length 128
-#define track2Length 156
-
-#define track1WCenter 29
-#define track2WCenter 32
-
 namespace Player
 {
 	float moveSpeed = 175.0f;
@@ -27,10 +21,7 @@ namespace Player
 	bool isRotateRight = false;
 
 	sf::Sprite playerSprite;
-	sf::Sprite trackLSprite;
-	sf::Sprite trackRSprite;
 	sf::Texture playerTexture;
-	sf::Texture trackTexture;
 
 	sf::Vector2f direction(0.f, 1.f);
 
@@ -273,22 +264,15 @@ void Player::SetRotateSpeed(float value)
 
 void Player::Init()
 {
-	playerTexture.loadFromFile("../Ressources/Textures/car.png");
-	trackTexture.loadFromFile("../Ressources/Textures/track.png");
+	playerTexture.loadFromFile("../Ressources/Textures/voiture de con.png");
 	playerSprite.setTexture(playerTexture);
-	trackLSprite.setTexture(trackTexture);
+	playerSprite.setTextureRect(sf::IntRect(0, 0, 204, 428));
 
 	// Set the origin of the sprite to the center
 	playerSprite.setOrigin(playerSprite.getGlobalBounds().getSize() * 0.5f);
-	trackLSprite.setOrigin(sf::Vector2f(-50.f, 64.f));
-	trackRSprite.setOrigin(sf::Vector2f(80.f, 78.f));
-	trackLSprite.setTextureRect(sf::IntRect(0, 0, 35, 310));
-	trackRSprite.setTextureRect(sf::IntRect(0, 0, 35, 310));
 
 	// Scale the sprite
 	playerSprite.setScale(0.5f, 0.5f);
-	trackLSprite.setScale(0.5f, 0.5f);
-	trackRSprite.setScale(0.5f, 0.5f);
 }
 
 void Player::Update()
@@ -310,39 +294,35 @@ void Player::Update()
 		animX = !animX;
 		if (isMovingUp)
 		{
-			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
-			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
+			playerSprite.setTextureRect(sf::IntRect(204 * animX, 428 * 0, 204, 428));
 		}
 		else if (isMovingDown)
 		{
-			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
-			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
+			playerSprite.setTextureRect(sf::IntRect(204 * !animX, 428 * 0, 204, 428));
 		}
 		else if (isMovingUpRight)
 		{
-			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
+			playerSprite.setTextureRect(sf::IntRect(204 * animX, 428 * 1, 204, 428));
 		}
 		else if (isMovingUpLeft)
 		{
-			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
+			playerSprite.setTextureRect(sf::IntRect(204 * animX, 428 * 2, 204, 428));
 		}
 		else if (isMovingDownRight)
 		{
-			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
+			playerSprite.setTextureRect(sf::IntRect(204 * !animX, 428 * 2, 204, 428));
 		}
 		else if (isMovingDownLeft)
 		{
-			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
+			playerSprite.setTextureRect(sf::IntRect(204 * !animX, 428 * 1, 204, 428));
 		}
 		else if (isRotateLeft)
 		{
-			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
-			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
+			playerSprite.setTextureRect(sf::IntRect(204 * animX, 428 * 0, 204, 428));
 		}
 		else if (isRotateRight)
 		{
-			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
-			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
+			playerSprite.setTextureRect(sf::IntRect(204 * !animX, 428 * 0, 204, 428));
 		}
 	}
 #pragma endregion
@@ -352,16 +332,5 @@ void Player::Update()
 void Player::Display(sf::RenderWindow& _window)
 {
 	_window.draw(playerSprite);
-	trackLSprite.setPosition(position + Math::rotateVector(sf::Vector2f(-80.f, 50.f), rotation * DEG2RAD));
-	trackLSprite.setRotation(rotation);
-	trackLSprite.setColor(sf::Color::Red);
-
-	trackRSprite.setPosition(position + Math::rotateVector(sf::Vector2f(80.f, -50.f), rotation * DEG2RAD));
-	trackRSprite.setRotation(rotation);
-	trackRSprite.setColor(sf::Color::Blue);
-
-	_window.draw(trackLSprite);
-	_window.draw(trackRSprite);
-	
 }
 

@@ -21,8 +21,10 @@ void initTir()
 		throw std::runtime_error("UwU");
 	m_spritePetit.setTexture(m_texturePetit);
 	m_spriteGros.setTexture(m_textureGros);
+	m_spritePetit.setTextureRect(sf::IntRect(0,0,10,21));
 	m_spritePetit.setOrigin(m_spritePetit.getGlobalBounds().getSize() * 0.5f);
 	m_spriteGros.setOrigin(m_spriteGros.getGlobalBounds().getSize() * 0.5f);
+	m_spriteGros.setScale(0.2f, 0.2f);
 }
 
 Tir::Tir(float angle, sf::Vector2f position, TypeTir type)
@@ -40,7 +42,7 @@ Tir::Tir(float angle, sf::Vector2f position, TypeTir type)
 	case GROS:
 		m_velocity.x = std::sin(radians) * 500.0f;  // Vitesse sur X
 		m_velocity.y = -std::cos(radians) * 500.0f; // Vitesse sur Y
-		lifeTimer = 2.f;
+		lifeTimer = 2.5f;
 		break;
 	}
  }
@@ -56,6 +58,14 @@ void Tir::Update() {
 void Tir::Display(sf::RenderWindow& window) {
 	if (!m_alive) return;
 	if (m_type == TypeTir::PETIT) {
+		animTimer += getDeltaTime();
+		if (animTimer > 0.1f)
+		{
+			frameX = (frameX + 1) % 14;
+			m_spritePetit.setTextureRect(sf::IntRect(frameX * 10, 0, 10, 21));
+
+			animTimer = 0.f;
+		}
 		m_spritePetit.setPosition(m_position);
 		m_spritePetit.setRotation(m_angle);
 		window.draw(m_spritePetit);

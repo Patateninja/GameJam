@@ -22,6 +22,8 @@ private:
 	sf::Vector2f m_velocity;
 	float m_angle;
 	float lifeTimer;
+	float animTimer;
+	int frameX = 0; // MAX 13
 	TypeTir m_type;
 	bool m_alive;
 };
