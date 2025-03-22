@@ -1,6 +1,7 @@
 #pragma once
 #include "Tools.h"
 #include "Math.h"
+#include <ranges>
 
 typedef enum EnemyClass
 {
@@ -8,6 +9,16 @@ typedef enum EnemyClass
 	TANK,
 	SPEEDSTER,
 } EnemyClass;
+
+struct Obstacle
+{
+	sf::CircleShape m_circle = sf::CircleShape(30.f);
+	Obstacle(sf::Vector2f _pos)
+	{
+		this->m_circle.setPosition(_pos);
+		this->m_circle.setOrigin(30.f, 30.f);
+	}
+};
 
 class Enemy
 {
@@ -19,11 +30,13 @@ class Enemy
 		sf::Vector2f m_velocity;
 		float angle;
 
+		//std::vector<Obstacle*> m_ObstaleInRange;
+
 	public:
 		Enemy(sf::Vector2f pos, EnemyClass type);
 		~Enemy();
 
-		void update();
+		void update(std::vector<Obstacle*> _obstacleList);
 		void display(sf::RenderWindow& window);
 
 		//getters
@@ -40,5 +53,5 @@ class Enemy
 		inline void setAngle(float _angle) { angle = _angle; };
 
 		//IA
-		void Seek(sf::Vector2f _target);
+		void Seek(sf::Vector2f _target, Obstacle* _closestObstacle);
 };
