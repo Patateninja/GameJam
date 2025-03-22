@@ -27,11 +27,10 @@ namespace Player
 	bool isRotateRight = false;
 
 	sf::Sprite playerSprite;
-	sf::Sprite track1Sprite;
-	sf::Sprite track2Sprite;
+	sf::Sprite trackLSprite;
+	sf::Sprite trackRSprite;
 	sf::Texture playerTexture;
-	sf::Texture track1Texture;
-	sf::Texture track2Texture;
+	sf::Texture trackTexture;
 
 	sf::Vector2f direction(0.f, 1.f);
 
@@ -41,10 +40,10 @@ namespace Player
 #pragma region SoloInput
 
 		// MoveUp Right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingUpRight = true;
 		}
@@ -54,10 +53,10 @@ namespace Player
 		}
 
 		// MoveDown Right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingDownRight = true;
 		}
@@ -67,10 +66,10 @@ namespace Player
 		}
 
 		// MoveUp Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingUpLeft = true;
 		}
@@ -80,10 +79,10 @@ namespace Player
 		}
 
 		// MoveDown Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
 			isMovingDownLeft = true;
 		}
@@ -97,10 +96,10 @@ namespace Player
 #pragma region DuoInput
 
 		// Rotate Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Z) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
 			isRotateLeft = true;
 		}
@@ -110,10 +109,10 @@ namespace Player
 		}
 
 		// Rotate Right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isRotateRight = true;
 		}
@@ -123,10 +122,10 @@ namespace Player
 		}
 
 		// MoveUp
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingUp = true;
 		}
@@ -136,10 +135,10 @@ namespace Player
 		}
 
 		// MoveDown
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
 			isMovingDown = true;
 		}
@@ -275,23 +274,21 @@ void Player::SetRotateSpeed(float value)
 void Player::Init()
 {
 	playerTexture.loadFromFile("../Ressources/Textures/car.png");
-	track1Texture.loadFromFile("../Ressources/Textures/track1.png");
-	track2Texture.loadFromFile("../Ressources/Textures/track2.png");
+	trackTexture.loadFromFile("../Ressources/Textures/track.png");
 	playerSprite.setTexture(playerTexture);
-	track1Sprite.setTexture(track1Texture);
-	track2Sprite.setTexture(track2Texture);
+	trackLSprite.setTexture(trackTexture);
 
 	// Set the origin of the sprite to the center
 	playerSprite.setOrigin(playerSprite.getGlobalBounds().getSize() * 0.5f);
-	track1Sprite.setOrigin(sf::Vector2f(-50, 64));
-	track2Sprite.setOrigin(sf::Vector2f(80, 78));
-	track1Sprite.setTextureRect(sf::IntRect(30, 0, 30, 128));
-	track2Sprite.setTextureRect(sf::IntRect(32, 0, 32, 156));
+	trackLSprite.setOrigin(sf::Vector2f(-50.f, 64.f));
+	trackRSprite.setOrigin(sf::Vector2f(80.f, 78.f));
+	trackLSprite.setTextureRect(sf::IntRect(0, 0, 35, 310));
+	trackRSprite.setTextureRect(sf::IntRect(0, 0, 35, 310));
 
 	// Scale the sprite
 	playerSprite.setScale(0.5f, 0.5f);
-	track1Sprite.setScale(0.5f, 0.5f);
-	track2Sprite.setScale(0.5f, 0.5f);
+	trackLSprite.setScale(0.5f, 0.5f);
+	trackRSprite.setScale(0.5f, 0.5f);
 }
 
 void Player::Update()
@@ -313,39 +310,39 @@ void Player::Update()
 		animX = !animX;
 		if (isMovingUp)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
-			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
+			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
+			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
 		}
 		else if (isMovingDown)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
-			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
+			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
+			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
 		}
 		else if (isMovingUpRight)
 		{
-			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
+			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
 		}
 		else if (isMovingUpLeft)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
+			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
 		}
 		else if (isMovingDownRight)
 		{
-			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
+			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
 		}
 		else if (isMovingDownLeft)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
+			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
 		}
 		else if (isRotateLeft)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
-			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
+			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
+			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
 		}
 		else if (isRotateRight)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
-			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
+			trackLSprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
+			trackRSprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
 		}
 	}
 #pragma endregion
@@ -354,19 +351,17 @@ void Player::Update()
 
 void Player::Display(sf::RenderWindow& _window)
 {
-	for (int i = 0; i < 2; i++)
-	{
-		track1Sprite.setPosition(position + Math::rotateVector(sf::Vector2f(i * -80.f, 50.f), rotation * DEG2RAD));
-		track1Sprite.setRotation(rotation);
-		track1Sprite.setColor(sf::Color::Red);
-
-		track2Sprite.setPosition(position + Math::rotateVector(sf::Vector2f(i * 80.f, -50.f), rotation * DEG2RAD));
-		track2Sprite.setRotation(rotation);
-		track2Sprite.setColor(sf::Color::Blue);
-
-		_window.draw(track1Sprite);
-		_window.draw(track2Sprite);
-	}
 	_window.draw(playerSprite);
+	trackLSprite.setPosition(position + Math::rotateVector(sf::Vector2f(-80.f, 50.f), rotation * DEG2RAD));
+	trackLSprite.setRotation(rotation);
+	trackLSprite.setColor(sf::Color::Red);
+
+	trackRSprite.setPosition(position + Math::rotateVector(sf::Vector2f(80.f, -50.f), rotation * DEG2RAD));
+	trackRSprite.setRotation(rotation);
+	trackRSprite.setColor(sf::Color::Blue);
+
+	_window.draw(trackLSprite);
+	_window.draw(trackRSprite);
+	
 }
 
