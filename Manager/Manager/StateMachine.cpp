@@ -65,7 +65,7 @@ void StateMachine::StateUpdate()
 
 void StateMachine::StateDisplay(sf::RenderWindow& _window)
 {
-	_window.clear();
+	//_window.clear();
 
 	switch (m_CurrentState)
 	{

@@ -6,7 +6,6 @@
 #include "Mouse.h"
 #include "StateMachine.hpp"
 
-
 int main()
 {
 	int musicvolume = 50;
