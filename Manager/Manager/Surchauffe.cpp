@@ -8,6 +8,11 @@ namespace Surchauffe
 	float timerSurchauffeDecrease = 1;
 
 	bool surchauffe = false;
+
+	sf::Sprite surchauffeSprite;
+	sf::Texture surchauffeTexture;
+
+	sf::IntRect surchauffeRect = {0,0,50,500};
 }
 
 #pragma region Getter and Setter
@@ -55,13 +60,6 @@ void Surchauffe::setTimerSurchauffeDecrease(float _timerSurchauffeDecrease)
 
 #pragma endregion
 
-// timer = 0;
-// ajouter 1 au timer quand on tire
-// si timer > 100, on surchauffe
-// reduire timer de 1 chaque frame si on tire pas
-// si timer < 0, timer = 0
-// si on surchauffe, on ne peut plus tirer jusqu'a ce que timer = 0
-
 void Surchauffe::IncrementationTimer(float _timer)
 {
 	timerSurchauffe += _timer * getDeltaTime();
@@ -76,16 +74,21 @@ void Surchauffe::DecrementationTimer(float _timer)
 	}
 }
 
-void Surchauffe::init()
+void Surchauffe::Init()
 {
-
+	surchauffeTexture.loadFromFile("../Ressources/Textures/surchauffe_bar.png");
+	surchauffeSprite.setTexture(surchauffeTexture);
+	surchauffeSprite.setTextureRect(surchauffeRect);
 }
 
-void Surchauffe::update()
+void Surchauffe::Update()
 {
 	// TODO Temporaire pour tester
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !surchauffe) IncrementationTimer(1.f);
 	//if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !surchauffe) DecrementationTimer(1.f);
+
+	surchauffeRect.height = timerSurchauffe * 100;
+	surchauffeSprite.setTextureRect(surchauffeRect);
 
 	if (timerSurchauffe > timerSurchauffeMaxValue)
 	{
@@ -95,6 +98,7 @@ void Surchauffe::update()
 	if (surchauffe)
 	{
 		DecrementationTimer(timerSurchauffeDecrease);
+		
 		if (timerSurchauffe <= 0)
 		{
 			timerSurchauffe = 0;
@@ -103,12 +107,12 @@ void Surchauffe::update()
 	}
 }
 
-void Surchauffe::draw()
+void Surchauffe::Display(sf::RenderWindow& _window)
 {
-
+	_window.draw(surchauffeSprite);
 }
 
-void Surchauffe::destroy()
+void Surchauffe::Destroy()
 {
 
 }

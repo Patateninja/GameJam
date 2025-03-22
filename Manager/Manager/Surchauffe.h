@@ -6,10 +6,10 @@ namespace Surchauffe
 {
 	void IncrementationTimer(float _timer);
 	void DecrementationTimer(float _timer);
-	void init();
-	void update();
-	void draw();
-	void destroy();
+	void Init();
+	void Update();
+	void Display(sf::RenderWindow& _window);
+	void Destroy();
 
 	//getters
 	bool getSurchauffe();

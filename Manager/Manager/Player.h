@@ -11,6 +11,8 @@ namespace Player
 	float GetRotateSpeed();
 	void SetRotateSpeed(float value);
 
+	sf::Sprite GetSpritePlayer();
+
 	void Init();
 
 	void Update();

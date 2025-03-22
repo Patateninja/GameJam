@@ -23,6 +23,7 @@ public:
 
 	void update();
 	void explode(std::list<Ennemy> listEnemy);
+	void Test();
 	void display(sf::RenderWindow& window);
 
 	//getters

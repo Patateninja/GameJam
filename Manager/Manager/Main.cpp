@@ -12,6 +12,7 @@
 #include "Ultime.h"
 
 #include "Surchauffe.h"
+#include "Ennemy.h"
 
 
 int main()
@@ -22,6 +23,7 @@ int main()
 	Sound::getOption(musicvolume, soundVolume);
 	float time = 0;
 
+	Surchauffe::Init();
 
 	Window window("GameJam 2025" , sf::Vector2i(1920, 1080), false, true, false);
 	View view(window);
@@ -39,7 +41,7 @@ int main()
 		window.Update();
 		Player::Update();
 		Ultime::UpdateUltime();
-		Surchauffe::update();
+		Surchauffe::Update();
 		updateDeltaTime();
 		Mouse::updateMousePosition(*window.getWindow());
 
@@ -47,8 +49,9 @@ int main()
 
 		window.Clear();
 
+		Player::Display(*window.getWindow());
 		Ultime::DisplayUltime(*window.getWindow());
-
+		Surchauffe::Display(*window.getWindow());
 
 		StateMachine::StateDisplay(*window.getWindow());
 	}

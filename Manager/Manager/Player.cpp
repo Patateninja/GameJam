@@ -247,6 +247,12 @@ void Player::SetRotateSpeed(float value)
 	rotationSpeed = value;
 }
 
+sf::Sprite Player::GetSpritePlayer()
+{
+	return playerSprite;
+}
+
+
 void Player::Init()
 {
 	playerTexture.loadFromFile("../Ressources/Textures/Player.png");
