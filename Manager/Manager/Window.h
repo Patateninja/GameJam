@@ -3,8 +3,6 @@
 
 class View;
 
-class View;
-
 class Window
 {
 	private:
