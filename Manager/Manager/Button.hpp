@@ -9,7 +9,7 @@ typedef enum Action
 {
 	TO_MENU,
 	TO_GAME,
-	TO_OPTION,
+	TO_SETTINGS,
 	TO_QUIT,
 	NOTHING,
 } Action;

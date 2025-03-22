@@ -56,8 +56,8 @@ void StateMenu::Update()
 
 	switch (MainMenu.Update())
 	{
-		case TO_MENU :
-			StateMachine::ChangeState(MENU);
+		case TO_SETTINGS :
+			StateMachine::toggleIsPaused();
 			break;
 		case TO_GAME :
 			StateMachine::ChangeState(GAME);
@@ -70,9 +70,10 @@ void StateMenu::Update()
 
 void StateMenu::Display(sf::RenderWindow& _window)
 {
-	MainMenu.Display(_window);
 	_window.draw(spriteMenu);
 	_window.draw(spriteMenuHover);
+	MainMenu.Display(_window);
+
 }
 
 void StateMenu::DeInit()
