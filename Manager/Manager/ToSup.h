@@ -1,10 +1,7 @@
 #pragma once
 
-
-
 /*
 
-	
 namespace test
 {
 	sf::Color MetalicGrey = sf::Color(63, 63, 63);

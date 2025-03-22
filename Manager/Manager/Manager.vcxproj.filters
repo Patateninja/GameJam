@@ -54,10 +54,10 @@
     <ClCompile Include="StateMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ToSup.cpp">
-		<Filter>Source Files</Filter>
-	</ClCompile>
     <ClCompile Include="Ultime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ToSup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,10 +98,10 @@
     <ClInclude Include="StateMenu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ToSup.h">
-		<Filter>Header Files</Filter>
-	</ClInclude>
     <ClInclude Include="Ultime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ToSup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
