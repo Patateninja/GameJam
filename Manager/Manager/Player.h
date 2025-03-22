@@ -1,8 +1,6 @@
 #pragma once
 
-#include <stdlib.h>
 #include "Tools.h"
-
 
 namespace Player
 {

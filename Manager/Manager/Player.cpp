@@ -41,10 +41,10 @@ namespace Player
 #pragma region SoloInput
 
 		// MoveUp Right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingUpRight = true;
 		}
@@ -54,10 +54,10 @@ namespace Player
 		}
 
 		// MoveDown Right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingDownRight = true;
 		}
@@ -67,10 +67,10 @@ namespace Player
 		}
 
 		// MoveUp Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingUpLeft = true;
 		}
@@ -80,10 +80,10 @@ namespace Player
 		}
 
 		// MoveDown Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
 			isMovingDownLeft = true;
 		}
@@ -97,10 +97,10 @@ namespace Player
 #pragma region DuoInput
 
 		// Rotate Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
 			isRotateLeft = true;
 		}
@@ -110,10 +110,10 @@ namespace Player
 		}
 
 		// Rotate Right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isRotateRight = true;
 		}
@@ -123,10 +123,10 @@ namespace Player
 		}
 
 		// MoveUp
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingUp = true;
 		}
@@ -136,10 +136,10 @@ namespace Player
 		}
 
 		// MoveDown
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::W) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
 			isMovingDown = true;
 		}

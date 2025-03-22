@@ -23,7 +23,7 @@ struct Obstacle
 {
 	sf::Texture m_text;
 		sf::RectangleShape m_Rect;
-		float thresholdAvoidance;
+		float thresholdAvoidance = 0;
 
 		Obstacle(sf::Vector2f _pos, ObstacleType _type)
 		{
