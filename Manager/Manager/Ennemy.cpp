@@ -43,3 +43,8 @@ void Ennemy::display(sf::RenderWindow& window)
 	m_shape.setRotation(angle);
 	window.draw(m_shape);
 }
+
+void Ennemy::explode(Player& _player)
+{
+	if ()
+}
