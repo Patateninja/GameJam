@@ -45,6 +45,7 @@ class ActualMenu
 
 		void Add(Button* _button);
 		Button* Get(int _index);
+		int GetSelectedButton();
 		std::vector<Button*> GetList();
 
 		Action Update();
