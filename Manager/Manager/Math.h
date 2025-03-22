@@ -15,6 +15,7 @@ namespace Math
 	float angleBetweenVectors(sf::Vector2f a, sf::Vector2f b);
 	sf::Vector2f rotateVector(sf::Vector2f a, float angle);
 	sf::Vector2f lerp(sf::Vector2f a, sf::Vector2f b, float t);
+	float lerp2D(float a, float b, float t);
 	sf::Vector2f slerp(sf::Vector2f a, sf::Vector2f b, float t);
 	sf::Vector2f nlerp(sf::Vector2f a, sf::Vector2f b, float t);
 	sf::Vector2f reflect(sf::Vector2f a, sf::Vector2f normal);
