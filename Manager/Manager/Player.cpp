@@ -1,7 +1,11 @@
 #include "Player.h"
 #include "Math.h"
 
+#define track1Length 128
+#define track2Length 156
 
+#define track1WCenter 29
+#define track2WCenter 32
 
 namespace Player
 {
@@ -279,16 +283,15 @@ void Player::Init()
 
 	// Set the origin of the sprite to the center
 	playerSprite.setOrigin(playerSprite.getGlobalBounds().getSize() * 0.5f);
-	track1Sprite.setOrigin(sf::Vector2f(30, 64));
-	track1Sprite.setOrigin(sf::Vector2f(-30, 78));
-	track2Sprite.setOrigin(track2Sprite.getGlobalBounds().getSize() * 0.5f);
-	track1Sprite.setTextureRect(sf::IntRect(30, 0, 29, 128));
+	track1Sprite.setOrigin(sf::Vector2f(-50, 64));
+	track2Sprite.setOrigin(sf::Vector2f(80, 78));
+	track1Sprite.setTextureRect(sf::IntRect(30, 0, 30, 128));
 	track2Sprite.setTextureRect(sf::IntRect(32, 0, 32, 156));
 
 	// Scale the sprite
 	playerSprite.setScale(0.5f, 0.5f);
-	track1Sprite.setScale(0.7f, 0.7f);
-	track2Sprite.setScale(0.7f, 0.7f);
+	track1Sprite.setScale(0.5f, 0.5f);
+	track2Sprite.setScale(0.5f, 0.5f);
 }
 
 void Player::Update()
@@ -310,39 +313,39 @@ void Player::Update()
 		animX = !animX;
 		if (isMovingUp)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(30 * animX, 0, 29, 128));
-			track2Sprite.setTextureRect(sf::IntRect(32 * animX, 0, 32, 156));
+			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
+			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
 		}
 		else if (isMovingDown)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(30 * !animX, 0, 29, 128));
-			track2Sprite.setTextureRect(sf::IntRect(32 * !animX, 0, 32, 156));
+			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
+			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
 		}
 		else if (isMovingUpRight)
 		{
-			track2Sprite.setTextureRect(sf::IntRect(32 * animX, 0, 32, 156));
+			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
 		}
 		else if (isMovingUpLeft)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(30 * animX, 0, 29, 128));
+			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
 		}
 		else if (isMovingDownRight)
 		{
-			track2Sprite.setTextureRect(sf::IntRect(32 * !animX, 0, 32, 156));
+			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
 		}
 		else if (isMovingDownLeft)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(30 * !animX, 0, 29, 128));
+			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
 		}
 		else if (isRotateLeft)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(30 * !animX, 0, 29, 128));
-			track2Sprite.setTextureRect(sf::IntRect(32 * animX, 0, 32, 156));
+			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * !animX, 0, track1WCenter, track1Length));
+			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * animX, 0, track2WCenter, track2Length));
 		}
 		else if (isRotateRight)
 		{
-			track1Sprite.setTextureRect(sf::IntRect(30 * animX, 0, 29, 128));
-			track2Sprite.setTextureRect(sf::IntRect(32 * !animX, 0, 32, 156));
+			track1Sprite.setTextureRect(sf::IntRect(track1WCenter * animX, 0, track1WCenter, track1Length));
+			track2Sprite.setTextureRect(sf::IntRect(track2WCenter * !animX, 0, track2WCenter, track2Length));
 		}
 	}
 #pragma endregion
@@ -351,17 +354,19 @@ void Player::Update()
 
 void Player::Display(sf::RenderWindow& _window)
 {
-	_window.draw(playerSprite);
 	for (int i = 0; i < 2; i++)
 	{
-		track1Sprite.setPosition(position + sf::Vector2f(0, i*50.f));
+		track1Sprite.setPosition(position + Math::rotateVector(sf::Vector2f(i * -80.f, 50.f), rotation * DEG2RAD));
 		track1Sprite.setRotation(rotation);
+		track1Sprite.setColor(sf::Color::Red);
 
-		track2Sprite.setPosition(position + sf::Vector2f(0, i * 50.f));
+		track2Sprite.setPosition(position + Math::rotateVector(sf::Vector2f(i * 80.f, -50.f), rotation * DEG2RAD));
 		track2Sprite.setRotation(rotation);
+		track2Sprite.setColor(sf::Color::Blue);
 
 		_window.draw(track1Sprite);
 		_window.draw(track2Sprite);
 	}
+	_window.draw(playerSprite);
 }
 
