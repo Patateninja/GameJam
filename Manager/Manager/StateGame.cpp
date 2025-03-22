@@ -4,18 +4,17 @@
 
 namespace
 {
-	sf::RectangleShape rect;
 	Cannon gunBig;
-	Cannon gunSmol;
+	Cannon gunSmol1;
+	Cannon gunSmol2;
 }
 
 void StateGame::Init()
 {
-	rect.setSize(sf::Vector2f(10, 10));
-	rect.setPosition(sf::Vector2f(400, 300));
 	initCannon();
 	gunBig = Cannon(BIGCANNON);
-	gunSmol = Cannon(SMOLCANNON);
+	gunSmol1 = Cannon(SMOLCANNON1);
+	gunSmol2 = Cannon(SMOLCANNON2);
 	Player::Init();
 }
 
@@ -30,23 +29,35 @@ void StateGame::Update()
 	);
 
 
-	gunSmol.Update();
-	gunSmol.Rotate(
-		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D) -
-		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)
+	gunSmol1.Update();
+	gunSmol1.Rotate(
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A) -
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)
+	);
+	gunSmol2.Update();
+	gunSmol2.Rotate(
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A) -
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)
 	);
 }
 
 void StateGame::Display(sf::RenderWindow& _window)
 {
-	gunBig.Display(_window);
-	gunSmol.Display(_window);
 	Player::Display(_window);
-	_window.draw(rect);
+	gunBig.Display(_window);
+	gunSmol1.Display(_window);
+	gunSmol2.Display(_window);
 }
 
 void StateGame::DeInit()
 {
 	gunBig.~Cannon();
-	gunSmol.~Cannon();
+	gunSmol1.~Cannon();
+	gunSmol2.~Cannon();
 }
+
+//sf::Vector2f smallGun1MuzzleL = { -11, -39 };
+//sf::Vector2f smallGun1MuzzleR = { 14, -39 };
+//sf::Vector2f smallGun2MuzzleL = { 10, -39 };
+//sf::Vector2f smallGun2MuzzleR = { -14, -39 };
+//sf::Vector2f bigGunMuzzle = { 16,137 };

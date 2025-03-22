@@ -1,15 +1,5 @@
 #include "Math.h"
 
-float Math::degToRad(float deg)
-{
-	return deg * PI / 180;
-}
-
-float Math::radToDeg(float rad)
-{
-	return rad * 180 / PI;
-}
-
 float Math::distance(sf::Vector2f a, sf::Vector2f b)
 {
 	return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2));
@@ -41,8 +31,24 @@ float Math::angleBetweenVectors(sf::Vector2f a, sf::Vector2f b)
 	return acos(dot(a, b) / (magnitude(a) * magnitude(b)));
 }
 
+float Math::length(sf::Vector2f v)
+{
+	return sqrtf(v.x * v.x + v.y * v.y);
+}
+
+sf::Vector2f Math::mult2(sf::Vector2f v, float a)
+{
+	return sf::Vector2f(v.x*a, v.y*a);
+}
+
+sf::Vector2f Math::mult2(sf::Vector2f a, sf::Vector2f b)
+{
+	return sf::Vector2f(a.x * b.x, a.y * b.y);
+}
+
 sf::Vector2f Math::rotateVector(sf::Vector2f a, float angle)
 {
+
 	return sf::Vector2f(a.x * cos(angle) - a.y * sin(angle), a.x * sin(angle) + a.y * cos(angle));
 }
 
@@ -107,6 +113,16 @@ sf::Vector2f Math::smoothDamp(sf::Vector2f current, sf::Vector2f target, sf::Vec
 	sf::Vector2f tempVelocity = (velocity + change) * exp;
 	velocity = (velocity + change) * exp;
 	return temp;
+}
+
+sf::Vector2f Math::polarToCartesian(sf::Vector2f v)
+{
+	return { v.x * std::cos(v.y), v.y * std::sin(v.y) };
+}
+
+sf::Vector2f Math::cartesianToPolar(sf::Vector2f v)
+{
+	return { Math::length(v), std::atan2(v.y, v.x) };
 }
 
 bool Math::isEquals(float a, float b)

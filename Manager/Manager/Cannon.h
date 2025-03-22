@@ -3,26 +3,27 @@
 
 enum enumBienGuez {
 	BIGCANNON,
-	SMOLCANNON
+	SMOLCANNON1,
+	SMOLCANNON2
 };
 
 class Cannon
 {
 private:
-	sf::Vector2f pos;
-
+	enumBienGuez type;
 	float rot_MIN;
 	float rot_MAX;
 	float rotSpeed;
 	float rotDeg;
 
 	float shootCooldown;
+	int damage;
 	// add bullet
 
 public:
 
 	Cannon();
-	Cannon(sf::Vector2f _pos, float _rotSpeed, float _rotDeg);
+	Cannon(enumBienGuez _type, float _shootCooldown, float _rotSpeed, float _rotDeg);
 	Cannon(enumBienGuez _type);
 	~Cannon();
 

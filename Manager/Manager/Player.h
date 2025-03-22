@@ -1,6 +1,7 @@
 #pragma once
 
 #include "tools.h"
+#include <stdlib.h>
 
 
 namespace Player
@@ -12,6 +13,7 @@ namespace Player
 	void SetRotateSpeed(float value);
 
 	sf::Vector2f GetPlayerPosition();
+	float GetPlayerRotation();
 
 	void Init();
 

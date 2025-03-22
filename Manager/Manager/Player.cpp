@@ -1,9 +1,12 @@
 #include "Player.h"
+#include "Math.h"
 
 namespace Player
 {
-	float moveSpeed = 5.0f;
-	float rotationSpeed = 5.0f;
+	float moveSpeed = 175.0f;
+	float rotationSpeed = 75.0f;
+	sf::Vector2f position = { 400.f, 400.f };
+	float rotation = 0;
 
 	bool isMovingUp = false;
 	bool isMovingDown = false;
@@ -143,8 +146,8 @@ namespace Player
 	{
 		// Mise à jour de la direction du joueur selon l'angle de rotation
 		float angle = playerSprite.getRotation();
-		direction.x = std::sin(angle * 3.14159f / 180.f);  // Conversion de l'angle en radians et calcul du cosinus
-		direction.y = -std::cos(angle * 3.14159f / 180.f); // Le signe négatif pour l'axe Y (sinon l'orientation est inversée)
+		direction.x = std::sin(angle * DEG2RAD);  // Conversion de l'angle en radians et calcul du cosinus
+		direction.y = -std::cos(angle * DEG2RAD); // Le signe négatif pour l'axe Y (sinon l'orientation est inversée)
 	}
 
 	void UpdatePosition()
@@ -157,29 +160,29 @@ namespace Player
 		// MoveUp Right
 		if (isMovingUpRight)
 		{
-			playerSprite.move(-direction * moveSpeed);
-			playerSprite.setRotation(playerSprite.getRotation() - rotationSpeed);  // Tourner à gauche
+			position -= direction * moveSpeed * getDeltaTime();
+			rotation -= rotationSpeed * getDeltaTime();  // Tourner à gauche
 		}
 
 		// MoveDown Right
 		if (isMovingDownRight)
 		{
-			playerSprite.move(direction * moveSpeed);
-			playerSprite.setRotation(playerSprite.getRotation() + rotationSpeed);  // Tourner à droite
+			position += direction * moveSpeed * getDeltaTime();
+			rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
 		}
 
 		// MoveUp Left
 		if (isMovingUpLeft)
 		{
-			playerSprite.move(-direction * moveSpeed);
-			playerSprite.setRotation(playerSprite.getRotation() + rotationSpeed);  // Tourner à droite
+			position -= direction * moveSpeed * getDeltaTime();
+			rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
 		}
 
 		// MoveDown Right
 		if (isMovingDownLeft)
 		{
-			playerSprite.move(direction * moveSpeed);
-			playerSprite.setRotation(playerSprite.getRotation() - rotationSpeed);  // Tourner à droite
+			position += direction * moveSpeed * getDeltaTime();
+			rotation -= rotationSpeed * getDeltaTime();  // Tourner à droite
 		}
 
 #pragma endregion
@@ -192,7 +195,7 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
-			playerSprite.rotate(-rotationSpeed);  // Rotation lente à gauche
+			rotation -= rotationSpeed * getDeltaTime();  // Rotation lente à gauche
 		}
 
 		// Rotate Right
@@ -201,7 +204,7 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
-			playerSprite.rotate(rotationSpeed);  // Rotation lente à droite
+			rotation += rotationSpeed * getDeltaTime();  // Rotation lente à droite
 		}
 
 		// MoveUp
@@ -210,7 +213,7 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
-			playerSprite.move(-direction * moveSpeed);
+			position -= direction * moveSpeed * getDeltaTime();
 		}
 
 		// MoveDown
@@ -219,7 +222,7 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
-			playerSprite.move(direction * moveSpeed);
+			position += direction * moveSpeed * getDeltaTime();
 		}
 
 #pragma endregion
@@ -236,6 +239,12 @@ sf::Vector2f Player::GetPlayerPosition()
 {
 	return Player::playerSprite.getPosition();
 }
+
+float Player::GetPlayerRotation()
+{
+	return Player::playerSprite.getRotation();
+}
+
 
 void Player::SetPlayerSpeed(float value)
 {
@@ -254,12 +263,11 @@ void Player::SetRotateSpeed(float value)
 
 void Player::Init()
 {
-	playerTexture.loadFromFile("../Ressources/Textures/Player.png");
+	playerTexture.loadFromFile("../Ressources/Textures/car.png");
 	playerSprite.setTexture(playerTexture);
-	playerSprite.setPosition(400, 400);
 
 	// Set the origin of the sprite to the center
-	playerSprite.setOrigin(playerSprite.getGlobalBounds().width / 2, playerSprite.getGlobalBounds().height / 2);
+	playerSprite.setOrigin(playerSprite.getGlobalBounds().width * 0.5f, playerSprite.getGlobalBounds().height * 0.5f);
 
 	// Scale the sprite
 	playerSprite.setScale(0.5f, 0.5f);
@@ -269,6 +277,8 @@ void Player::Update()
 {
 	UpdateInput();
 	UpdatePosition();
+	playerSprite.setPosition(position);
+	playerSprite.setRotation(rotation);
 }
 
 
