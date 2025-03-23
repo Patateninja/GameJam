@@ -11,6 +11,7 @@ void CreateObstacle(sf::Vector2f _pos, ObstacleType _type, std::vector<Obstacle*
 Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 {
 	this->m_Rect = sf::RectangleShape(sf::Vector2f(30.f, 30.f));
+	//this->m_Rect.setTexture(&this->m_Texture);
 	this->m_Rect.setOrigin(sf::Vector2f(15.f, 15.f));
 	this->m_pos = pos;
 	this->m_class = type;
@@ -21,18 +22,22 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 	switch(type)
 	{
 		case NORMAL :
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\vers de sable.png");
 			this->m_hp = 100;
 			this->m_speed = 0.5f;
 			break;
 		case TANK :
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\araigner_L_1815_H_355.png");
 			this->m_hp = 250;
 			this->m_speed = 0.3f;
 			break;
 		case SPEEDSTER :
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\monstre_vol_L155_H171.png");
 			this->m_hp = 50;
 			this->m_speed = 1.5f;
 			break;
 		case KAMIKAZE :
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\kamikaze_L_525_H_198.png");
 			this->m_hp = 30;
 			this->m_speed = 1.f;
 			break;
@@ -41,6 +46,8 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 			this->m_speed = 0.f;
 			break;
 	}
+
+	this->m_Rect.setTexture(&this->m_Texture);
 }
 
 Enemy::~Enemy()

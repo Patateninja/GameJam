@@ -75,6 +75,7 @@ void CreateObstacle(sf::Vector2f _pos, ObstacleType _type, std::vector<Obstacle*
 class Enemy
 {
 	private :
+		sf::Texture m_Texture;
 		sf::RectangleShape m_Rect;
 		sf::Vector2f m_pos;
 		EnemyClass m_class;

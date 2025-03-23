@@ -15,13 +15,10 @@ int main()
 {
 	Sound::InitSoundManager();
 
-
 	Window window("GameJam 2025" , sf::Vector2i(1920, 1080), false, true, false);
 
 	View view(window);
 	window.setView(&view);
-
-	Player::Init();
 
 	Ultime::InitUltime();
 
