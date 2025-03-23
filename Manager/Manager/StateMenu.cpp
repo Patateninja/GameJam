@@ -43,16 +43,20 @@ void StateMenu::Update()
 	default:
 		break;
 	case 0:
-		spriteMenuHover.setPosition(682, 509);
-		spriteMenuHover.setTextureRect(sf::IntRect(0, 0, 520, 152 ));
+		spriteMenuHover.setPosition(682, 475);
+		spriteMenuHover.setTextureRect(sf::IntRect(0, 0, 520, 185 ));
 		break;
 	case 1:
-		spriteMenuHover.setPosition(713, 723);
-		spriteMenuHover.setTextureRect(sf::IntRect(520, 0, 467, 150));
+		spriteMenuHover.setPosition(713, 688);
+		spriteMenuHover.setTextureRect(sf::IntRect(520, 0, 467, 185));
 		break;
 	case 2:
-		spriteMenuHover.setPosition(849, 871);
-		spriteMenuHover.setTextureRect(sf::IntRect(987, 0, 159, 150));
+		spriteMenuHover.setPosition(849, 836);
+		spriteMenuHover.setTextureRect(sf::IntRect(987, 0, 159, 185));
+		break;
+	case 3:
+		spriteMenuHover.setPosition(51, 835);
+		spriteMenuHover.setTextureRect(sf::IntRect(2094, 0, 159, 185));
 		break;
 	}
 
