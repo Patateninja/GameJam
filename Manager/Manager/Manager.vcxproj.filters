@@ -72,7 +72,13 @@
     <ClCompile Include="TirUpdater.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Credits.cpp">
+    <ClCompile Include="StateCredits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StateTuto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StateGameOver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,7 +134,13 @@
     <ClInclude Include="Tir.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Credits.h">
+    <ClInclude Include="StateCredits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StateTuto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StateGameOver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

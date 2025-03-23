@@ -28,8 +28,6 @@ int main()
 
 		StateMachine::StateUpdate();
 
-		window.Clear();
-
 		StateMachine::StateDisplay(*window.getWindow());
 	}
 	Sound::SaveOption();
