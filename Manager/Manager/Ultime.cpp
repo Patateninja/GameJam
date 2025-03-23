@@ -1,6 +1,7 @@
 #include "Ultime.h"
 #include "Math.h"
 #include <iostream>
+#include "UI.h"
 
 namespace Ultime
 {
@@ -24,6 +25,18 @@ namespace Ultime
 	bool startUltime = false;
 
 	int ultimeFrame = 0;
+
+	bool firstPass = false;
+}
+
+bool Ultime::GetFirstPass()
+{
+	return firstPass;
+}
+
+void Ultime::SetFirstPass(bool _firstPass)
+{
+	firstPass = _firstPass;
 }
 
 void Ultime::SetStateUltime(bool _state) { startUltime = _state; }
@@ -49,9 +62,12 @@ void Ultime::UpdateUltime()
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) isActif = false;
 
 
-	if (startUltime)
+	if (UI::GetKeyStartUlt() && !firstPass)
 	{
+		firstPass = true;
 
+		startUltime = UI::GetKeyStartUlt();
+		isActif = UI::GetKeyStartUlt();
 
 		if (cooldownPlayer1) timerInputPlayer1 += getDeltaTime();
 
@@ -109,7 +125,7 @@ void Ultime::UpdateUltime()
 
 void Ultime::DisplayUltime(sf::RenderWindow& _window)
 {
-	if (startUltime && isActif)
+	if (UI::GetKeyStartUlt())
 	{
 		if (ultimeScaleX < 10)
 			ultimeScaleX += getDeltaTime() * 15;
@@ -124,7 +140,7 @@ void Ultime::DisplayUltime(sf::RenderWindow& _window)
 
 	}
 
-	if (ultimeAngle < 270.f && isActif)
+	if (ultimeAngle < 270.f && UI::GetKeyStartUlt())
 	{
 		ultimeAngle += ultimeRotationSpeed * getDeltaTime();
 		ultimeSprite.setRotation(ultimeAngle);

@@ -7,6 +7,10 @@
 #include "Mouse.h"
 #include "StateMachine.hpp"
 
+#include "Player.h"
+#include "Ultime.h"
+#include "UI.h"
+
 int main()
 {
 	Sound::InitSoundManager();
@@ -17,7 +21,13 @@ int main()
 	View view(window);
 	window.setView(&view);
 
+	Player::Init();
+
+	Ultime::InitUltime();
+
 	StateMachine::StateInit();
+
+	UI::Init();
 
 	while (window.isOpen())
 	{
@@ -28,7 +38,13 @@ int main()
 
 		StateMachine::StateUpdate();
 
+		UI::Update();
+
 		window.Clear();
+
+		Ultime::DisplayUltime(*window.getWindow());
+
+		UI::Display(*window.getWindow());
 
 		StateMachine::StateDisplay(*window.getWindow());
 	}
