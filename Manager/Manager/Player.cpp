@@ -7,6 +7,7 @@ namespace Player
 	float rotationSpeed = 75.0f;
 	sf::Vector2f position = { 400.f, 400.f };
 	float rotation = 0;
+	float health = 100;
 
 	bool isMovingUp = false;
 	bool isMovingDown = false;
@@ -228,6 +229,7 @@ namespace Player
 #pragma endregion
 
 	}
+
 }
 
 
@@ -277,6 +279,7 @@ void Player::Init()
 
 void Player::Update()
 {
+	if (health < 0) return;
 	UpdateInput();
 	UpdatePosition();
 
@@ -328,6 +331,10 @@ void Player::Update()
 #pragma endregion
 }
 
+void Player::Hurt(float _amount)
+{
+	health -= _amount;
+}
 
 void Player::Display(sf::RenderWindow& _window)
 {

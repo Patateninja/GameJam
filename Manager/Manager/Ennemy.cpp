@@ -1,4 +1,5 @@
 #include "Ennemy.hpp"
+#include "Player.h"
 
 #include <iostream>
 
@@ -11,7 +12,8 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 {
 	this->m_pos = pos;
 	this->m_class = type;
-	this->m_hp = 100;
+	this->m_hp = 200;
+	if (this->m_class == KAMIKAZE) this->m_hp = 30;
 	this->m_speed = 5.f;
 	this->m_velocity = sf::Vector2f(0, 0);
 	this->angle = 0;
@@ -99,6 +101,7 @@ void Enemy::Die(std::list<Enemy*>& _list)
 	{
 		if (*it == this)
 		{
+			if ((*it)->getClass() == KAMIKAZE) Explode(_list);
 			delete this;
 			it = _list.erase(it);
 		}
@@ -106,6 +109,22 @@ void Enemy::Die(std::list<Enemy*>& _list)
 		{
 			++it;
 		}
+	}
+}
+
+void Enemy::Explode(std::list<Enemy*>& _list)
+{
+	for (std::list<Enemy*>::iterator it = _list.begin(); it != _list.end();)
+	{
+		if (Math::pointCircle(m_pos, (*it)->getPos(), 80.f)) // for each Enemy in a 50px radius
+		{
+			(*it)->setPv((*it)->getPv() - 100);
+		}
+		if (Math::pointCircle(m_pos, Player::GetPlayerPosition(), 80.f))
+		{
+			Player::Hurt(15);
+		}
+		++it;
 	}
 }
 

@@ -9,6 +9,7 @@ typedef enum EnemyClass
 	NORMAL,
 	TANK,
 	SPEEDSTER,
+	KAMIKAZE,
 } EnemyClass;
 
 typedef enum ObstacleType
@@ -78,6 +79,8 @@ class Enemy
 		float m_speed;
 		sf::Vector2f m_velocity;
 		float angle;
+
+		void Explode(std::list<Enemy*>& _list);
 
 	public :
 		Enemy(sf::Vector2f pos, EnemyClass type);

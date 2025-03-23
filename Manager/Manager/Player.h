@@ -18,6 +18,8 @@ namespace Player
 
 	void Update();
 
+	void Hurt(float _amount);
+
 	void Display(sf::RenderWindow& _window);
 
 }

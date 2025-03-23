@@ -35,9 +35,11 @@ void StateGame::Init()
 	CreateObstacle(sf::Vector2f(1400.f, 200.f), ROCK, obsList);
 	CreateObstacle(sf::Vector2f(300.f, 600.f), BIG_ROCK, obsList);
 
-	Spawn(sf::Vector2f(10.f, 10.), NORMAL, _EnemyList);
-	Spawn(sf::Vector2f(500.f, 10.), NORMAL, _EnemyList);
-	Spawn(sf::Vector2f(10.f, 500.), NORMAL, _EnemyList);
+	Spawn(sf::Vector2f(10.f, 10.), TANK, _EnemyList);
+	Spawn(sf::Vector2f(500.f, 10.), TANK, _EnemyList);
+	Spawn(sf::Vector2f(10.f, 500.), TANK, _EnemyList);
+	Spawn(sf::Vector2f(10.f, 300.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(300.f, 10.f), KAMIKAZE, _EnemyList);
 }
 
 void StateGame::Update()
