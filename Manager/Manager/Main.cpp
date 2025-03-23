@@ -16,6 +16,10 @@ int main()
 
 	View view(window);
 	window.setView(&view);
+	sf::Image ico;
+	ico.loadFromFile("../Ressources/Textures/ICONE 128x128.png");
+	window.getWindow()->setIcon(128, 128, ico.getPixelsPtr());
+
 
 	StateMachine::StateInit();
 
