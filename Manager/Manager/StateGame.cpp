@@ -130,6 +130,16 @@ void StateGame::Update()
 
 void StateGame::Display(sf::RenderWindow& _window)
 {
+	for (Obstacle* obs : obsList)
+	{
+		obs->Draw(_window);
+	}
+
+	for (Enemy* enemy : _EnemyList)
+	{
+		enemy->Display(_window);
+	}
+
 	Player::Display(_window);
 	gunBig.Display(_window);
 	gunSmol1.Display(_window);
@@ -141,16 +151,6 @@ void StateGame::Display(sf::RenderWindow& _window)
 	}
 	_window.draw(rect);
 
-	for (Enemy* enemy : _EnemyList)
-	{
-		enemy->Display(_window);
-	}
-	
-
-	for (Obstacle* obs : obsList)
-	{
-		obs->Draw(_window);
-	}
 	Ultime::DisplayUltime(_window);
 	UI::Display(_window);
 }

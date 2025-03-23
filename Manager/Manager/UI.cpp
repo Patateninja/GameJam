@@ -1,5 +1,6 @@
 #include "UI.h"
 #include "Ultime.h"
+#include "StateMachine.hpp"
 
 
 namespace UI
@@ -95,8 +96,11 @@ namespace UI
 
 		void drawQuad(sf::RenderWindow& window, sf::Vector2f pos, float size, sf::Color color)
 		{
-			if (secondNumber == 37)
+			if (secondNumber >= 37)
+			{
 				std::cout << "Dead" << std::endl;
+				StateMachine::ChangeState(GAMEOVER);
+			}
 			sf::VertexArray vertex(sf::Quads, secondNumber * 4);
 			pos.x -= secondNumber * 21;
 			for (int i = 0; i < secondNumber; i++)

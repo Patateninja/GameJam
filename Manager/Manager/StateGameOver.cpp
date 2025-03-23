@@ -5,14 +5,12 @@ namespace StateGameOver
 {
 	sf::Sprite gameOverFond;
 	sf::Texture gameOverFondTexture;
-	sf::Vector2f gameOverFondPos;
 }
 
 void StateGameOver::Init()
 {
 	gameOverFondTexture.loadFromFile("../Ressources/Textures/game_over.png");
 	gameOverFond.setTexture(gameOverFondTexture);
-	gameOverFond.setPosition(gameOverFondPos);
 }
 
 void StateGameOver::Update()

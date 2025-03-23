@@ -116,10 +116,10 @@ void StateMachine::StateUpdate()
 	case CREDITS:
 		StateCredits::Update();
 		break;
-	case QUIT:
-		break;
 	case GAMEOVER:
 		StateGameOver::Update();
+		break;
+	case QUIT:
 		break;
 	}
 }
@@ -159,11 +159,11 @@ void StateMachine::StateDisplay(sf::RenderWindow& _window)
 	case CREDITS:
 		StateCredits::Display(_window);
 		break;
-	case QUIT:
-		_window.close();
-		break;
 	case GAMEOVER:
 		StateGameOver::Display(_window);
+		break;
+	case QUIT:
+		_window.close();
 		break;
 	}
 	_window.display();
