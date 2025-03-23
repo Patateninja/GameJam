@@ -95,11 +95,7 @@ void StateGame::Update()
 	for (auto& tir : getTirList())
 	{
 		tir.Update();
-		if (!tir.isAlive())
-		{
-			tir.destroyIfDead();
-			break;
-		}
+		tir.destroyIfDead();
 	}
 
 	for (std::list<Enemy*>::iterator it = _EnemyList.begin(); it != _EnemyList.end();)

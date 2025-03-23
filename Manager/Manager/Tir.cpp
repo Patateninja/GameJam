@@ -48,7 +48,8 @@ Tir::Tir(float angle, sf::Vector2f position, TypeTir type)
  }
 
 void Tir::Update() {
-	if ((this->lifeTimer -= getDeltaTime()) < 0.f) m_alive = false;
+	if (!m_alive) return;
+	if ((lifeTimer -= getDeltaTime()) < 0.f) m_alive = false;
 
 	// Déplacer le tir
 	m_position += m_velocity * getDeltaTime();
@@ -82,13 +83,5 @@ bool Tir::isAlive() const {
 
 void Tir::destroyIfDead()
 {
-	if (!this->m_alive)
-	{
-		for (auto it = tirs.begin(); it != tirs.end(); ++it)
-		{
-			tirs.erase(it);
-			break;
-			//delete this;
-		}
-	}
+	if (!m_alive) Tir::~Tir();
 }
