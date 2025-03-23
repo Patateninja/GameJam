@@ -1,14 +1,20 @@
 #include "Ultime.h"
+#include "Math.h"
 #include <iostream>
 
 namespace Ultime
 {
 	sf::Sprite ultimeSprite;
+	sf::Sprite ultimeSpriteBase;
 	sf::Texture ultimeTexture;
+	sf::Vector2f tmpPlayerPos = { 1000.f, 500.f };
+	sf::IntRect ultimeRect = { 0, 0, 141, 93 };
+
 	float ultimeAngle = 90.f;
 	float ultimeRotationSpeed = 100.f;
-
 	float delayPlayerToStartCooldown = 1.f;
+	float ultimeScaleX;
+	float lerpUltime = 0.f;
 
 	bool isActif = false;
 
@@ -16,16 +22,20 @@ namespace Ultime
 	bool cooldownPlayer2 = false;
 
 	bool startUltime = false;
+
+	int ultimeFrame = 0;
 }
 
 void Ultime::SetStateUltime(bool _state) { startUltime = _state; }
 
 void Ultime::InitUltime()
 {
-	ultimeTexture.loadFromFile("../Ressources/Textures/FDP.png");
+	ultimeTexture.loadFromFile("../Ressources/Textures/lazer_L_564_H_93.png");
 	ultimeSprite.setTexture(ultimeTexture);
-	ultimeSprite.setOrigin(ultimeSprite.getGlobalBounds().width / 2, ultimeSprite.getGlobalBounds().height / 2);
-	
+	ultimeSprite.setTextureRect(ultimeRect);
+	ultimeSprite.setOrigin(-2.f, ultimeSprite.getGlobalBounds().height / 2 + 3.f);
+	ultimeSpriteBase.setTexture(ultimeTexture);
+	ultimeSpriteBase.setOrigin(-2.f, ultimeSpriteBase.getGlobalBounds().height / 2 + 3.f);
 }
 
 void Ultime::UpdateUltime()
@@ -35,7 +45,7 @@ void Ultime::UpdateUltime()
 	static float timerInputPlayer1 = 0;
 	static float timerInputPlayer2 = 0;
 
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) startUltime = true;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) startUltime = true;
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) isActif = false;
 
 
@@ -94,30 +104,77 @@ void Ultime::UpdateUltime()
 		}
 
 		if (!cooldownPlayer1 && !cooldownPlayer2 && sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) isActif = true;
-
-		// Rotate
-		if (ultimeAngle < 270.f && isActif)
-		{
-			ultimeAngle += ultimeRotationSpeed * getDeltaTime();
-			ultimeSprite.setRotation(ultimeAngle);
-		}
-		else
-		{
-			ultimeAngle = 90.f;
-			isActif = false;
-		}
-
 	}
-
 }
 
 void Ultime::DisplayUltime(sf::RenderWindow& _window)
 {
-
 	if (startUltime && isActif)
 	{
-		ultimeSprite.setPosition(_window.getSize().x / 2, _window.getSize().y / 2);
-		_window.draw(ultimeSprite);
+		if (ultimeScaleX < 10)
+			ultimeScaleX += getDeltaTime() * 15;
+
+		ultimeFrame = 4;
+		ultimeRect.left = ultimeFrame * ultimeRect.width;
+		ultimeSprite.setTextureRect(ultimeRect);
+
+		lerpUltime = Math::lerp2D(lerpUltime, 1.5f, 0.65f * getDeltaTime());
+
+		ultimeSprite.setScale(ultimeScaleX, lerpUltime);
+
 	}
 
+	if (ultimeAngle < 270.f && isActif)
+	{
+		ultimeAngle += ultimeRotationSpeed * getDeltaTime();
+		ultimeSprite.setRotation(ultimeAngle);
+		ultimeSpriteBase.setRotation(ultimeAngle);
+
+		if (startUltime && isActif)
+		{
+			ultimeSprite.setPosition(tmpPlayerPos);
+			_window.draw(ultimeSprite);
+			ultimeSpriteBase.setPosition(tmpPlayerPos);
+			_window.draw(ultimeSpriteBase);
+		}
+
+		ultimeSprite.setRotation(ultimeAngle + 180.f);
+		ultimeSpriteBase.setRotation(ultimeAngle + 180.f);
+		
+		if (startUltime && isActif)
+		{
+			ultimeSprite.setPosition(tmpPlayerPos);
+			_window.draw(ultimeSprite);
+
+			if (lerpUltime < 0.25f)
+			{
+				ultimeFrame = 0;
+				ultimeRect.left = ultimeFrame * ultimeRect.width;
+				ultimeSpriteBase.setTextureRect(ultimeRect);
+			}
+			else if (lerpUltime < 0.65f)
+			{
+				ultimeFrame = 1;
+				ultimeRect.left = ultimeFrame * ultimeRect.width;
+				ultimeSpriteBase.setTextureRect(ultimeRect);
+			}
+			else
+			{
+				ultimeFrame = 2;
+				ultimeRect.left = ultimeFrame * ultimeRect.width;
+				ultimeSpriteBase.setTextureRect(ultimeRect);
+			}
+
+			ultimeSpriteBase.setPosition(tmpPlayerPos);
+			_window.draw(ultimeSpriteBase);
+		}
+	}
+	else
+	{
+		ultimeAngle = 90.f;
+		isActif = false;
+		ultimeFrame = 0;
+		lerpUltime = 0.0f;
+		ultimeScaleX = 0.0f;
+	}
 }
