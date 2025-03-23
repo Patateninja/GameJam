@@ -2,9 +2,14 @@
 #include "StateMenu.hpp"
 #include "StateGame.hpp"
 #include "StateSettings.hpp"
+#include "StateCredits.h"
+#include "StateTuto.h"
+#include "StateGameOver.h"
+#include "StateIntro.h"
 
 typedef enum State
 {
+	INTRO,
 	MENU,
 	SETTINGS,
 	GAME,
