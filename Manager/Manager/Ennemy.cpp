@@ -21,22 +21,34 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 	switch(type)
 	{
 		case NORMAL :
-			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\vers de sable.png");
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\worm331.png");
+			this->m_Rect.setTexture(&this->m_Texture);
+			this->m_Rect.setTextureRect(sf::IntRect(0, 0, 331, 186));
+			this->m_animFrameNb = 3;
 			this->m_hp = 100;
 			this->m_speed = 0.5f;
 			break;
 		case TANK :
-			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\araigner_L_1815_H_355.png");
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\spider355.png");
+			this->m_Rect.setTexture(&this->m_Texture);
+			this->m_Rect.setTextureRect(sf::IntRect(0, 0, 355, 355));
+			this->m_animFrameNb = 5;
 			this->m_hp = 250;
 			this->m_speed = 0.3f;
 			break;
 		case SPEEDSTER :
-			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\monstre_vol_L155_H171.png");
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\fly155.png");
+			this->m_Rect.setTexture(&this->m_Texture);
+			this->m_Rect.setTextureRect(sf::IntRect(0, 0, 155, 171));
+			this->m_animFrameNb = 3;
 			this->m_hp = 50;
 			this->m_speed = 1.5f;
 			break;
 		case KAMIKAZE :
-			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\kamikaze_L_525_H_198.png");
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\kamikaze175.png");
+			this->m_Rect.setTexture(&this->m_Texture);
+			this->m_Rect.setTextureRect(sf::IntRect(0, 0, 175, 198));
+			this->m_animFrameNb = 3;
 			this->m_hp = 30;
 			this->m_speed = 1.f;
 			break;
@@ -46,7 +58,6 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 			break;
 	}
 
-	this->m_Rect.setTexture(&this->m_Texture);
 }
 
 Enemy::~Enemy()
@@ -79,6 +90,8 @@ bool Enemy::Update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _Eli
 	this->m_pos += m_velocity;
 	this->m_Rect.setPosition(this->m_pos);
 
+	Animate();
+
 	this->CheckForHit();
 
 	if (this->m_hp <= 0)
@@ -87,6 +100,20 @@ bool Enemy::Update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _Eli
 		return false;
 	}
 	return true;
+}
+
+void Enemy::Animate()
+{
+	this->m_animTimer += getDeltaTime();
+
+	if (this->m_animTimer > 0.1f)
+	{
+		this->m_animTimer = 0.f;
+		this->m_frameX = (this->m_frameX + 1) % this->m_animFrameNb;
+		sf::IntRect oldRect = this->m_Rect.getTextureRect();
+
+		this->m_Rect.setTextureRect(sf::IntRect(oldRect.width * this->m_frameX, oldRect.top, oldRect.width, oldRect.height));
+	}
 }
 
 void Enemy::Display(sf::RenderWindow& window)

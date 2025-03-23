@@ -83,6 +83,9 @@ class Enemy
 		float m_speed;
 		sf::Vector2f m_velocity;
 		float angle;
+		int m_animFrameNb;
+		int m_frameX = 0;
+		float m_animTimer = 0.f;
 
 		void Explode(std::list<Enemy*>& _list);
 
@@ -91,6 +94,7 @@ class Enemy
 		~Enemy();
 
 		bool Update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _list);
+		void Animate();
 		void Display(sf::RenderWindow& window);
 
 		//Getters
