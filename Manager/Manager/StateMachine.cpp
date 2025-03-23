@@ -1,8 +1,5 @@
 #include "StateMachine.hpp"
 
-
-
-
 namespace
 {
 	State m_CurrentState = MENU;
@@ -20,24 +17,24 @@ void StateMachine::ChangeState(State _state)
 	{
 		switch (m_CurrentState)
 		{
-		case MENU:
-			StateMenu::DeInit();
-			break;
-		case TUTO:
-			StateTuto::DeInit();
-			break;
-		case SETTINGS:
-			StateGame::DeInit();
-			break;
-		case GAME:
-			StateGame::DeInit();
-			break;
-		case CREDITS:
-			StateCredits::DeInit();
-			break;
-		case GAMEOVER:
-			StateGameOver::DeInit();
-			break;
+			case MENU:
+				StateMenu::DeInit();
+				break;
+			case TUTO:
+				StateTuto::DeInit();
+				break;
+			case SETTINGS:
+				StateGame::DeInit();
+				break;
+			case GAME:
+				StateGame::DeInit();
+				break;
+			case CREDITS:
+				StateCredits::DeInit();
+				break;
+			case GAMEOVER:
+				StateGameOver::DeInit();
+				break;
 		}
 
 		m_CurrentState = _state;
@@ -72,6 +69,9 @@ void StateMachine::StateUpdate()
 {
 	switch (m_CurrentState)
 	{
+		case INTRO:
+			StateIntro::Update();
+			break;
 		case MENU:
 			if (!isPaused)
 			{
@@ -81,6 +81,9 @@ void StateMachine::StateUpdate()
 			{
 				StateSettings::Update();
 			}
+			break;
+		case TUTO:
+			StateTuto::Update();
 			break;
 		case GAME:
 			if (!isPaused)
@@ -92,7 +95,13 @@ void StateMachine::StateUpdate()
 				StateSettings::Update();
 			}
 			break;
+		case CREDITS:
+			StateCredits::Update();
+			break;
 		case QUIT:
+			break;
+		case GAMEOVER:
+			StateGameOver::Update();
 			break;
 	}
 }
@@ -103,6 +112,9 @@ void StateMachine::StateDisplay(sf::RenderWindow& _window)
 
 	switch (m_CurrentState)
 	{
+		case INTRO:
+			StateIntro::Display(_window);
+			break;
 		case MENU:
 			if (!isPaused)
 			{
@@ -112,6 +124,9 @@ void StateMachine::StateDisplay(sf::RenderWindow& _window)
 			{
 				StateSettings::Display(_window);
 			}
+			break;
+		case TUTO:
+			StateTuto::Display(_window);
 			break;
 		case GAME:
 			if (!isPaused)
@@ -123,14 +138,18 @@ void StateMachine::StateDisplay(sf::RenderWindow& _window)
 				StateSettings::Display(_window);
 			}
 			break;
+		case CREDITS:
+			StateCredits::Display(_window);
+			break;
 		case QUIT:
 			_window.close();
 			break;
+		case GAMEOVER:
+			StateGameOver::Display(_window);
+			break;
 	}
-
 	_window.display();
 }
-
 void StateMachine::toggleIsPaused()
 {
 	if (isPaused)

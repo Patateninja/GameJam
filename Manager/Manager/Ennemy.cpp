@@ -3,11 +3,6 @@
 #include "UI.h"
 #include <iostream>
 
-void CreateObstacle(sf::Vector2f _pos, ObstacleType _type, std::vector<Obstacle*>& _list)
-{
-	_list.push_back(new Obstacle(_pos, _type));
-}
-
 Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 {
 	this->m_Rect = sf::RectangleShape(sf::Vector2f(60.f, 60.f));
@@ -65,26 +60,10 @@ Enemy::~Enemy()
 
 }
 
-bool Enemy::Update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _Elist)
+bool Enemy::Update(std::list<Enemy*>& _Elist)
 {
-	//Obstacle Managerment
-	sf::Vector2f Current_Pos = this->m_pos;
-	auto ObstaclesInRange = _obstacleList | std::views::filter([Current_Pos] (Obstacle* currentObstacle) { return Math::distance(currentObstacle->GetPosition(), Current_Pos) <= 500;});
-	
-	float closestDistance = -1;
-	Obstacle* ClosestObstacle  = nullptr;
-
-	for (Obstacle* n : ObstaclesInRange)
-	{
-		if(Math::distance(n->GetPosition(), Current_Pos) <= closestDistance || closestDistance == -1)
-		{
-			closestDistance = Math::distance(n->GetPosition(), Current_Pos);
-			ClosestObstacle = n;
-		}
-	}
-
 	//Avoid
-	this->Seek(Player::GetPlayerPosition(), ClosestObstacle);
+	this->Seek(Player::GetPlayerPosition());
 	
 	//Movment
 	this->m_pos += m_velocity;
@@ -123,27 +102,13 @@ void Enemy::Display(sf::RenderWindow& window)
 	window.draw(this->m_Rect);
 }
 
-void Enemy::Seek(sf::Vector2f _target, Obstacle* _closestObstacle)
+void Enemy::Seek(sf::Vector2f _target)
 {
-	sf::Vector2f avoidance(0.f, 0.f);
-
-	if (_closestObstacle != nullptr)
-	{
-		float threshold = _closestObstacle->thresholdAvoidance;
-
-		sf::Vector2f dist = _closestObstacle->GetPosition() - this->m_pos;
-		float len = Math::magnitude(dist);
-		if (len < threshold)
-		{
-			avoidance = Math::normalize(dist) * (threshold - len);
-		}
-	}
-
 	sf::Vector2f ToTarget = _target - this->m_pos;
 	float ramped_speed = this->m_speed * (Math::distance(_target, this->m_pos) / 50.f);
 	float speed = (this->m_speed > ramped_speed ? ramped_speed : this->m_speed);
 	sf::Vector2f NormalizedToTarget = Math::normalize(ToTarget) * speed;
-	this->m_velocity += NormalizedToTarget - this->m_velocity - avoidance;
+	this->m_velocity += NormalizedToTarget - this->m_velocity;
 }
 
 void Enemy::CheckForHit()

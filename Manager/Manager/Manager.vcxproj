@@ -145,6 +145,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StateGameOver.cpp" />
+    <ClCompile Include="StateIntro.cpp" />
     <ClCompile Include="StateSettings.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="StateGame.cpp" />
@@ -161,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.hpp" />
-    <ClInclude Include="Ennemy.h" />
     <ClInclude Include="KeyAnimation.h" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="StateCredits.h" />
@@ -170,6 +170,7 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StateGameOver.h" />
+    <ClInclude Include="StateIntro.h" />
     <ClInclude Include="StateSettings.hpp" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="StateGame.hpp" />
