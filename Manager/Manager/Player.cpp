@@ -91,7 +91,7 @@ namespace Player
 #pragma region DuoInput
 
 		// Rotate Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Z) &&
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
@@ -302,8 +302,10 @@ void Player::Update()
 
 #pragma region Anim
 	static float timer = 0.f;
+	static float timerSon = 0.f;
 	static int animX = 0;
 	timer += getDeltaTime();
+	timerSon += getDeltaTime();
 
 	if (timer > 0.2f)
 	{
@@ -340,6 +342,12 @@ void Player::Update()
 		else if (isRotateRight)
 		{
 			playerSprite.setTextureRect(sf::IntRect(204 * !animX, 428 * 0, 204, 428));
+		}
+
+		if ((isMovingUp || isMovingDown || isMovingUpRight || isMovingUpLeft || isMovingDownRight || isMovingDownLeft || isRotateLeft || isRotateRight) && timerSon > 0.2f)
+		{
+			Sound::PlaySound("tankDéplacements");
+			timerSon = 0.f;
 		}
 	}
 #pragma endregion
