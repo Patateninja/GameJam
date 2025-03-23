@@ -10,5 +10,9 @@ namespace Ultime
 
 	void DisplayUltime(sf::RenderWindow& _window);
 
+	bool GetFirstPass();
+
+	void SetFirstPass(bool _firstPass);
+
 	void SetStateUltime(bool _state);
 }

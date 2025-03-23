@@ -1,4 +1,5 @@
 #include "UI.h"
+#include "Ultime.h"
 
 
 namespace UI
@@ -225,27 +226,33 @@ namespace UI
 			static bool key1Disable = false;
 			static bool key2Disable = false;
 
+			static bool keyDraw = false;
+
 			
 
 			if (isPowerUpReady)
 			{
-
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && !key1Disable)
+				if (number == 0)
 				{
-					key1Ulti = true;
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && !key1Disable)
+					{
+						key1Ulti = true;
+					}
+
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) && !key2Disable)
+					{
+						key2Ulti = true;
+					}
 				}
 
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) && !key2Disable)
-				{
-					key2Ulti = true;
-				}
 
 
 				if (key1Ulti)
 				{
 					// Key Position Animation
 					positionKey1.x += 2.f;
-					if (positionKey1.x >= 385.f) positionKey1.x = 385.f;
+					if (positionKey1.x >= 385.f)
+						positionKey1.x = 385.f;
 					spriteKey1.setPosition(positionKey1);
 
 					// Key Rect Animation 
@@ -265,7 +272,8 @@ namespace UI
 				{
 					// Key Position Animation
 					positionKey2.x -= 2.f;
-					if (positionKey2.x <= 1570.f) positionKey2.x = 1570.f;
+					if (positionKey2.x <= 1570.f)
+						positionKey2.x = 1570.f;
 					spriteKey2.setPosition(positionKey2);
 
 					// Key Rect Animation
@@ -317,9 +325,12 @@ namespace UI
 				// if timer > 0.f et que key1Turn et key1Turn sont true		 ALORS ultime
 				// else if timer <= 0.f										 ALORS reset la Key true
 				
-				if (key1Turn || key2Turn) { keyWaiterTimer -= getDeltaTime(); }
+				if (key1Turn || key2Turn)
+				{ 
+					keyWaiterTimer -= getDeltaTime();
+				}
 
-				if (keyWaiterTimer > 0.f && key1Turn && key2Turn)
+				if (keyWaiterTimer > 0.f && key1Turn && key2Turn && number == 0)
 				{
 					// Ulti
 					keyStartUlt = true;
@@ -391,7 +402,8 @@ namespace UI
 						spriteKey1.setTexture(textureKey);
 						// Key Position Animation
 						positionKey1.x -= 2.f;
-						if (positionKey1.x <= 240.f) positionKey1.x = 240.f;
+						if (positionKey1.x <= 240.f)
+							positionKey1.x = 240.f;
 						spriteKey1.setPosition(positionKey1);
 
 						// Key Rect Animation 
@@ -400,6 +412,7 @@ namespace UI
 						{
 							rectKeyAnim1.width = 257;
 							key1Echec = false;
+							key1Ulti = false;
 
 						}
 						spriteKey1.setTextureRect(rectKeyAnim1);
@@ -412,7 +425,8 @@ namespace UI
 						spriteKey2.setTexture(textureKey);
 						// Key Position Animation
 						positionKey2.x += 2.f;
-						if (positionKey2.x >= 1720.f) positionKey2.x = 1720.f;
+						if (positionKey2.x >= 1720.f) 
+							positionKey2.x = 1720.f;
 						spriteKey2.setPosition(positionKey2);
 
 						// Key Rect Animation
@@ -421,6 +435,7 @@ namespace UI
 						{
 							rectKeyAnim2.width = 257;
 							key2Echec = false;
+							key2Ulti = false;
 						}
 						spriteKey2.setTextureRect(rectKeyAnim2);
 					}
@@ -457,6 +472,8 @@ namespace UI
 				{
 					keyStartUlt = false;
 					keyWaiterUltimeTimer = 0.f;
+					number = 101;
+					Ultime::SetFirstPass(false);
 				}
 			}
 		}
@@ -609,7 +626,8 @@ void UI::Display(sf::RenderWindow& _window)
 	drawVerticalRectOne(_window, sf::Vector2f(35, 288), 41, sf::Color::Black);
 	drawVerticalRectTwo(_window, sf::Vector2f(1844, 288), 41, sf::Color::Black);
 
-	if (isPowerUpReady)
+
+	if (isPowerUpReady && number == 0)
 	{
 		_window.draw(spriteKey1);
 		_window.draw(spriteKey2);
