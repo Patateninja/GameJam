@@ -2,7 +2,7 @@
 
 namespace
 {
-	State m_CurrentState = MENU;
+	State m_CurrentState = INTRO;
 	bool isPaused = false;
 }
 
@@ -48,15 +48,27 @@ void StateMachine::StateInit()
 	StateSettings::Init();
 	switch (m_CurrentState)
 	{
-		case MENU:
-			StateMenu::Init();
-			break;
-		case GAME:
-			StateGame::Init();
-			break;
-		case SETTINGS:
-			StateSettings::Init();
-			break;
+	case INTRO:
+		StateIntro::Init();
+		break;
+	case MENU:
+		StateMenu::Init();
+		break;
+	case TUTO:
+		StateTuto::Init();
+		break;
+	case GAME:
+		StateGame::Init();
+		break;
+	case CREDITS:
+		StateCredits::Init();
+		break;
+	case SETTINGS:
+		StateSettings::Init();
+		break;
+	case GAMEOVER:
+		StateSettings::Init();
+		break;
 	}
 }
 
@@ -69,85 +81,86 @@ void StateMachine::StateUpdate()
 {
 	switch (m_CurrentState)
 	{
-		case INTRO:
-			StateIntro::Update();
-			break;
-		case MENU:
-			if (!isPaused)
-			{
-				StateMenu::Update();
-			}
-			else
-			{
-				StateSettings::Update();
-			}
-			break;
-		case TUTO:
-			StateTuto::Update();
-			break;
-		case GAME:
-			if (!isPaused)
-			{
-				StateGame::Update();
-			}
-			else
-			{
-				StateSettings::Update();
-			}
-			break;
-		case CREDITS:
-			StateCredits::Update();
-			break;
-		case QUIT:
-			break;
-		case GAMEOVER:
-			StateGameOver::Update();
-			break;
+	case INTRO:
+		StateIntro::Update();
+		break;
+	case MENU:
+		if (!isPaused)
+		{
+			StateMenu::Update();
+		}
+		else
+		{
+			StateSettings::Update();
+		}
+		break;
+	case TUTO:
+		StateTuto::Update();
+		break;
+	case GAME:
+		if (!isPaused)
+		{
+			StateGame::Update();
+		}
+		else
+		{
+			StateSettings::Update();
+		}
+		break;
+	case CREDITS:
+		StateCredits::Update();
+		break;
+	case QUIT:
+		break;
+	case GAMEOVER:
+		StateGameOver::Update();
+		break;
 	}
 }
 
 void StateMachine::StateDisplay(sf::RenderWindow& _window)
 {
-	_window.clear();
+	//_window.clear();
 
 	switch (m_CurrentState)
 	{
-		case INTRO:
-			StateIntro::Display(_window);
-			break;
-		case MENU:
-			if (!isPaused)
-			{
-				StateMenu::Display(_window);
-			}
-			else
-			{
-				StateSettings::Display(_window);
-			}
-			break;
-		case TUTO:
-			StateTuto::Display(_window);
-			break;
-		case GAME:
-			if (!isPaused)
-			{
-				StateGame::Display(_window);
-			}
-			else
-			{
-				StateSettings::Display(_window);
-			}
-			break;
-		case CREDITS:
-			StateCredits::Display(_window);
-			break;
-		case QUIT:
-			_window.close();
-			break;
-		case GAMEOVER:
-			StateGameOver::Display(_window);
-			break;
+	case INTRO:
+		StateIntro::Display(_window);
+		break;
+	case MENU:
+		if (!isPaused)
+		{
+			StateMenu::Display(_window);
+		}
+		else
+		{
+			StateSettings::Display(_window);
+		}
+		break;
+	case TUTO:
+		StateTuto::Display(_window);
+		break;
+	case GAME:
+		if (!isPaused)
+		{
+			StateGame::Display(_window);
+		}
+		else
+		{
+			StateSettings::Display(_window);
+		}
+		break;
+	case CREDITS:
+		StateCredits::Display(_window);
+		break;
+	case QUIT:
+		_window.close();
+		break;
+	case GAMEOVER:
+		StateGameOver::Display(_window);
+		break;
 	}
+
 	_window.display();
 }
 void StateMachine::toggleIsPaused()

@@ -136,6 +136,31 @@ void Enemy::TakeDamage(int _damage)
 	this->m_hp -= _damage;
 }
 
+void Enemy::CheckForHit()
+{
+	for (Tir& tir : getTirList())
+	{
+		if (this->m_Rect.getGlobalBounds().contains(tir.GetPos()))
+		{
+			if (tir.GetType() == PETIT)
+			{
+				this->TakeDamage(5.f);
+			}
+			else
+			{
+				this->TakeDamage(125.f);
+			}
+
+			tir.Kill();
+		}
+	}
+}
+
+void Enemy::TakeDamage(int _damage)
+{
+	this->m_hp -= _damage;
+}
+
 void Enemy::Die(std::list<Enemy*>& _list)
 {
 	for (std::list<Enemy*>::iterator it = _list.begin(); it != _list.end();)

@@ -9,14 +9,14 @@
 
 typedef enum State
 {
+	TUTO,
 	INTRO,
 	MENU,
-	TUTO,
 	SETTINGS,
 	GAME,
+	GAMEOVER,
 	CREDITS,
 	QUIT,
-	GAMEOVER,
 } State;
 
 namespace StateMachine

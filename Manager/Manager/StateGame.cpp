@@ -111,7 +111,7 @@ void StateGame::Update()
 	for (std::list<Enemy*>::iterator it = _EnemyList.begin(); it != _EnemyList.end();)
 	{
 		Enemy* enemy = *it;
-		if (enemy->Update(_EnemyList))
+		if (enemy->Update(obsList, _EnemyList))
 		{
 			++it;
 		}
@@ -140,6 +140,11 @@ void StateGame::Display(sf::RenderWindow& _window)
 		enemy->Display(_window);
 	}
 	
+
+	for (Obstacle* obs : obsList)
+	{
+		obs->Draw(_window);
+	}
 	Ultime::DisplayUltime(_window);
 	UI::Display(_window);
 }

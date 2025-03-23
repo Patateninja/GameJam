@@ -14,26 +14,24 @@ namespace StateIntro
 
 void StateIntro::Init()
 {
-    textureIntro.loadFromFile("../Ressources/Textures/logo_ga.png");
-    textureIntroAnim.loadFromFile("../Ressources/Textures/logo_ga_anim.png");
-    spriteIntro.setTexture(textureIntro);
-    spriteIntroAnim.setTexture(textureIntroAnim);
-    spriteIntroAnim.setTextureRect(rectIntro);
+	textureIntro.loadFromFile("../Ressources/Textures/logo_ga.png");
+	textureIntroAnim.loadFromFile("../Ressources/Textures/logo_ga_anim.png");
+	spriteIntro.setTexture(textureIntro);
+	spriteIntroAnim.setTexture(textureIntroAnim);
+	spriteIntroAnim.setTextureRect(rectIntro);
 }
 
 void StateIntro::Update()
 {
     static float timerAnim = 0.f;
     static int frame = 0;
-    static float fadeTimer = 0.f;
-    static bool fadingIn = true;
-    static bool fadingOut = false;
-    static float timeBetweenFades = 4.5f;
+    static float fadeTimer = 0.f;  
+    static bool fadingIn = true;   
+    static bool fadingOut = false; 
+    static float timeBetweenFades = 4.5f; 
     static float fadeDelay = 0.f;
 
     static float timerIntroToMenu = 0.f;
-
-
 
     timerAnim += getDeltaTime();
     fadeTimer += getDeltaTime();
@@ -69,16 +67,16 @@ void StateIntro::Update()
             if (fadeDelay >= timeBetweenFades)
             {
                 fadingIn = false;
-                fadingOut = true;
-                fadeTimer = 0.f;
-                fadeDelay = 0.f;
+                fadingOut = true; 
+                fadeTimer = 0.f;  
+                fadeDelay = 0.f;  
             }
         }
     }
 
     if (fadingOut)
     {
-        if (fadeTimer < 2.f)
+        if (fadeTimer < 2.f) 
         {
             float alpha = 255 - (fadeTimer * 127.5f);
             spriteIntroAnim.setColor(sf::Color(255, 255, 255, static_cast<sf::Uint8>(alpha)));
@@ -87,7 +85,7 @@ void StateIntro::Update()
         {
             fadeTimer = 0.f;
             fadingIn = true;
-            fadingOut = false;
+            fadingOut = false; 
             StateMachine::ChangeState(MENU);
         }
     }
@@ -108,7 +106,7 @@ void StateIntro::Display(sf::RenderWindow& _window)
     {
         _window.draw(spriteIntro);
     }
-
+        
 }
 
 void StateIntro::DeInit()
