@@ -9,10 +9,13 @@
 
 typedef enum State
 {
+	TUTO,
 	INTRO,
 	MENU,
 	SETTINGS,
 	GAME,
+	GAMEOVER,
+	CREDITS,
 	QUIT,
 } State;
 
