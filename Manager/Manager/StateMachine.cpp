@@ -73,7 +73,7 @@ void StateMachine::StateInit()
 		StateSettings::Init();
 		break;
 	case GAMEOVER:
-		StateSettings::Init();
+		StateGameOver::Init();
 		break;
 	}
 }

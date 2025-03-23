@@ -15,7 +15,6 @@ class Tir
 		void Update();
 		void Display(sf::RenderWindow& window);
 		bool isAlive() const;
-		void destroyIfDead();
 
 		sf::Vector2f GetPos() { return this->m_position; };
 		TypeTir GetType() { return this->m_type; };

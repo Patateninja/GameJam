@@ -11,6 +11,8 @@ namespace
 	Cannon gunBig;
 	Cannon gunSmol1;
 	Cannon gunSmol2;
+	sf::Sprite back;
+	sf::Texture backTex;
 
 	sf::RectangleShape rect;
 
@@ -33,6 +35,10 @@ void StateGame::Init()
 	Ultime::InitUltime();
 	rect.setSize(sf::Vector2f(10, 10));
 	rect.setPosition(sf::Vector2f(400, 300));
+
+	backTex.loadFromFile("../Ressources/Textures/FOND 3.png");
+	backTex.setRepeated(true);
+	back.setTexture(backTex);
 
 	CreateObstacle(sf::Vector2f(1600.f, 800.f), CACTUS, obsList);
 	CreateObstacle(sf::Vector2f(1400.f, 200.f), ROCK, obsList);
@@ -96,23 +102,10 @@ void StateGame::Update()
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)
 	);
 
-	std::list<Tir> tirs = getTirList();
-	for (auto& tir : tirs)
+	for (auto& tir : getTirList())
 	{
 		tir.Update();
-		if (!tir.isAlive()) tir.~Tir();
 	}
-	//for (std::list<Tir>::iterator it = tirs.begin(); it != tirs.end();)
-	//{
-	//	if (!it->isAlive())
-	//	{
-	//		it = tirs.erase(it);
-	//	}
-	//	else
-	//	{
-	//		++it;
-	//	}
-	//}
 
 	for (std::list<Enemy*>::iterator it = _EnemyList.begin(); it != _EnemyList.end();)
 	{
@@ -130,6 +123,7 @@ void StateGame::Update()
 
 void StateGame::Display(sf::RenderWindow& _window)
 {
+	_window.draw(back);
 	for (Obstacle* obs : obsList)
 	{
 		obs->Draw(_window);

@@ -33,6 +33,26 @@ namespace Player
 
 	void UpdateInput()
 	{
+		if (position.x < 0)
+		{
+			position.x += 5;
+			return;
+		}
+		if (position.y < 0)
+		{
+			position.y += 5;
+			return;
+		}
+		if (position.x > 1920)
+		{
+			position.x -= 5;
+			return;
+		}
+		if (position.y > 1080)
+		{
+			position.y -= 5;
+			return;
+		}
 
 #pragma region SoloInput
 
@@ -232,7 +252,6 @@ namespace Player
 		}
 
 #pragma endregion
-
 	}
 
 	void TakeDamage(std::list<Enemy*>& _EnemyList)
