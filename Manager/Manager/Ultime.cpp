@@ -51,7 +51,7 @@ void Ultime::InitUltime()
 	ultimeSpriteBase.setOrigin(-2.f, ultimeSpriteBase.getGlobalBounds().height / 2 + 3.f);
 }
 
-void Ultime::UpdateUltime()
+void Ultime::UpdateUltime(std::list<Enemy*> _EnemyList)
 {
 	static float timerInputP1 = 0;
 	static float timerInputP2 = 0;
@@ -120,6 +120,18 @@ void Ultime::UpdateUltime()
 		}
 
 		if (!cooldownPlayer1 && !cooldownPlayer2 && sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) isActif = true;
+	}
+
+	if (startUltime)
+	{
+		for (Enemy* enemy : _EnemyList)
+		{
+			if (Math::distance(enemy->getPos(), Player::GetPlayerPosition()) < 1920.f)
+			{
+				enemy->TakeDamage(10000);
+			}
+		}
+		startUltime = false;
 	}
 }
 

@@ -73,7 +73,7 @@ void StateGame::Update()
 
 
 	Player::Update(_EnemyList);
-	Ultime::UpdateUltime();
+	Ultime::UpdateUltime(_EnemyList);
 
 	gunBig.Update();
 	gunBig.Rotate(
@@ -95,7 +95,11 @@ void StateGame::Update()
 	for (auto& tir : getTirList())
 	{
 		tir.Update();
-		tir.destroyIfDead();
+		if (!tir.isAlive())
+		{
+			tir.destroyIfDead();
+			break;
+		}
 	}
 
 	for (std::list<Enemy*>::iterator it = _EnemyList.begin(); it != _EnemyList.end();)

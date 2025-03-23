@@ -47,7 +47,7 @@ namespace UI
 
 	#pragma region int
 
-		int number = 101; // 101
+		int number = 1; // 101
 		int secondNumber = 0;
 		int thirdNumberOne = 251;
 		int thirdNumberTwo = 251;

@@ -121,11 +121,11 @@ void Enemy::CheckForHit()
 {
 	for (Tir& tir : getTirList())
 	{
-		if (this->m_Rect.getGlobalBounds().contains(tir.GetPos()))
+		if (this->m_Rect.getGlobalBounds().contains(tir.GetPos()) && tir.isAlive())
 		{
 			if (tir.GetType() == PETIT)
 			{
-				this->TakeDamage(5.f);
+				this->TakeDamage(10.f);
 			}
 			else
 			{

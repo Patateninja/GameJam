@@ -28,7 +28,7 @@ void initTir()
 }
 
 Tir::Tir(float angle, sf::Vector2f position, TypeTir type)
-	: m_position(position), m_angle(angle), m_type(type), m_alive(true), animTimer(0.f) {
+	: m_position(position), m_angle(angle), m_type(type), m_alive(true), animTimer(0.f), lifeTimer(1.f) {
 
 	// Calculer la direction du tir en fonction de l'angle
 	float radians = m_angle * DEG2RAD;
@@ -48,8 +48,7 @@ Tir::Tir(float angle, sf::Vector2f position, TypeTir type)
  }
 
 void Tir::Update() {
-	if (!m_alive) return;
-	if ((lifeTimer -= getDeltaTime()) < 0.f) m_alive = false;
+	if ((this->lifeTimer -= getDeltaTime()) < 0.f) m_alive = false;
 
 	// Déplacer le tir
 	m_position += m_velocity * getDeltaTime();
@@ -83,5 +82,13 @@ bool Tir::isAlive() const {
 
 void Tir::destroyIfDead()
 {
-	if (!m_alive) Tir::~Tir();
+	if (!this->m_alive)
+	{
+		for (auto it = tirs.begin(); it != tirs.end(); ++it)
+		{
+			tirs.erase(it);
+			break;
+			//delete this;
+		}
+	}
 }
