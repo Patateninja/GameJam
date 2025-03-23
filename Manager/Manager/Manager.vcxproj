@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="Credits.cpp" />
     <ClCompile Include="Ennemy.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Math.cpp" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="Cannon.h" />
+    <ClInclude Include="Credits.h" />
     <ClInclude Include="Ennemy.hpp" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Mouse.h" />
