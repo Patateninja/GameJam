@@ -131,7 +131,7 @@ void Ultime::DisplayUltime(sf::RenderWindow& _window)
 
 		if (timerSondUltime > 0.2f)
 		{
-			Sound::PlaySound("explosion");
+			Sound::PlaySound("ultimeLaser");
 			timerSondUltime = 0.f;
 		}
 
