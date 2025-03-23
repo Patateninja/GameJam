@@ -68,6 +68,8 @@ namespace UI
 		bool IsPlayerTwoShooting = false;
 		bool isPowerUpReady = false;
 
+		bool keyStartUlt = false;
+
 	#pragma endregion
 
 	#pragma endregion
@@ -223,7 +225,7 @@ namespace UI
 			static bool key1Disable = false;
 			static bool key2Disable = false;
 
-			static bool keyStartUlt = false;
+			
 
 			if (isPowerUpReady)
 			{
@@ -462,6 +464,22 @@ namespace UI
 #pragma endregion
 
 }
+
+#pragma region Getter and Setter
+
+// Getter and Setter keyStartUlt
+bool UI::GetKeyStartUlt()
+{
+	return keyStartUlt;
+}
+
+void UI::SetKeyStartUlt(bool _keyStartUlt)
+{
+	keyStartUlt = _keyStartUlt;
+}
+
+#pragma endregion
+
 
 #pragma region Fonction Public
 

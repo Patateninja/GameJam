@@ -1,5 +1,6 @@
 #include "Ultime.h"
 #include <iostream>
+#include "UI.h"
 
 namespace Ultime
 {
@@ -39,7 +40,7 @@ void Ultime::UpdateUltime()
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) isActif = false;
 
 
-	if (startUltime)
+	if (UI::GetKeyStartUlt())
 	{
 
 
@@ -96,7 +97,7 @@ void Ultime::UpdateUltime()
 		if (!cooldownPlayer1 && !cooldownPlayer2 && sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) isActif = true;
 
 		// Rotate
-		if (ultimeAngle < 270.f && isActif)
+		if (ultimeAngle < 270.f && UI::GetKeyStartUlt())
 		{
 			ultimeAngle += ultimeRotationSpeed * getDeltaTime();
 			ultimeSprite.setRotation(ultimeAngle);
@@ -114,7 +115,7 @@ void Ultime::UpdateUltime()
 void Ultime::DisplayUltime(sf::RenderWindow& _window)
 {
 
-	if (startUltime && isActif)
+	if (UI::GetKeyStartUlt())
 	{
 		ultimeSprite.setPosition(_window.getSize().x / 2, _window.getSize().y / 2);
 		_window.draw(ultimeSprite);
