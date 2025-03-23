@@ -34,4 +34,5 @@ namespace Math
 	bool isZero(float a);
 	bool isZero(sf::Vector2f a);
 	bool isEquals(sf::Vector2f a, sf::Vector2f b);
+	bool pointCircle(sf::Vector2f _point, sf::Vector2f _circle, float _radius);
 }

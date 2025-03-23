@@ -27,7 +27,7 @@ void StateSettings::Init()
 	caret2Sprite.setTexture(hoverTexture);
 	caret2Sprite.setPosition(caretMIN, 644.f);
 	backArrowSprite.setTexture(hoverTexture);
-	backArrowSprite.setPosition(661.f, 912.f);
+	backArrowSprite.setPosition(662.f, 912.f);
 	settingsMenuBackground.setTexture(settingsTexture);
 }
 
@@ -36,20 +36,20 @@ void StateSettings::Update()
 	static float timer = 0.f;
 	timer += getDeltaTime();
 	Sound::getOption(musicVolume, soundVolume);
-	caret1Sprite.setTextureRect(sf::IntRect(1146, 75, 25, 110));
-	caret2Sprite.setTextureRect(sf::IntRect(1146, 75, 25, 110));
+	caret1Sprite.setTextureRect(sf::IntRect(1146, 41, 25, 112));
+	caret2Sprite.setTextureRect(sf::IntRect(1146, 41, 25, 112));
 	backArrowSprite.setTextureRect(sf::IntRect(0, 0, 0, 0));
 
 	switch (selIndex)
 	{
 	case 1: //SFX
-		caret1Sprite.setTextureRect(sf::IntRect(1171, 75, 25, 110));
+		caret1Sprite.setTextureRect(sf::IntRect(1172, 41, 25, 112));
 		break;
 	case 2: //MUS
-		caret2Sprite.setTextureRect(sf::IntRect(1171, 75, 25, 110));
+		caret2Sprite.setTextureRect(sf::IntRect(1172, 41, 25, 112));
 		break;
 	case 3: //QUIT
-		backArrowSprite.setTextureRect(sf::IntRect(1196, 75, 599, 110));
+		backArrowSprite.setTextureRect(sf::IntRect(1197, 41, 599, 112));
 		break;
 	}
 	if (timer > 0.25f)

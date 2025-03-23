@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Tools.h"
+#include "Ennemy.hpp"
 
+class Enemy;
 
 namespace Player
 {
@@ -15,10 +17,13 @@ namespace Player
 	sf::Vector2f GetPlayerPosition();
 	float GetPlayerRotation();
 
+	int GetHP();
+
 	void Init();
 
-	void Update();
+	void Update(std::list<Enemy*>& _EnemyList);
+
+	void Hurt(float _amount);
 
 	void Display(sf::RenderWindow& _window);
-
 }

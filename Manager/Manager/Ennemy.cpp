@@ -1,5 +1,6 @@
 #include "Ennemy.hpp"
-
+#include "Player.h"
+#include "UI.h"
 #include <iostream>
 
 void CreateObstacle(sf::Vector2f _pos, ObstacleType _type, std::vector<Obstacle*>& _list)
@@ -9,12 +10,54 @@ void CreateObstacle(sf::Vector2f _pos, ObstacleType _type, std::vector<Obstacle*
 
 Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 {
+	this->m_Rect = sf::RectangleShape(sf::Vector2f(60.f, 60.f));
+	this->m_Rect.setOrigin(sf::Vector2f(30.f, 30.f));
 	this->m_pos = pos;
 	this->m_class = type;
-	this->m_hp = 100;
-	this->m_speed = 5.f;
+	this->m_hp = 200;
 	this->m_velocity = sf::Vector2f(0, 0);
 	this->angle = 0;
+
+	switch(type)
+	{
+		case NORMAL :
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\worm331.png");
+			this->m_Rect.setTexture(&this->m_Texture);
+			this->m_Rect.setTextureRect(sf::IntRect(0, 0, 331, 186));
+			this->m_animFrameNb = 3;
+			this->m_hp = 100;
+			this->m_speed = 0.5f;
+			break;
+		case TANK :
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\spider355.png");
+			this->m_Rect.setTexture(&this->m_Texture);
+			this->m_Rect.setTextureRect(sf::IntRect(0, 0, 363, 355));
+			this->m_animFrameNb = 5;
+			this->m_hp = 250;
+			this->m_speed = 0.3f;
+			break;
+		case SPEEDSTER :
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\fly155.png");
+			this->m_Rect.setTexture(&this->m_Texture);
+			this->m_Rect.setTextureRect(sf::IntRect(0, 0, 155, 171));
+			this->m_animFrameNb = 3;
+			this->m_hp = 50;
+			this->m_speed = 1.5f;
+			break;
+		case KAMIKAZE :
+			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\kamikaze175.png");
+			this->m_Rect.setTexture(&this->m_Texture);
+			this->m_Rect.setTextureRect(sf::IntRect(0, 0, 175, 198));
+			this->m_animFrameNb = 3;
+			this->m_hp = 30;
+			this->m_speed = 1.f;
+			break;
+		default :
+			this->m_hp = 0;
+			this->m_speed = 0.f;
+			break;
+	}
+
 }
 
 Enemy::~Enemy()
@@ -22,8 +65,9 @@ Enemy::~Enemy()
 
 }
 
-bool Enemy::update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _list)
+bool Enemy::Update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _Elist)
 {
+	//Obstacle Managerment
 	sf::Vector2f Current_Pos = this->m_pos;
 	auto ObstaclesInRange = _obstacleList | std::views::filter([Current_Pos] (Obstacle* currentObstacle) { return Math::distance(currentObstacle->GetPosition(), Current_Pos) <= 500;});
 	
@@ -39,43 +83,52 @@ bool Enemy::update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _lis
 		}
 	}
 
-	this->Seek(Mouse::getRelativeMousePos(), ClosestObstacle);
+	//Avoid
+	this->Seek(Player::GetPlayerPosition(), ClosestObstacle);
+	
+	//Movment
 	this->m_pos += m_velocity;
+	this->m_Rect.setPosition(this->m_pos);
 
-	this->m_hp -= (getDeltaTime() * 5.f);
+	Animate();
+
+	this->CheckForHit();
 
 	if (this->m_hp <= 0)
 	{
-		this->Die(_list);
+		this->Die(_Elist);
 		return false;
 	}
 	return true;
 }
 
-void Enemy::display(sf::RenderWindow& window)
+void Enemy::Animate()
 {
-	sf::RectangleShape rect(sf::Vector2f(40.f, 40.f));
-	rect.setOrigin(20.f, 20.f);
-	rect.setPosition(this->m_pos);
-	window.draw(rect);
+	this->m_animTimer += getDeltaTime();
+	sf::Vector2f plrDistance = Player::GetPlayerPosition() - this->m_pos;
+	if (this->m_class == NORMAL || this->m_class == TANK) this->m_Rect.setRotation(180.f + RAD2DEG * std::atan2f(plrDistance.y, plrDistance.x));
 
-	sf::VertexArray vect(sf::Lines, 2);
-	vect[0].position = this->m_pos;
-	vect[0].color = sf::Color::Red;
-	vect[1].position = this->m_pos + this->m_velocity * Math::magnitude(this->m_velocity);
-	vect[1].color = sf::Color::Red;
-	window.draw(vect);
+	if (this->m_animTimer > 0.1f)
+	{
+		this->m_animTimer = 0.f;
+		this->m_frameX = (this->m_frameX + 1) % this->m_animFrameNb;
+		sf::IntRect oldRect = this->m_Rect.getTextureRect();
+
+		this->m_Rect.setTextureRect(sf::IntRect(oldRect.width * this->m_frameX, oldRect.top, oldRect.width, oldRect.height));
+	}
+}
+
+void Enemy::Display(sf::RenderWindow& window)
+{
+	window.draw(this->m_Rect);
 }
 
 void Enemy::Seek(sf::Vector2f _target, Obstacle* _closestObstacle)
 {
-	
-
 	sf::Vector2f avoidance(0.f, 0.f);
 
 	if (_closestObstacle != nullptr)
 	{
-
 		float threshold = _closestObstacle->thresholdAvoidance;
 
 		sf::Vector2f dist = _closestObstacle->GetPosition() - this->m_pos;
@@ -93,12 +146,39 @@ void Enemy::Seek(sf::Vector2f _target, Obstacle* _closestObstacle)
 	this->m_velocity += NormalizedToTarget - this->m_velocity - avoidance;
 }
 
+void Enemy::CheckForHit()
+{
+	for (Tir& tir : getTirList())
+	{
+		if (this->m_Rect.getGlobalBounds().contains(tir.GetPos()))
+		{
+			if (tir.GetType() == PETIT)
+			{
+				this->TakeDamage(5.f);
+			}
+			else
+			{
+				this->TakeDamage(125.f);
+			}
+
+			tir.Kill();
+		}
+	}
+}
+
+void Enemy::TakeDamage(int _damage)
+{
+	this->m_hp -= _damage;
+}
+
 void Enemy::Die(std::list<Enemy*>& _list)
 {
 	for (std::list<Enemy*>::iterator it = _list.begin(); it != _list.end();)
 	{
 		if (*it == this)
 		{
+			if ((*it)->getClass() == KAMIKAZE) Explode(_list);
+			UI::KillEnemy();
 			delete this;
 			it = _list.erase(it);
 		}
@@ -106,6 +186,23 @@ void Enemy::Die(std::list<Enemy*>& _list)
 		{
 			++it;
 		}
+	}
+}
+
+void Enemy::Explode(std::list<Enemy*>& _list)
+{
+	for (std::list<Enemy*>::iterator it = _list.begin(); it != _list.end();)
+	{
+		if (Math::pointCircle(m_pos, (*it)->getPos(), 20.f)) // for each Enemy in a 20px radius
+		{
+			(*it)->setPv((*it)->getPv() - 100);
+		}
+		
+		++it;
+	}
+	if (Math::pointCircle(m_pos, Player::GetPlayerPosition(), 80.f))
+	{
+		Player::Hurt(1);
 	}
 }
 

@@ -9,23 +9,27 @@ enum TypeTir
  
 class Tir 
 {
-public:
-	Tir(float angle, sf::Vector2f position, TypeTir type);
-	~Tir() {};
-	void Update();
-	void Display(sf::RenderWindow& window);
-	bool isAlive() const;
-	void destroyIfDead();
+	public:
+		Tir(float angle, sf::Vector2f position, TypeTir type);
+		~Tir() {};
+		void Update();
+		void Display(sf::RenderWindow& window);
+		bool isAlive() const;
+		void destroyIfDead();
 
-private:
-	sf::Vector2f m_position;
-	sf::Vector2f m_velocity;
-	float m_angle;
-	float lifeTimer;
-	float animTimer;
-	int frameX = 0; // MAX 13
-	TypeTir m_type;
-	bool m_alive;
+		sf::Vector2f GetPos() { return this->m_position; };
+		TypeTir GetType() { return this->m_type; };
+		void Kill() { this->m_alive = false; };
+
+	private:
+		sf::Vector2f m_position;
+		sf::Vector2f m_velocity;
+		float m_angle;
+		float lifeTimer;
+		float animTimer;
+		int frameX = 0; // MAX 13
+		TypeTir m_type;
+		bool m_alive;
 };
 
 void initTir();

@@ -32,10 +32,9 @@ void StateMenu::Update()
 {
 	if (MainMenu.GetList().size() == 0)
 	{
-		MainMenu.Add(new Button(TO_TUTORIAL, sf::Vector2f(-500.f, 75.f),  MainMenu));
-		MainMenu.Add(new Button(TO_SETTINGS, sf::Vector2f(-500.f, 275.f), MainMenu));
-		MainMenu.Add(new Button(TO_QUIT, sf::Vector2f( -500.f, 475.f), MainMenu));
-		MainMenu.Add(new Button(TO_CREDITS, sf::Vector2f(    -500.f, 675.f), MainMenu));
+		MainMenu.Add(new Button(TO_GAME, sf::Vector2f(150.f, 75.f),  MainMenu));
+		MainMenu.Add(new Button(TO_SETTINGS, sf::Vector2f(150.f, 275.f), MainMenu));
+		MainMenu.Add(new Button(TO_QUIT, sf::Vector2f(150.f, 475.f), MainMenu));
 	}
 
 	switch (MainMenu.GetSelectedButton())
@@ -43,22 +42,17 @@ void StateMenu::Update()
 	default:
 		break;
 	case 0:
-		spriteMenuHover.setPosition(682, 475);
-		spriteMenuHover.setTextureRect(sf::IntRect(0, 0, 520, 185 ));
+		spriteMenuHover.setPosition(682, 509);
+		spriteMenuHover.setTextureRect(sf::IntRect(0, 0, 520, 152 ));
 		break;
 	case 1:
-		spriteMenuHover.setPosition(713, 688);
-		spriteMenuHover.setTextureRect(sf::IntRect(520, 0, 467, 185));
+		spriteMenuHover.setPosition(713, 723);
+		spriteMenuHover.setTextureRect(sf::IntRect(520, 0, 467, 150));
 		break;
 	case 2:
-		spriteMenuHover.setPosition(849, 836);
-		spriteMenuHover.setTextureRect(sf::IntRect(987, 0, 159, 185));
+		spriteMenuHover.setPosition(849, 871);
+		spriteMenuHover.setTextureRect(sf::IntRect(987, 0, 159, 150));
 		break;
-	case 3:
-		spriteMenuHover.setPosition(51, 835);
-		spriteMenuHover.setTextureRect(sf::IntRect(2094, 0, 159, 185));
-		break;
-
 	}
 
 	switch (MainMenu.Update())
@@ -66,20 +60,11 @@ void StateMenu::Update()
 		case TO_SETTINGS :
 			StateMachine::toggleIsPaused();
 			break;
-		case TO_TUTORIAL:
-			StateMachine::ChangeState(TUTO);
-			break;
 		case TO_GAME :
 			StateMachine::ChangeState(GAME);
 			break;
-		case TO_CREDITS:
-			StateMachine::ChangeState(CREDITS);
-			break;
 		case TO_QUIT :
 			StateMachine::ChangeState(QUIT);
-			break;
-		case TO_GAMEOVER:
-			StateMachine::ChangeState(GAMEOVER);
 			break;
 	}
 

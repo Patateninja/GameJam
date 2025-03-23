@@ -57,28 +57,10 @@
     <ClCompile Include="Ultime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ToSup.cpp">
+    <ClCompile Include="KeyAnimation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cannon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateSettings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tir.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TirUpdater.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateCredits.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateTuto.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateGameOver.cpp">
+    <ClCompile Include="UI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -96,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ennemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
@@ -119,28 +104,10 @@
     <ClInclude Include="Ultime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ToSup.h">
+    <ClInclude Include="KeyAnimation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cannon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ennemy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StateSettings.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tir.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StateCredits.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StateTuto.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StateGameOver.h">
+    <ClInclude Include="UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

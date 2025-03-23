@@ -2,19 +2,13 @@
 #include "StateMenu.hpp"
 #include "StateGame.hpp"
 #include "StateSettings.hpp"
-#include "StateCredits.h"
-#include "StateTuto.h"
-#include "StateGameOver.h"
 
 typedef enum State
 {
 	MENU,
-	TUTO,
 	SETTINGS,
 	GAME,
-	CREDITS,
 	QUIT,
-	GAMEOVER,
 } State;
 
 namespace StateMachine
