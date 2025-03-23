@@ -25,6 +25,7 @@ void StateMenu::Init()
 	//spriteMenuHover.setOrigin(spriteMenuHover.getGlobalBounds().width / 2, spriteMenuHover.getGlobalBounds().height / 2);
 
 	MainMenu = ActualMenu();
+	MainMenu.ResetClock();
 }
 
 void StateMenu::Update()
@@ -32,7 +33,7 @@ void StateMenu::Update()
 	if (MainMenu.GetList().size() == 0)
 	{
 		MainMenu.Add(new Button(TO_GAME, sf::Vector2f(150.f, 75.f),  MainMenu));
-		MainMenu.Add(new Button(TO_MENU, sf::Vector2f(150.f, 275.f), MainMenu));
+		MainMenu.Add(new Button(TO_SETTINGS, sf::Vector2f(150.f, 275.f), MainMenu));
 		MainMenu.Add(new Button(TO_QUIT, sf::Vector2f(150.f, 475.f), MainMenu));
 	}
 
@@ -56,8 +57,8 @@ void StateMenu::Update()
 
 	switch (MainMenu.Update())
 	{
-		case TO_MENU :
-			StateMachine::ChangeState(MENU);
+		case TO_SETTINGS :
+			StateMachine::toggleIsPaused();
 			break;
 		case TO_GAME :
 			StateMachine::ChangeState(GAME);
@@ -72,9 +73,10 @@ void StateMenu::Update()
 
 void StateMenu::Display(sf::RenderWindow& _window)
 {
-	MainMenu.Display(_window);
 	_window.draw(spriteMenu);
 	_window.draw(spriteMenuHover);
+	MainMenu.Display(_window);
+
 }
 
 void StateMenu::DeInit()

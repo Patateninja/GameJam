@@ -1,9 +1,14 @@
 #include "Player.h"
+#include "Math.h"
 
 namespace Player
 {
-	float moveSpeed = 5.0f;
-	float rotationSpeed = 5.0f;
+	float moveSpeed = 175.0f;
+	float rotationSpeed = 75.0f;
+	sf::Vector2f position = { 400.f, 400.f };
+	float rotation = 0;
+
+	bool teslaOn = false;
 
 	bool isMovingUp = false;
 	bool isMovingDown = false;
@@ -18,7 +23,9 @@ namespace Player
 	bool isRotateRight = false;
 
 	sf::Sprite playerSprite;
+	sf::Sprite teslaSprite;
 	sf::Texture playerTexture;
+	sf::Texture teslaTexture;
 
 	sf::Vector2f direction(0.f, 1.f);
 
@@ -28,10 +35,10 @@ namespace Player
 #pragma region SoloInput
 
 		// MoveUp Right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingUpRight = true;
 		}
@@ -41,10 +48,10 @@ namespace Player
 		}
 
 		// MoveDown Right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingDownRight = true;
 		}
@@ -54,10 +61,10 @@ namespace Player
 		}
 
 		// MoveUp Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingUpLeft = true;
 		}
@@ -67,10 +74,10 @@ namespace Player
 		}
 
 		// MoveDown Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
 			isMovingDownLeft = true;
 		}
@@ -84,10 +91,10 @@ namespace Player
 #pragma region DuoInput
 
 		// Rotate Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Z) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
 			isRotateLeft = true;
 		}
@@ -97,10 +104,10 @@ namespace Player
 		}
 
 		// Rotate Right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isRotateRight = true;
 		}
@@ -110,10 +117,10 @@ namespace Player
 		}
 
 		// MoveUp
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
 			isMovingUp = true;
 		}
@@ -123,10 +130,10 @@ namespace Player
 		}
 
 		// MoveDown
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
 			isMovingDown = true;
 		}
@@ -143,8 +150,8 @@ namespace Player
 	{
 		// Mise à jour de la direction du joueur selon l'angle de rotation
 		float angle = playerSprite.getRotation();
-		direction.x = std::sin(angle * 3.14159f / 180.f);  // Conversion de l'angle en radians et calcul du cosinus
-		direction.y = -std::cos(angle * 3.14159f / 180.f); // Le signe négatif pour l'axe Y (sinon l'orientation est inversée)
+		direction.x = std::sin(angle * DEG2RAD);  // Conversion de l'angle en radians et calcul du cosinus
+		direction.y = -std::cos(angle * DEG2RAD); // Le signe négatif pour l'axe Y (sinon l'orientation est inversée)
 	}
 
 	void UpdatePosition()
@@ -157,29 +164,29 @@ namespace Player
 		// MoveUp Right
 		if (isMovingUpRight)
 		{
-			playerSprite.move(-direction * moveSpeed);
-			playerSprite.setRotation(playerSprite.getRotation() - rotationSpeed);  // Tourner à gauche
+			position -= direction * moveSpeed * getDeltaTime();
+			rotation -= rotationSpeed * getDeltaTime();  // Tourner à gauche
 		}
 
 		// MoveDown Right
 		if (isMovingDownRight)
 		{
-			playerSprite.move(direction * moveSpeed);
-			playerSprite.setRotation(playerSprite.getRotation() + rotationSpeed);  // Tourner à droite
+			position += direction * moveSpeed * getDeltaTime();
+			rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
 		}
 
 		// MoveUp Left
 		if (isMovingUpLeft)
 		{
-			playerSprite.move(-direction * moveSpeed);
-			playerSprite.setRotation(playerSprite.getRotation() + rotationSpeed);  // Tourner à droite
+			position -= direction * moveSpeed * getDeltaTime();
+			rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
 		}
 
 		// MoveDown Right
 		if (isMovingDownLeft)
 		{
-			playerSprite.move(direction * moveSpeed);
-			playerSprite.setRotation(playerSprite.getRotation() - rotationSpeed);  // Tourner à droite
+			position += direction * moveSpeed * getDeltaTime();
+			rotation -= rotationSpeed * getDeltaTime();  // Tourner à droite
 		}
 
 #pragma endregion
@@ -187,39 +194,39 @@ namespace Player
 #pragma region DuoInput
 
 		// Rotate Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
-			playerSprite.rotate(-rotationSpeed);  // Rotation lente à gauche
+			rotation -= rotationSpeed * getDeltaTime();  // Rotation lente à gauche
 		}
 
 		// Rotate Right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
-			playerSprite.rotate(rotationSpeed);  // Rotation lente à droite
+			rotation += rotationSpeed * getDeltaTime();  // Rotation lente à droite
 		}
 
 		// MoveUp
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
-			playerSprite.move(-direction * moveSpeed);
+			position -= direction * moveSpeed * getDeltaTime();
 		}
 
 		// MoveDown
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) &&
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-			!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
+			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
-			playerSprite.move(direction * moveSpeed);
+			position += direction * moveSpeed * getDeltaTime();
 		}
 
 #pragma endregion
@@ -227,10 +234,22 @@ namespace Player
 	}
 }
 
+
 float Player::GetPlayerSpeed()
 {
 	return moveSpeed;
 }
+
+sf::Vector2f Player::GetPlayerPosition()
+{
+	return Player::playerSprite.getPosition();
+}
+
+float Player::GetPlayerRotation()
+{
+	return Player::playerSprite.getRotation();
+}
+
 
 void Player::SetPlayerSpeed(float value)
 {
@@ -247,28 +266,92 @@ void Player::SetRotateSpeed(float value)
 	rotationSpeed = value;
 }
 
+void Player::setTeslaState(const bool state)
+{
+	teslaOn = state;
+}
+
 void Player::Init()
 {
-	playerTexture.loadFromFile("../Ressources/Textures/Player.png");
+	playerTexture.loadFromFile("../Ressources/Textures/voiture de con.png");
+	teslaTexture.loadFromFile("../Ressources/Textures/tesla laser.png");
 	playerSprite.setTexture(playerTexture);
-	playerSprite.setPosition(400, 400);
+	teslaSprite.setTexture(teslaTexture);
+	teslaSprite.setTextureRect(sf::IntRect(0, 0, 67, 67));
+	playerSprite.setTextureRect(sf::IntRect(0, 0, 204, 428));
 
 	// Set the origin of the sprite to the center
-	playerSprite.setOrigin(playerSprite.getGlobalBounds().width / 2, playerSprite.getGlobalBounds().height / 2);
+	playerSprite.setOrigin(playerSprite.getGlobalBounds().getSize() * 0.5f);
+	teslaSprite.setOrigin(teslaSprite.getGlobalBounds().getSize() * 0.5f);
 
 	// Scale the sprite
 	playerSprite.setScale(0.5f, 0.5f);
 }
 
+
+
 void Player::Update()
 {
 	UpdateInput();
 	UpdatePosition();
+
+	playerSprite.setPosition(position);
+	playerSprite.setRotation(rotation);
+	teslaSprite.setPosition(position + Math::rotateVector(sf::Vector2f(0,-25), rotation * DEG2RAD));
+	teslaSprite.setRotation(rotation);
+
+#pragma region Anim
+	static float timer = 0.f;
+	static int animX = 0;
+	timer += getDeltaTime();
+
+	if (timer > 0.2f)
+	{
+		timer = 0.f;
+		animX = !animX;
+		if (isMovingUp)
+		{
+			playerSprite.setTextureRect(sf::IntRect(204 * animX, 428 * 0, 204, 428));
+		}
+		else if (isMovingDown)
+		{
+			playerSprite.setTextureRect(sf::IntRect(204 * !animX, 428 * 0, 204, 428));
+		}
+		else if (isMovingUpRight)
+		{
+			playerSprite.setTextureRect(sf::IntRect(204 * animX, 428 * 1, 204, 428));
+		}
+		else if (isMovingUpLeft)
+		{
+			playerSprite.setTextureRect(sf::IntRect(204 * animX, 428 * 2, 204, 428));
+		}
+		else if (isMovingDownRight)
+		{
+			playerSprite.setTextureRect(sf::IntRect(204 * !animX, 428 * 2, 204, 428));
+		}
+		else if (isMovingDownLeft)
+		{
+			playerSprite.setTextureRect(sf::IntRect(204 * !animX, 428 * 1, 204, 428));
+		}
+		else if (isRotateLeft)
+		{
+			playerSprite.setTextureRect(sf::IntRect(204 * animX, 428 * 0, 204, 428));
+		}
+		else if (isRotateRight)
+		{
+			playerSprite.setTextureRect(sf::IntRect(204 * !animX, 428 * 0, 204, 428));
+		}
+	}
+#pragma endregion
 }
 
 
 void Player::Display(sf::RenderWindow& _window)
 {
+	if (teslaOn) teslaSprite.setTextureRect(sf::IntRect(67, 0, 67, 67));
+	else teslaSprite.setTextureRect(sf::IntRect(0, 0, 67, 67));
+
 	_window.draw(playerSprite);
+	_window.draw(teslaSprite);
 }
 

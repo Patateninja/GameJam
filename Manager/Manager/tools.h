@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <list>
 #include <optional>
 #include <iostream>
 #include "Window.h"
