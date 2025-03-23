@@ -15,6 +15,7 @@ namespace Ultime
 	float delayPlayerToStartCooldown = 1.f;
 	float ultimeScaleX;
 	float lerpUltime = 0.f;
+	float timerSondUltime = 0.f;
 
 	bool isActif = false;
 
@@ -126,6 +127,14 @@ void Ultime::DisplayUltime(sf::RenderWindow& _window)
 
 	if (ultimeAngle < 270.f && isActif)
 	{
+		timerSondUltime += getDeltaTime();
+
+		if (timerSondUltime > 0.2f)
+		{
+			Sound::PlaySound("explosion");
+			timerSondUltime = 0.f;
+		}
+
 		ultimeAngle += ultimeRotationSpeed * getDeltaTime();
 		ultimeSprite.setRotation(ultimeAngle);
 		ultimeSpriteBase.setRotation(ultimeAngle);
