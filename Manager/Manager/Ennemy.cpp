@@ -15,8 +15,6 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 	this->m_pos = pos;
 	this->m_class = type;
 	this->m_hp = 200;
-	if (this->m_class == KAMIKAZE) this->m_hp = 30;
-	this->m_speed = 5.f;
 	this->m_velocity = sf::Vector2f(0, 0);
 	this->angle = 0;
 
@@ -33,6 +31,10 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 		case SPEEDSTER :
 			this->m_hp = 5;
 			this->m_speed = 1.5f;
+			break;
+		case KAMIKAZE :
+			this->m_hp = 30;
+			this->m_speed = 1.f;
 			break;
 		default :
 			this->m_hp = 0;

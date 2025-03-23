@@ -3,6 +3,7 @@
 #include "Tools.h"
 #include "Ennemy.hpp"
 
+class Enemy;
 
 namespace Player
 {
@@ -17,7 +18,7 @@ namespace Player
 
 	void Init();
 
-	void Update();
+	void Update(std::list<Enemy*>& _EnemyList);
 
 	void Hurt(float _amount);
 

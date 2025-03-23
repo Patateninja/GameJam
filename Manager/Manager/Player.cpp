@@ -3,8 +3,7 @@
 
 namespace Player
 {
-	float hp = 100.f;
-	int IFrame = 20.f;
+	float hp = 37.f;
 
 	float moveSpeed = 175.0f;
 	float rotationSpeed = 75.0f;
@@ -233,7 +232,33 @@ namespace Player
 
 	}
 
-	void TakeDamage(std::list<Enemy*>& _EnemyList);
+	void TakeDamage(std::list<Enemy*>& _EnemyList)
+	{
+		for (Enemy* enemy : _EnemyList)
+		{
+			if (enemy!= nullptr && Player::playerSprite.getGlobalBounds().intersects(enemy->GetHitbox()))
+			{
+				switch (enemy->getClass())
+				{
+					case NORMAL :
+						Player::hp -= 1;
+						break;
+					case TANK :
+						Player::hp -= 2;
+						break;
+					case SPEEDSTER :
+						Player::hp -= 1;
+						break;
+					case KAMIKAZE :
+						Player::hp -= 1;
+						break;
+				}
+
+				enemy->Die(_EnemyList);
+				break;
+			}
+		}
+	}
 
 	void Die()
 	{
@@ -287,14 +312,9 @@ void Player::Init()
 	playerSprite.setScale(0.5f, 0.5f);
 }
 
-void Player::Update()
+void Player::Update(std::list<Enemy*>& _EnemyList)
 {
-	std::list<Enemy*> _EnemyList;
 	Player::TakeDamage(_EnemyList);
-	if (Player::IFrame > 0)
-	{
-		Player::IFrame--;
-	}
 
 	if (health < 0) return;
 	UpdateInput();
@@ -356,27 +376,4 @@ void Player::Hurt(float _amount)
 void Player::Display(sf::RenderWindow& _window)
 {
 	_window.draw(playerSprite);
-}
-
-void Player::TakeDamage(std::list<Enemy*>& _EnemyList)
-{
-	for (Enemy* enemy : _EnemyList)
-	{
-		if (Player::playerSprite.getGlobalBounds().intersects(enemy->GetHitbox()) && Player::IFrame == 0)
-		{
-			Player::IFrame = 20;
-			switch (enemy->getClass())
-			{
-				case NORMAL :
-					Player::hp -= 10;
-					break;
-				case TANK :
-					Player::hp -= 10;
-					break;
-				case SPEEDSTER :
-					Player::hp -= 10;
-					break;
-			}
-		}
-	}
 }
