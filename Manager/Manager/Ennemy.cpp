@@ -23,11 +23,11 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 			this->m_speed = 0.5f;
 			break;
 		case TANK :
-			this->m_hp = 150;
+			this->m_hp = 250;
 			this->m_speed = 0.3f;
 			break;
 		case SPEEDSTER :
-			this->m_hp = 75;
+			this->m_hp = 5;
 			this->m_speed = 1.5f;
 			break;
 		default :
@@ -117,7 +117,7 @@ void Enemy::CheckForHit()
 			}
 			else
 			{
-				this->TakeDamage(75.f);
+				this->TakeDamage(125.f);
 			}
 
 			tir.Kill();

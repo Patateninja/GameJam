@@ -90,6 +90,7 @@ class Enemy
 		void Display(sf::RenderWindow& window);
 
 		//Getters
+		inline sf::FloatRect GetHitbox() { return this->m_Rect.getGlobalBounds(); };
 		inline sf::Vector2f getPos() { return m_pos; };
 		inline EnemyClass getClass() { return m_class; };
 		inline sf::Vector2f getVelocity() { return m_velocity; };

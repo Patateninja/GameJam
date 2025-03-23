@@ -3,6 +3,9 @@
 
 namespace Player
 {
+	float hp = 100.f;
+	int IFrame = 20.f;
+
 	float moveSpeed = 175.0f;
 	float rotationSpeed = 75.0f;
 	sf::Vector2f position = { 400.f, 400.f };
@@ -87,7 +90,7 @@ namespace Player
 #pragma region DuoInput
 
 		// Rotate Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Z) &&
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
@@ -228,8 +231,17 @@ namespace Player
 #pragma endregion
 
 	}
-}
 
+	void TakeDamage(std::list<Enemy*>& _EnemyList);
+
+	void Die()
+	{
+		if (true)
+		{
+
+		}
+	}
+}
 
 float Player::GetPlayerSpeed()
 {
@@ -245,7 +257,6 @@ float Player::GetPlayerRotation()
 {
 	return Player::playerSprite.getRotation();
 }
-
 
 void Player::SetPlayerSpeed(float value)
 {
@@ -277,6 +288,13 @@ void Player::Init()
 
 void Player::Update()
 {
+	std::list<Enemy*> _EnemyList;
+	Player::TakeDamage(_EnemyList);
+	if (Player::IFrame > 0)
+	{
+		Player::IFrame--;
+	}
+
 	UpdateInput();
 	UpdatePosition();
 
@@ -328,9 +346,30 @@ void Player::Update()
 #pragma endregion
 }
 
-
 void Player::Display(sf::RenderWindow& _window)
 {
 	_window.draw(playerSprite);
 }
 
+void Player::TakeDamage(std::list<Enemy*>& _EnemyList)
+{
+	for (Enemy* enemy : _EnemyList)
+	{
+		if (Player::playerSprite.getGlobalBounds().intersects(enemy->GetHitbox()) && Player::IFrame == 0)
+		{
+			Player::IFrame = 20;
+			switch (enemy->getClass())
+			{
+				case NORMAL :
+					Player::hp -= 10;
+					break;
+				case TANK :
+					Player::hp -= 10;
+					break;
+				case SPEEDSTER :
+					Player::hp -= 10;
+					break;
+			}
+		}
+	}
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Tools.h"
+#include "Ennemy.hpp"
 
 
 namespace Player
@@ -19,5 +20,4 @@ namespace Player
 	void Update();
 
 	void Display(sf::RenderWindow& _window);
-
 }
