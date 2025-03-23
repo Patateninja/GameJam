@@ -31,7 +31,7 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 		case TANK :
 			this->m_Texture.loadFromFile("..\\Ressources\\Textures\\spider355.png");
 			this->m_Rect.setTexture(&this->m_Texture);
-			this->m_Rect.setTextureRect(sf::IntRect(0, 0, 355, 355));
+			this->m_Rect.setTextureRect(sf::IntRect(0, 0, 363, 355));
 			this->m_animFrameNb = 5;
 			this->m_hp = 250;
 			this->m_speed = 0.3f;
@@ -105,6 +105,8 @@ bool Enemy::Update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _Eli
 void Enemy::Animate()
 {
 	this->m_animTimer += getDeltaTime();
+	sf::Vector2f plrDistance = Player::GetPlayerPosition() - this->m_pos;
+	if (this->m_class == NORMAL || this->m_class == TANK) this->m_Rect.setRotation(180.f + RAD2DEG * std::atan2f(plrDistance.y, plrDistance.x));
 
 	if (this->m_animTimer > 0.1f)
 	{
