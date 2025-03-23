@@ -57,6 +57,11 @@ sf::Vector2f Math::lerp(sf::Vector2f a, sf::Vector2f b, float t)
 	return a + t * (b - a);
 }
 
+float Math::lerp2D(float a, float b, float t)
+{
+	return a + t * (b - a);
+}
+
 sf::Vector2f Math::slerp(sf::Vector2f a, sf::Vector2f b, float t)
 {
 	float angle = angleBetweenVectors(a, b);
