@@ -139,6 +139,7 @@
     <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="StateCredits.cpp" />
     <ClCompile Include="Ennemy.cpp" />
+    <ClCompile Include="KeyAnimation.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Mouse.cpp" />
@@ -153,13 +154,15 @@
     <ClCompile Include="Tir.cpp" />
     <ClCompile Include="TirUpdater.cpp" />
     <ClCompile Include="tools.cpp" />
-    <ClCompile Include="ToSup.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Ultime.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.hpp" />
+    <ClInclude Include="Ennemy.h" />
+    <ClInclude Include="KeyAnimation.h" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="StateCredits.h" />
     <ClInclude Include="Ennemy.hpp" />
@@ -175,7 +178,7 @@
     <ClInclude Include="StateTuto.h" />
     <ClInclude Include="Tir.h" />
     <ClInclude Include="tools.h" />
-    <ClInclude Include="ToSup.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Ultime.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="Window.h" />

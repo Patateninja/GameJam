@@ -3,6 +3,8 @@
 
 namespace Player
 {
+	float hp = 37.f;
+
 	float moveSpeed = 175.0f;
 	float rotationSpeed = 75.0f;
 	sf::Vector2f position = { 400.f, 400.f };
@@ -91,7 +93,7 @@ namespace Player
 #pragma region DuoInput
 
 		// Rotate Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Z) &&
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
@@ -148,10 +150,10 @@ namespace Player
 
 	void PlayerDirection()
 	{
-		// Mise à jour de la direction du joueur selon l'angle de rotation
+		// Mise ï¿½ jour de la direction du joueur selon l'angle de rotation
 		float angle = playerSprite.getRotation();
 		direction.x = std::sin(angle * DEG2RAD);  // Conversion de l'angle en radians et calcul du cosinus
-		direction.y = -std::cos(angle * DEG2RAD); // Le signe négatif pour l'axe Y (sinon l'orientation est inversée)
+		direction.y = -std::cos(angle * DEG2RAD); // Le signe nï¿½gatif pour l'axe Y (sinon l'orientation est inversï¿½e)
 	}
 
 	void UpdatePosition()
@@ -165,28 +167,28 @@ namespace Player
 		if (isMovingUpRight)
 		{
 			position -= direction * moveSpeed * getDeltaTime();
-			rotation -= rotationSpeed * getDeltaTime();  // Tourner à gauche
+			rotation -= rotationSpeed * getDeltaTime();  // Tourner ï¿½ gauche
 		}
 
 		// MoveDown Right
 		if (isMovingDownRight)
 		{
 			position += direction * moveSpeed * getDeltaTime();
-			rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
+			rotation += rotationSpeed * getDeltaTime();  // Tourner ï¿½ droite
 		}
 
 		// MoveUp Left
 		if (isMovingUpLeft)
 		{
 			position -= direction * moveSpeed * getDeltaTime();
-			rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
+			rotation += rotationSpeed * getDeltaTime();  // Tourner ï¿½ droite
 		}
 
 		// MoveDown Right
 		if (isMovingDownLeft)
 		{
 			position += direction * moveSpeed * getDeltaTime();
-			rotation -= rotationSpeed * getDeltaTime();  // Tourner à droite
+			rotation -= rotationSpeed * getDeltaTime();  // Tourner ï¿½ droite
 		}
 
 #pragma endregion
@@ -199,7 +201,7 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
-			rotation -= rotationSpeed * getDeltaTime();  // Rotation lente à gauche
+			rotation -= rotationSpeed * getDeltaTime();  // Rotation lente ï¿½ gauche
 		}
 
 		// Rotate Right
@@ -208,7 +210,7 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
-			rotation += rotationSpeed * getDeltaTime();  // Rotation lente à droite
+			rotation += rotationSpeed * getDeltaTime();  // Rotation lente ï¿½ droite
 		}
 
 		// MoveUp
@@ -232,8 +234,52 @@ namespace Player
 #pragma endregion
 
 	}
+
+	void TakeDamage(std::list<Enemy*>& _EnemyList)
+	{
+		for (Enemy* enemy : _EnemyList)
+		{
+			if (enemy!= nullptr && Player::playerSprite.getGlobalBounds().intersects(enemy->GetHitbox()))
+			{
+				switch (enemy->getClass())
+				{
+					case NORMAL :
+						Player::hp -= 1;
+						break;
+					case TANK :
+						Player::hp -= 1;
+						break;
+					case SPEEDSTER :
+						Player::hp -= 1;
+						break;
+					case KAMIKAZE :
+						Player::hp -= 1;
+						break;
+					default :
+						break;
+				}
+				if (Player::hp <= 0)
+				{
+					std::cout << "Killed by : " << static_cast<int>(enemy->getClass());
+				}
+
+
+				enemy->Die(_EnemyList);
+				break;	
+			}
+		}
+	}
+
+	void Die()
+	{
+		if (true)
+		{
+
+		}
+	}
 }
 
+int Player::GetHP() { return Player::hp; };
 
 float Player::GetPlayerSpeed()
 {
@@ -249,7 +295,6 @@ float Player::GetPlayerRotation()
 {
 	return Player::playerSprite.getRotation();
 }
-
 
 void Player::SetPlayerSpeed(float value)
 {
@@ -288,10 +333,13 @@ void Player::Init()
 	playerSprite.setScale(0.5f, 0.5f);
 }
 
-
-
-void Player::Update()
+void Player::Update(std::list<Enemy*>& _EnemyList)
 {
+	Player::TakeDamage(_EnemyList);
+
+	if (hp < 0) 
+		return;
+
 	UpdateInput();
 	UpdatePosition();
 
@@ -345,6 +393,10 @@ void Player::Update()
 #pragma endregion
 }
 
+void Player::Hurt(float _amount)
+{
+	hp -= _amount;
+}
 
 void Player::Display(sf::RenderWindow& _window)
 {

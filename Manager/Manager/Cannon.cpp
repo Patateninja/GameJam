@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Math.h"
 #include "Tir.h"
+#include "UI.h"
 
 #define smallGunXOffset 25.f // HARD, GET FROM SPRITE
 #define smallGunYOffset 85.f // HARD, GET FROM SPRITE
@@ -62,33 +63,33 @@ Cannon::Cannon(enumBienGuez _type) // warnings? shut
 {
 	switch (_type)
 	{
-	default:
-		std::cout << "Please enter a correct Cannon type (got " << _type << ", expected 0 or 1)." << std::endl;
-		return;
-	case BIGCANNON:
-		Cannon::shootCooldown = 1.f;
-		Cannon::damage = 20;
-		Cannon::rotSpeed = 30.f;
-		Cannon::rotDeg = 180.f;
-		Cannon::rot_MIN = rotDeg - 25.f;
-		Cannon::rot_MAX = rotDeg + 25.f;
-		break;
-	case SMOLCANNON1:
-		Cannon::shootCooldown = 0.1f;
-		Cannon::damage = 1;
-		Cannon::rotSpeed = 75.f;
-		Cannon::rotDeg = 0.f;
-		Cannon::rot_MIN = rotDeg - 35.f;
-		Cannon::rot_MAX = rotDeg + 35.f;
-		break;
-	case SMOLCANNON2:
-		Cannon::shootCooldown = 0.1f;
-		Cannon::damage = 1;
-		Cannon::rotSpeed = 75.f;
-		Cannon::rotDeg = 0.f;
-		Cannon::rot_MIN = rotDeg - 35.f;
-		Cannon::rot_MAX = rotDeg + 35.f;
-		break;
+		default:
+			std::cout << "Please enter a correct Cannon type (got " << _type << ", expected 0 or 1)." << std::endl;
+			return;
+		case BIGCANNON:
+			Cannon::shootCooldown = 1.f;
+			Cannon::damage = 20;
+			Cannon::rotSpeed = 30.f;
+			Cannon::rotDeg = 180.f;
+			Cannon::rot_MIN = rotDeg - 25.f;
+			Cannon::rot_MAX = rotDeg + 25.f;
+			break;
+		case SMOLCANNON1:
+			Cannon::shootCooldown = 0.1f;
+			Cannon::damage = 1;
+			Cannon::rotSpeed = 75.f;
+			Cannon::rotDeg = 0.f;
+			Cannon::rot_MIN = rotDeg - 35.f;
+			Cannon::rot_MAX = rotDeg + 35.f;
+			break;
+		case SMOLCANNON2:
+			Cannon::shootCooldown = 0.1f;
+			Cannon::damage = 1;
+			Cannon::rotSpeed = 75.f;
+			Cannon::rotDeg = 0.f;
+			Cannon::rot_MIN = rotDeg - 35.f;
+			Cannon::rot_MAX = rotDeg + 35.f;
+			break;
 	}
 	Cannon::type = _type;
 }
@@ -121,7 +122,7 @@ void Cannon::Update()
 		muzzleLPos = basePos + Math::rotateVector(bigGunMuzzle, DEG2RAD * (plrRot - rotDeg));
 		muzzleRPos = basePos + Math::rotateVector(bigGunMuzzle, DEG2RAD * (plrRot - rotDeg));
 		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift)) Shoot(TypeTir::GROS);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift) && UI::canBigShot()) Shoot(TypeTir::GROS);
 		break;
 	case SMOLCANNON1:
 		origin = Math::mult2(static_cast<sf::Vector2f>(smallCannon1Texture.getSize()), { 0.5f, 0.8f }); // HARD, GET MAGIC MULT VALUES FROM SPRITE
@@ -129,7 +130,7 @@ void Cannon::Update()
 		muzzleLPos = basePos + Math::rotateVector(smallGun1MuzzleL, DEG2RAD * (plrRot - rotDeg));
 		muzzleRPos = basePos + Math::rotateVector(smallGun1MuzzleR, DEG2RAD * (plrRot - rotDeg));
 		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift)) Shoot(TypeTir::PETIT);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) && UI::canSmallShot()) Shoot(TypeTir::PETIT);
 		break;
 	case SMOLCANNON2:
 		origin = Math::mult2(static_cast<sf::Vector2f>(smallCannon2Texture.getSize()), { 0.5f, 0.8f }); // HARD, GET MAGIC MULT VALUES FROM SPRITE
@@ -137,7 +138,7 @@ void Cannon::Update()
 		muzzleLPos = basePos + Math::rotateVector(smallGun2MuzzleL, DEG2RAD * (plrRot - rotDeg));
 		muzzleRPos = basePos + Math::rotateVector(smallGun2MuzzleR, DEG2RAD * (plrRot - rotDeg));
 		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift)) Shoot(TypeTir::PETIT);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) && UI::canSmallShot()) Shoot(TypeTir::PETIT);
 		break;
 	}
 }
@@ -150,13 +151,25 @@ void Cannon::Rotate(int _dir)
 
 void Cannon::Shoot(TypeTir _type)
 {
-	if (shootTimer < shootCooldown) return;
+	
+
+	if (shootTimer < shootCooldown)
+	{
+		return;
+	}
 
 	std::list<Tir>& t = getTirList();
 
 	t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleLPos, _type));
-	if (!_type == GROS) t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleRPos, _type));
-
+	if (!_type == GROS)
+	{
+		UI::SmallShot();
+		t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleRPos, _type));
+	}
+	else
+	{
+		UI::BigShot();
+	}
 	shootTimer = 0.f;
 }
 
@@ -176,15 +189,15 @@ void Cannon::Display(sf::RenderWindow& _window)
 
 	switch (type)
 	{
-	case BIGCANNON:
-		spriteCannon.setTexture(bigCannonTexture, true);
-		break;
-	case SMOLCANNON1:
-		spriteCannon.setTexture(smallCannon1Texture, true);
-		break;
-	case SMOLCANNON2:
-		spriteCannon.setTexture(smallCannon2Texture, true);
-		break;
+		case BIGCANNON:
+			spriteCannon.setTexture(bigCannonTexture, true);
+			break;
+		case SMOLCANNON1:
+			spriteCannon.setTexture(smallCannon1Texture, true);
+			break;
+		case SMOLCANNON2:
+			spriteCannon.setTexture(smallCannon2Texture, true);
+			break;
 	}
 
 	spriteCannon.setRotation(plrRot - rotDeg);

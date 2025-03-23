@@ -149,3 +149,11 @@ bool Math::isEquals(sf::Vector2f a, sf::Vector2f b)
 {
 	return isZero(a - b);
 }
+
+bool Math::pointCircle(sf::Vector2f _point, sf::Vector2f _circle, float _radius)
+{
+	sf::Vector2f distTarget = _point - _circle;
+
+	if (Math::length(distTarget) <= _radius) return true;
+	return false;
+}
