@@ -8,7 +8,7 @@ namespace
 	sf::Sprite m_spritePetit;
 	sf::Sprite m_spriteGros;
 
-	std::list<Tir> tirs; //TODO ask why Vector
+	std::list<Tir> tirs; 
 }
 
 std::list<Tir>& getTirList() { return tirs; }
@@ -48,15 +48,16 @@ Tir::Tir(float angle, sf::Vector2f position, TypeTir type)
  }
 
 void Tir::Update() {
-	if (!m_alive) return;
-	if ((lifeTimer -= getDeltaTime()) < 0.f) m_alive = false;
+	if ((lifeTimer -= getDeltaTime()) < 0.f)
+	{
+		m_alive = false;
+	}
 
 	// Déplacer le tir
 	m_position += m_velocity * getDeltaTime();
 }
 
 void Tir::Display(sf::RenderWindow& window) {
-	if (!m_alive) return;
 	if (m_type == TypeTir::PETIT) {
 		animTimer += getDeltaTime();
 		if (animTimer > 0.1f)
@@ -79,9 +80,4 @@ void Tir::Display(sf::RenderWindow& window) {
 
 bool Tir::isAlive() const {
 	return m_alive;
-}
-
-void Tir::destroyIfDead()
-{
-	if (!m_alive) Tir::~Tir();
 }

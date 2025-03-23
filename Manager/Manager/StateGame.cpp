@@ -4,6 +4,7 @@
 #include "Ultime.h"
 #include "Tir.h"
 #include "Ennemy.hpp"
+#include "UI.h"
 
 namespace
 {
@@ -23,6 +24,8 @@ void StateGame::Init()
 	Player::Init();
 	initCannon();
 	initTir();
+	Ultime::InitUltime();
+	UI::Init();
 	gunBig = Cannon(BIGCANNON);
 	gunSmol1 = Cannon(SMOLCANNON1);
 	gunSmol2 = Cannon(SMOLCANNON2);
@@ -74,6 +77,7 @@ void StateGame::Update()
 
 	Player::Update(_EnemyList);
 	Ultime::UpdateUltime();
+	UI::Update(Player::GetHP());
 
 	gunBig.Update();
 	gunBig.Rotate(
@@ -92,11 +96,23 @@ void StateGame::Update()
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)
 	);
 
-	for (auto& tir : getTirList())
+	std::list<Tir> tirs = getTirList();
+	for (auto& tir : tirs)
 	{
 		tir.Update();
-		tir.destroyIfDead();
+		if (!tir.isAlive()) tir.~Tir();
 	}
+	//for (std::list<Tir>::iterator it = tirs.begin(); it != tirs.end();)
+	//{
+	//	if (!it->isAlive())
+	//	{
+	//		it = tirs.erase(it);
+	//	}
+	//	else
+	//	{
+	//		++it;
+	//	}
+	//}
 
 	for (std::list<Enemy*>::iterator it = _EnemyList.begin(); it != _EnemyList.end();)
 	{
@@ -135,6 +151,8 @@ void StateGame::Display(sf::RenderWindow& _window)
 	{
 		obs->Draw(_window);
 	}
+	Ultime::DisplayUltime(_window);
+	UI::Display(_window);
 }
 
 void StateGame::DeInit()
