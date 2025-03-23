@@ -10,6 +10,7 @@ namespace Player
 	float rotationSpeed = 75.0f;
 	sf::Vector2f position = { 400.f, 400.f };
 	float rotation = 0;
+	float health = 100;
 
 	bool isMovingUp = false;
 	bool isMovingDown = false;
@@ -147,10 +148,10 @@ namespace Player
 
 	void PlayerDirection()
 	{
-		// Mise à jour de la direction du joueur selon l'angle de rotation
+		// Mise ï¿½ jour de la direction du joueur selon l'angle de rotation
 		float angle = playerSprite.getRotation();
 		direction.x = std::sin(angle * DEG2RAD);  // Conversion de l'angle en radians et calcul du cosinus
-		direction.y = -std::cos(angle * DEG2RAD); // Le signe négatif pour l'axe Y (sinon l'orientation est inversée)
+		direction.y = -std::cos(angle * DEG2RAD); // Le signe nï¿½gatif pour l'axe Y (sinon l'orientation est inversï¿½e)
 	}
 
 	void UpdatePosition()
@@ -164,28 +165,28 @@ namespace Player
 		if (isMovingUpRight)
 		{
 			position -= direction * moveSpeed * getDeltaTime();
-			rotation -= rotationSpeed * getDeltaTime();  // Tourner à gauche
+			rotation -= rotationSpeed * getDeltaTime();  // Tourner ï¿½ gauche
 		}
 
 		// MoveDown Right
 		if (isMovingDownRight)
 		{
 			position += direction * moveSpeed * getDeltaTime();
-			rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
+			rotation += rotationSpeed * getDeltaTime();  // Tourner ï¿½ droite
 		}
 
 		// MoveUp Left
 		if (isMovingUpLeft)
 		{
 			position -= direction * moveSpeed * getDeltaTime();
-			rotation += rotationSpeed * getDeltaTime();  // Tourner à droite
+			rotation += rotationSpeed * getDeltaTime();  // Tourner ï¿½ droite
 		}
 
 		// MoveDown Right
 		if (isMovingDownLeft)
 		{
 			position += direction * moveSpeed * getDeltaTime();
-			rotation -= rotationSpeed * getDeltaTime();  // Tourner à droite
+			rotation -= rotationSpeed * getDeltaTime();  // Tourner ï¿½ droite
 		}
 
 #pragma endregion
@@ -198,7 +199,7 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 		{
-			rotation -= rotationSpeed * getDeltaTime();  // Rotation lente à gauche
+			rotation -= rotationSpeed * getDeltaTime();  // Rotation lente ï¿½ gauche
 		}
 
 		// Rotate Right
@@ -207,7 +208,7 @@ namespace Player
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W) &&
 			!sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down))
 		{
-			rotation += rotationSpeed * getDeltaTime();  // Rotation lente à droite
+			rotation += rotationSpeed * getDeltaTime();  // Rotation lente ï¿½ droite
 		}
 
 		// MoveUp
@@ -295,6 +296,7 @@ void Player::Update()
 		Player::IFrame--;
 	}
 
+	if (health < 0) return;
 	UpdateInput();
 	UpdatePosition();
 
@@ -344,6 +346,11 @@ void Player::Update()
 		}
 	}
 #pragma endregion
+}
+
+void Player::Hurt(float _amount)
+{
+	health -= _amount;
 }
 
 void Player::Display(sf::RenderWindow& _window)
