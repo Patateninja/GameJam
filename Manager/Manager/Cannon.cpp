@@ -121,7 +121,10 @@ void Cannon::Update()
 		muzzleLPos = basePos + Math::rotateVector(bigGunMuzzle, DEG2RAD * (plrRot - rotDeg));
 		muzzleRPos = basePos + Math::rotateVector(bigGunMuzzle, DEG2RAD * (plrRot - rotDeg));
 		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift)) Shoot(TypeTir::GROS);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))
+		{
+			Shoot(TypeTir::GROS);
+		}
 		break;
 	case SMOLCANNON1:
 		origin = Math::mult2(static_cast<sf::Vector2f>(smallCannon1Texture.getSize()), { 0.5f, 0.8f }); // HARD, GET MAGIC MULT VALUES FROM SPRITE
@@ -129,7 +132,10 @@ void Cannon::Update()
 		muzzleLPos = basePos + Math::rotateVector(smallGun1MuzzleL, DEG2RAD * (plrRot - rotDeg));
 		muzzleRPos = basePos + Math::rotateVector(smallGun1MuzzleR, DEG2RAD * (plrRot - rotDeg));
 		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift)) Shoot(TypeTir::PETIT);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift))
+		{
+			Shoot(TypeTir::PETIT);
+		}
 		break;
 	case SMOLCANNON2:
 		origin = Math::mult2(static_cast<sf::Vector2f>(smallCannon2Texture.getSize()), { 0.5f, 0.8f }); // HARD, GET MAGIC MULT VALUES FROM SPRITE
@@ -137,7 +143,10 @@ void Cannon::Update()
 		muzzleLPos = basePos + Math::rotateVector(smallGun2MuzzleL, DEG2RAD * (plrRot - rotDeg));
 		muzzleRPos = basePos + Math::rotateVector(smallGun2MuzzleR, DEG2RAD * (plrRot - rotDeg));
 		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift)) Shoot(TypeTir::PETIT);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift))
+		{
+			Shoot(TypeTir::PETIT);
+		}
 		break;
 	}
 }
@@ -155,8 +164,15 @@ void Cannon::Shoot(TypeTir _type)
 	std::list<Tir>& t = getTirList();
 
 	t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleLPos, _type));
-	if (!_type == GROS) t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleRPos, _type));
-
+	if (!_type == GROS)
+	{
+		//Sound::PlaySound("");
+		t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleRPos, _type));
+	}
+	else
+	{
+		Sound::PlaySound("canon");
+	}
 	shootTimer = 0.f;
 }
 
