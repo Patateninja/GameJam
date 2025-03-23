@@ -29,7 +29,7 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 			this->m_speed = 0.3f;
 			break;
 		case SPEEDSTER :
-			this->m_hp = 5;
+			this->m_hp = 50;
 			this->m_speed = 1.5f;
 			break;
 		case KAMIKAZE :
@@ -158,7 +158,7 @@ void Enemy::Explode(std::list<Enemy*>& _list)
 {
 	for (std::list<Enemy*>::iterator it = _list.begin(); it != _list.end();)
 	{
-		if (Math::pointCircle(m_pos, (*it)->getPos(), 80.f)) // for each Enemy in a 50px radius
+		if (Math::pointCircle(m_pos, (*it)->getPos(), 20.f)) // for each Enemy in a 20px radius
 		{
 			(*it)->setPv((*it)->getPv() - 100);
 		}
