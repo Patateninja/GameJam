@@ -529,13 +529,9 @@ void UI::Update(int _playerHP)
 
 	UI::secondNumber = (37 - _playerHP) <= 37 ? (37 - _playerHP) : 37;
 
-	
-
 	UpdateKeyAnim();
 
 	updateRect();
-
-
 }
 
 void UI::Display(sf::RenderWindow& _window)

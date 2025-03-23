@@ -162,11 +162,12 @@ void Enemy::Explode(std::list<Enemy*>& _list)
 		{
 			(*it)->setPv((*it)->getPv() - 100);
 		}
-		if (Math::pointCircle(m_pos, Player::GetPlayerPosition(), 80.f))
-		{
-			Player::Hurt(15);
-		}
+		
 		++it;
+	}
+	if (Math::pointCircle(m_pos, Player::GetPlayerPosition(), 80.f))
+	{
+		Player::Hurt(1);
 	}
 }
 

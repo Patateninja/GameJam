@@ -35,7 +35,7 @@ void StateGame::Init()
 	CreateObstacle(sf::Vector2f(1400.f, 200.f), ROCK, obsList);
 	CreateObstacle(sf::Vector2f(300.f, 600.f), BIG_ROCK, obsList);
 
-	Spawn(sf::Vector2f(700.f, 100.f), KAMIKAZE, _EnemyList);
+	/*Spawn(sf::Vector2f(700.f, 100.f), KAMIKAZE, _EnemyList);
 	Spawn(sf::Vector2f(700.f, 200.f), KAMIKAZE, _EnemyList);
 	Spawn(sf::Vector2f(700.f, 300.f), KAMIKAZE, _EnemyList);
 	Spawn(sf::Vector2f(700.f, 400.f), KAMIKAZE, _EnemyList);
@@ -49,11 +49,29 @@ void StateGame::Init()
 	Spawn(sf::Vector2f(700.f, 1200.f), KAMIKAZE, _EnemyList);
 	Spawn(sf::Vector2f(700.f, 1300.f), KAMIKAZE, _EnemyList);
 	Spawn(sf::Vector2f(700.f, 1400.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 1500.f), SPEEDSTER, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 1500.f), SPEEDSTER, _EnemyList);*/
 }
 
 void StateGame::Update()
 {
+	if (_EnemyList.size() < 50)
+	{
+		int x = (rand() % 4000) - 1920;
+		int y = 0;
+		if (x < 0 || x > 1920)
+		{
+			y = (rand() % 3100) - 1080;
+		}
+		else
+		{
+			y = (rand() % 2 == 1 ? 0 : 1080);
+		}
+
+
+		Spawn(sf::Vector2f(x, y), static_cast<EnemyClass>(rand() % 4), _EnemyList);
+	}
+
+
 	Player::Update(_EnemyList);
 	Ultime::UpdateUltime();
 

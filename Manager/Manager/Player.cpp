@@ -255,10 +255,17 @@ namespace Player
 					case KAMIKAZE :
 						Player::hp -= 1;
 						break;
+					default :
+						break;
+				}
+				if (Player::hp <= 0)
+				{
+					std::cout << "Killed by : " << static_cast<int>(enemy->getClass());
 				}
 
+
 				enemy->Die(_EnemyList);
-				break;
+				break;	
 			}
 		}
 	}
@@ -330,7 +337,9 @@ void Player::Update(std::list<Enemy*>& _EnemyList)
 {
 	Player::TakeDamage(_EnemyList);
 
-	if (hp < 0) return;
+	if (hp < 0) 
+		return;
+
 	UpdateInput();
 	UpdatePosition();
 
