@@ -1,6 +1,8 @@
 #include "StateMachine.hpp"
 
 
+
+
 namespace
 {
 	State m_CurrentState = INTRO;
@@ -24,11 +26,20 @@ void StateMachine::ChangeState(State _state)
 		case MENU:
 			StateMenu::DeInit();
 			break;
+		case TUTO:
+			StateTuto::DeInit();
+			break;
 		case SETTINGS:
 			StateGame::DeInit();
 			break;
 		case GAME:
 			StateGame::DeInit();
+			break;
+		case CREDITS:
+			StateCredits::DeInit();
+			break;
+		case GAMEOVER:
+			StateGameOver::DeInit();
 			break;
 		}
 
@@ -115,7 +126,7 @@ void StateMachine::StateUpdate()
 
 void StateMachine::StateDisplay(sf::RenderWindow& _window)
 {
-	//_window.clear();
+	_window.clear();
 
 	switch (m_CurrentState)
 	{
@@ -155,7 +166,6 @@ void StateMachine::StateDisplay(sf::RenderWindow& _window)
 		StateGameOver::Display(_window);
 		break;
 	}
-
 	_window.display();
 }
 

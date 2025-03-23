@@ -8,9 +8,12 @@ class ActualMenu;
 typedef enum Action
 {
 	TO_MENU,
+	TO_TUTORIAL,
 	TO_GAME,
 	TO_SETTINGS,
+	TO_CREDITS,
 	TO_QUIT,
+	TO_GAMEOVER,
 	NOTHING,
 } Action;
 

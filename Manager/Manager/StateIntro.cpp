@@ -35,10 +35,10 @@ void StateIntro::Update()
 
     
 
-    timerAnim += getDeltaTime();
-    fadeTimer += getDeltaTime();
-    fadeDelay += getDeltaTime();
-    timerIntroToMenu += getDeltaTime();
+    timerAnim += 2.f * getDeltaTime();
+    fadeTimer += 2.f * getDeltaTime();
+    fadeDelay += 2.f * getDeltaTime();
+    timerIntroToMenu += 2.f * getDeltaTime();
 
 
 

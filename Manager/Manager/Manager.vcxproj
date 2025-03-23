@@ -155,7 +155,6 @@
     <ClCompile Include="Tir.cpp" />
     <ClCompile Include="TirUpdater.cpp" />
     <ClCompile Include="tools.cpp" />
-    <ClCompile Include="ToSup.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Ultime.cpp" />
     <ClCompile Include="View.cpp" />
@@ -180,7 +179,6 @@
     <ClInclude Include="StateTuto.h" />
     <ClInclude Include="Tir.h" />
     <ClInclude Include="tools.h" />
-    <ClInclude Include="ToSup.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Ultime.h" />
     <ClInclude Include="View.h" />
