@@ -52,7 +52,6 @@ Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 			this->m_speed = 0.f;
 			break;
 	}
-
 }
 
 Enemy::~Enemy()
@@ -111,11 +110,16 @@ void Enemy::Seek(sf::Vector2f _target)
 	this->m_velocity += NormalizedToTarget - this->m_velocity;
 }
 
+void Enemy::TakeDamage(int _damage)
+{
+	this->m_hp -= _damage;
+}
+
 void Enemy::CheckForHit()
 {
 	for (Tir& tir : getTirList())
 	{
-		if (this->m_Rect.getGlobalBounds().contains(tir.GetPos()))
+		if (this->m_Rect.getGlobalBounds().contains(tir.GetPos()) && tir.isAlive())
 		{
 			if (tir.GetType() == PETIT)
 			{
@@ -129,36 +133,6 @@ void Enemy::CheckForHit()
 			tir.Kill();
 		}
 	}
-}
-
-void Enemy::TakeDamage(int _damage)
-{
-	this->m_hp -= _damage;
-}
-
-void Enemy::CheckForHit()
-{
-	for (Tir& tir : getTirList())
-	{
-		if (this->m_Rect.getGlobalBounds().contains(tir.GetPos()))
-		{
-			if (tir.GetType() == PETIT)
-			{
-				this->TakeDamage(5.f);
-			}
-			else
-			{
-				this->TakeDamage(125.f);
-			}
-
-			tir.Kill();
-		}
-	}
-}
-
-void Enemy::TakeDamage(int _damage)
-{
-	this->m_hp -= _damage;
 }
 
 void Enemy::Die(std::list<Enemy*>& _list)
