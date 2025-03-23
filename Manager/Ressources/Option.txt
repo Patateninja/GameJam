@@ -1,2 +1,2 @@
 MusicVolume 100
-SoundVolume 22
+SoundVolume 100

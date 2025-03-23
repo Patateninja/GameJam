@@ -40,7 +40,6 @@ void StateGame::Init()
 	Spawn(sf::Vector2f(500.f, 10.), NORMAL, _EnemyList);
 	Spawn(sf::Vector2f(10.f, 500.), NORMAL, _EnemyList);
 	Sound::PlayMusic("MusicGame");
-
 }
 
 void StateGame::Update()
