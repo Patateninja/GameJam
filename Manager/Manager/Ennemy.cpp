@@ -95,6 +95,19 @@ void Enemy::Seek(sf::Vector2f _target, Obstacle* _closestObstacle)
 
 void Enemy::Die(std::list<Enemy*>& _list)
 {
+	switch (m_class)
+	{
+	case NORMAL :
+		Sound::PlaySound("mortInsects");
+	case TANK:
+		Sound::PlaySound("mortInsects");
+	//case KAMIKAZ:
+	//	Sound::PlaySound("explosion");
+	case SPEEDSTER:
+		Sound::PlaySound("explosion");
+	default:
+		break;
+	}
 	for (std::list<Enemy*>::iterator it = _list.begin(); it != _list.end();)
 	{
 		if (*it == this)
