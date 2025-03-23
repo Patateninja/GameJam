@@ -10,9 +10,8 @@ void CreateObstacle(sf::Vector2f _pos, ObstacleType _type, std::vector<Obstacle*
 
 Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 {
-	this->m_Rect = sf::RectangleShape(sf::Vector2f(30.f, 30.f));
-	//this->m_Rect.setTexture(&this->m_Texture);
-	this->m_Rect.setOrigin(sf::Vector2f(15.f, 15.f));
+	this->m_Rect = sf::RectangleShape(sf::Vector2f(60.f, 60.f));
+	this->m_Rect.setOrigin(sf::Vector2f(30.f, 30.f));
 	this->m_pos = pos;
 	this->m_class = type;
 	this->m_hp = 200;
