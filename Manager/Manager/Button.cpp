@@ -29,8 +29,6 @@ void Button::SetSelected(bool _selected)
 	this->m_Selected = _selected;
 }
 
-/////////////////////////////////////////////////////////////////////
-
 void ActualMenu::Add(Button* _button)
 {
 	this->ButtonList.push_back(_button);
@@ -46,13 +44,27 @@ Button* ActualMenu::Get(int _index)
 	return nullptr;
 }
 
+int ActualMenu::GetSelectedButton()
+{
+	return this->selectedButton;
+}
+	
 std::vector<Button*> ActualMenu::GetList()
 {
 	return this->ButtonList;
 }
 
+void ActualMenu::ResetClock()
+{
+	this->m_Timer.restart();
+}
+
 Action ActualMenu::Update()
 {
+	static float tim = 0.0f;
+
+	tim += getDeltaTime();
+
 	if (this->m_Timer.getElapsedTime().asSeconds() > 0.25)
 	{
 		
@@ -89,8 +101,9 @@ Action ActualMenu::Update()
 	}
 
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && tim > 0.25f)
 	{
+		tim = 0.0f;
 		return this->ButtonList[this->selectedButton]->GetAction();
 	}
 	else

@@ -1,10 +1,12 @@
 #pragma once
 #include "StateMenu.hpp"
 #include "StateGame.hpp"
+#include "StateSettings.hpp"
 
 typedef enum State
 {
 	MENU,
+	SETTINGS,
 	GAME,
 	QUIT,
 } State;
@@ -19,4 +21,6 @@ namespace StateMachine
 	void StateEvent();
 	void StateUpdate();
 	void StateDisplay(sf::RenderWindow& _window);
+
+	void toggleIsPaused();
 };

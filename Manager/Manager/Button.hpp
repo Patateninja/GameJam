@@ -1,6 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "tools.h"
+#include "Tools.h"
 #include <vector>
 
 class ActualMenu;
@@ -9,7 +9,7 @@ typedef enum Action
 {
 	TO_MENU,
 	TO_GAME,
-	TO_OPTION,
+	TO_SETTINGS,
 	TO_QUIT,
 	NOTHING,
 } Action;
@@ -45,7 +45,9 @@ class ActualMenu
 
 		void Add(Button* _button);
 		Button* Get(int _index);
+		int GetSelectedButton();
 		std::vector<Button*> GetList();
+		void ResetClock();
 
 		Action Update();
 		void Display(sf::RenderWindow& _window);

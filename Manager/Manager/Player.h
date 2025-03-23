@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tools.h"
+#include "Tools.h"
 
 
 namespace Player
@@ -10,6 +10,10 @@ namespace Player
 
 	float GetRotateSpeed();
 	void SetRotateSpeed(float value);
+	void setTeslaState(const bool state);
+
+	sf::Vector2f GetPlayerPosition();
+	float GetPlayerRotation();
 
 	void Init();
 

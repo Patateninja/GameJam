@@ -1,8 +1,10 @@
 #include "StateMachine.hpp"
 
+
 namespace
 {
 	State m_CurrentState = MENU;
+	bool isPaused = false;
 }
 
 State StateMachine::GetState()
@@ -16,12 +18,15 @@ void StateMachine::ChangeState(State _state)
 	{
 		switch (m_CurrentState)
 		{
-			case MENU:
-				StateMenu::DeInit();
-				break;
-			case GAME:
-				StateGame::DeInit();
-				break;
+		case MENU:
+			StateMenu::DeInit();
+			break;
+		case SETTINGS:
+			StateGame::DeInit();
+			break;
+		case GAME:
+			StateGame::DeInit();
+			break;
 		}
 
 		m_CurrentState = _state;
@@ -32,14 +37,18 @@ void StateMachine::ChangeState(State _state)
 
 void StateMachine::StateInit()
 {
+	StateSettings::Init();
 	switch (m_CurrentState)
 	{
-		case MENU:
-			StateMenu::Init();
-			break;
-		case GAME:
-			StateGame::Init();
-			break;
+	case MENU:
+		StateMenu::Init();
+		break;
+	case GAME:
+		StateGame::Init();
+		break;
+	case SETTINGS:
+		StateSettings::Init();
+		break;
 	}
 }
 
@@ -52,14 +61,28 @@ void StateMachine::StateUpdate()
 {
 	switch (m_CurrentState)
 	{
-		case MENU :
+	case MENU:
+		if (!isPaused)
+		{
 			StateMenu::Update();
-			break;
-		case GAME :
+		}
+		else
+		{
+			StateSettings::Update();
+		}
+		break;
+	case GAME:
+		if (!isPaused)
+		{
 			StateGame::Update();
-			break;
-		case QUIT :
-			break;
+		}
+		else
+		{
+			StateSettings::Update();
+		}
+		break;
+	case QUIT:
+		break;
 	}
 }
 
@@ -69,15 +92,41 @@ void StateMachine::StateDisplay(sf::RenderWindow& _window)
 
 	switch (m_CurrentState)
 	{
-		case MENU :
+	case MENU:
+		if (!isPaused)
+		{
 			StateMenu::Display(_window);
-			break;
-		case GAME :
+		}
+		else
+		{
+			StateSettings::Display(_window);
+		}
+		break;
+	case GAME:
+		if (!isPaused)
+		{
 			StateGame::Display(_window);
-			break;
-		case QUIT :
-			_window.close();
-			break;
+		}
+		else
+		{
+			StateSettings::Display(_window);
+		}
+		break;
+	case QUIT:
+		_window.close();
+		break;
 	}
 	_window.display();
+}
+
+void StateMachine::toggleIsPaused()
+{
+	if (isPaused)
+	{
+		isPaused = false;
+	}
+	else
+	{
+		isPaused = true;
+	}
 }
