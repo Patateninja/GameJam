@@ -9,12 +9,32 @@ void CreateObstacle(sf::Vector2f _pos, ObstacleType _type, std::vector<Obstacle*
 
 Enemy::Enemy(sf::Vector2f pos, EnemyClass type)
 {
+	this->m_Rect = sf::RectangleShape(sf::Vector2f(30.f, 30.f));
+	this->m_Rect.setOrigin(sf::Vector2f(15.f, 15.f));
 	this->m_pos = pos;
 	this->m_class = type;
-	this->m_hp = 100;
-	this->m_speed = 5.f;
-	this->m_velocity = sf::Vector2f(0, 0);
+	this->m_velocity = sf::Vector2f(0,0);
 	this->angle = 0;
+
+	switch(type)
+	{
+		case NORMAL :
+			this->m_hp = 100;
+			this->m_speed = 0.5f;
+			break;
+		case TANK :
+			this->m_hp = 150;
+			this->m_speed = 0.3f;
+			break;
+		case SPEEDSTER :
+			this->m_hp = 75;
+			this->m_speed = 1.5f;
+			break;
+		default :
+			this->m_hp = 0;
+			this->m_speed = 0.f;
+			break;
+	}
 }
 
 Enemy::~Enemy()
@@ -22,8 +42,9 @@ Enemy::~Enemy()
 
 }
 
-bool Enemy::update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _list)
+bool Enemy::Update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _Elist)
 {
+	//Obstacle Managerment
 	sf::Vector2f Current_Pos = this->m_pos;
 	auto ObstaclesInRange = _obstacleList | std::views::filter([Current_Pos] (Obstacle* currentObstacle) { return Math::distance(currentObstacle->GetPosition(), Current_Pos) <= 500;});
 	
@@ -39,43 +60,34 @@ bool Enemy::update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _lis
 		}
 	}
 
-	this->Seek(Mouse::getRelativeMousePos(), ClosestObstacle);
+	//Avoid
+	this->Seek(Player::GetPlayerPosition(), ClosestObstacle);
+	
+	//Movment
 	this->m_pos += m_velocity;
+	this->m_Rect.setPosition(this->m_pos);
 
-	this->m_hp -= (getDeltaTime() * 5.f);
+	this->CheckForHit();
 
 	if (this->m_hp <= 0)
 	{
-		this->Die(_list);
+		this->Die(_Elist);
 		return false;
 	}
 	return true;
 }
 
-void Enemy::display(sf::RenderWindow& window)
+void Enemy::Display(sf::RenderWindow& window)
 {
-	sf::RectangleShape rect(sf::Vector2f(40.f, 40.f));
-	rect.setOrigin(20.f, 20.f);
-	rect.setPosition(this->m_pos);
-	window.draw(rect);
-
-	sf::VertexArray vect(sf::Lines, 2);
-	vect[0].position = this->m_pos;
-	vect[0].color = sf::Color::Red;
-	vect[1].position = this->m_pos + this->m_velocity * Math::magnitude(this->m_velocity);
-	vect[1].color = sf::Color::Red;
-	window.draw(vect);
+	window.draw(this->m_Rect);
 }
 
 void Enemy::Seek(sf::Vector2f _target, Obstacle* _closestObstacle)
 {
-	
-
 	sf::Vector2f avoidance(0.f, 0.f);
 
 	if (_closestObstacle != nullptr)
 	{
-
 		float threshold = _closestObstacle->thresholdAvoidance;
 
 		sf::Vector2f dist = _closestObstacle->GetPosition() - this->m_pos;
@@ -91,6 +103,31 @@ void Enemy::Seek(sf::Vector2f _target, Obstacle* _closestObstacle)
 	float speed = (this->m_speed > ramped_speed ? ramped_speed : this->m_speed);
 	sf::Vector2f NormalizedToTarget = Math::normalize(ToTarget) * speed;
 	this->m_velocity += NormalizedToTarget - this->m_velocity - avoidance;
+}
+
+void Enemy::CheckForHit()
+{
+	for (Tir& tir : getTirList())
+	{
+		if (this->m_Rect.getGlobalBounds().contains(tir.GetPos()))
+		{
+			if (tir.GetType() == PETIT)
+			{
+				this->TakeDamage(5.f);
+			}
+			else
+			{
+				this->TakeDamage(75.f);
+			}
+
+			tir.Kill();
+		}
+	}
+}
+
+void Enemy::TakeDamage(int _damage)
+{
+	this->m_hp -= _damage;
 }
 
 void Enemy::Die(std::list<Enemy*>& _list)

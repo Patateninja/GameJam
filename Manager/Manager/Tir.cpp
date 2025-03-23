@@ -28,22 +28,22 @@ void initTir()
 }
 
 Tir::Tir(float angle, sf::Vector2f position, TypeTir type)
-	: m_position(position), m_angle(angle), m_type(type), m_alive(true) {
+	: m_position(position), m_angle(angle), m_type(type), m_alive(true), animTimer(0.f) {
 
 	// Calculer la direction du tir en fonction de l'angle
 	float radians = m_angle * DEG2RAD;
 	switch (m_type)
 	{
-	case PETIT:
-		m_velocity.x = std::sin(radians) * 600.0f;  // Vitesse sur X
-		m_velocity.y = -std::cos(radians) * 600.0f; // Vitesse sur Y
-		lifeTimer = 0.6f;
-		break;
-	case GROS:
-		m_velocity.x = std::sin(radians) * 500.0f;  // Vitesse sur X
-		m_velocity.y = -std::cos(radians) * 500.0f; // Vitesse sur Y
-		lifeTimer = 2.5f;
-		break;
+		case PETIT:
+			m_velocity.x = std::sin(radians) * 600.0f;  // Vitesse sur X
+			m_velocity.y = -std::cos(radians) * 600.0f; // Vitesse sur Y
+			lifeTimer = 0.6f;
+			break;
+		case GROS:
+			m_velocity.x = std::sin(radians) * 500.0f;  // Vitesse sur X
+			m_velocity.y = -std::cos(radians) * 500.0f; // Vitesse sur Y
+			lifeTimer = 2.5f;
+			break;
 	}
  }
 

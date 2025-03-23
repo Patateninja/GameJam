@@ -1,6 +1,8 @@
 #pragma once
 #include "Tools.h"
 #include "Math.h"
+#include "Player.h"
+#include "Tir.h"
 #include <ranges>
 #include <list>
 
@@ -23,7 +25,7 @@ struct Obstacle
 {
 	sf::Texture m_text;
 		sf::RectangleShape m_Rect;
-		float thresholdAvoidance;
+		float thresholdAvoidance = 0.f;
 
 		Obstacle(sf::Vector2f _pos, ObstacleType _type)
 		{
@@ -72,6 +74,7 @@ void CreateObstacle(sf::Vector2f _pos, ObstacleType _type, std::vector<Obstacle*
 class Enemy
 {
 	private :
+		sf::RectangleShape m_Rect;
 		sf::Vector2f m_pos;
 		EnemyClass m_class;
 		float m_hp;
@@ -83,17 +86,17 @@ class Enemy
 		Enemy(sf::Vector2f pos, EnemyClass type);
 		~Enemy();
 
-		bool update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _list);
-		void display(sf::RenderWindow& window);
+		bool Update(std::vector<Obstacle*> _obstacleList, std::list<Enemy*>& _list);
+		void Display(sf::RenderWindow& window);
 
-		//getters
+		//Getters
 		inline sf::Vector2f getPos() { return m_pos; };
 		inline EnemyClass getClass() { return m_class; };
 		inline sf::Vector2f getVelocity() { return m_velocity; };
 		inline float getAngle() { return angle; };
 		inline int getPv() { return m_hp; };
 	
-		//setters
+		//Setters
 		inline void setPv(int _pv) { m_hp = _pv; };
 		inline void setPos(sf::Vector2f _pos) { m_pos = _pos; };
 		inline void setVelocity(sf::Vector2f _velocity) { m_velocity = _velocity; };
@@ -103,6 +106,8 @@ class Enemy
 		void Seek(sf::Vector2f _target, Obstacle* _closestObstacle);
 
 		//Game
+		void CheckForHit();
+		void TakeDamage(int _damage);
 		void Die(std::list<Enemy*>& _list);
 };
 

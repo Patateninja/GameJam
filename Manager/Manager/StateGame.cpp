@@ -36,8 +36,8 @@ void StateGame::Init()
 	CreateObstacle(sf::Vector2f(300.f, 600.f), BIG_ROCK, obsList);
 
 	Spawn(sf::Vector2f(10.f, 10.), NORMAL, _EnemyList);
-	Spawn(sf::Vector2f(500.f, 10.), NORMAL, _EnemyList);
-	Spawn(sf::Vector2f(10.f, 500.), NORMAL, _EnemyList);
+	Spawn(sf::Vector2f(500.f, 10.), TANK, _EnemyList);
+	Spawn(sf::Vector2f(10.f, 500.), SPEEDSTER, _EnemyList);
 }
 
 void StateGame::Update()
@@ -71,7 +71,7 @@ void StateGame::Update()
 	for (std::list<Enemy*>::iterator it = _EnemyList.begin(); it != _EnemyList.end();)
 	{
 		Enemy* enemy = *it;
-		if (enemy->update(obsList, _EnemyList))
+		if (enemy->Update(obsList, _EnemyList))
 		{
 			++it;
 		}
@@ -97,7 +97,7 @@ void StateGame::Display(sf::RenderWindow& _window)
 
 	for (Enemy* enemy : _EnemyList)
 	{
-		enemy->display(_window);
+		enemy->Display(_window);
 	}
 	
 

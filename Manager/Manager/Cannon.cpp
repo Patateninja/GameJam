@@ -62,33 +62,33 @@ Cannon::Cannon(enumBienGuez _type) // warnings? shut
 {
 	switch (_type)
 	{
-	default:
-		std::cout << "Please enter a correct Cannon type (got " << _type << ", expected 0 or 1)." << std::endl;
-		return;
-	case BIGCANNON:
-		Cannon::shootCooldown = 1.f;
-		Cannon::damage = 20;
-		Cannon::rotSpeed = 30.f;
-		Cannon::rotDeg = 180.f;
-		Cannon::rot_MIN = rotDeg - 25.f;
-		Cannon::rot_MAX = rotDeg + 25.f;
-		break;
-	case SMOLCANNON1:
-		Cannon::shootCooldown = 0.1f;
-		Cannon::damage = 1;
-		Cannon::rotSpeed = 75.f;
-		Cannon::rotDeg = 0.f;
-		Cannon::rot_MIN = rotDeg - 35.f;
-		Cannon::rot_MAX = rotDeg + 35.f;
-		break;
-	case SMOLCANNON2:
-		Cannon::shootCooldown = 0.1f;
-		Cannon::damage = 1;
-		Cannon::rotSpeed = 75.f;
-		Cannon::rotDeg = 0.f;
-		Cannon::rot_MIN = rotDeg - 35.f;
-		Cannon::rot_MAX = rotDeg + 35.f;
-		break;
+		default:
+			std::cout << "Please enter a correct Cannon type (got " << _type << ", expected 0 or 1)." << std::endl;
+			return;
+		case BIGCANNON:
+			Cannon::shootCooldown = 1.f;
+			Cannon::damage = 20;
+			Cannon::rotSpeed = 30.f;
+			Cannon::rotDeg = 180.f;
+			Cannon::rot_MIN = rotDeg - 25.f;
+			Cannon::rot_MAX = rotDeg + 25.f;
+			break;
+		case SMOLCANNON1:
+			Cannon::shootCooldown = 0.1f;
+			Cannon::damage = 1;
+			Cannon::rotSpeed = 75.f;
+			Cannon::rotDeg = 0.f;
+			Cannon::rot_MIN = rotDeg - 35.f;
+			Cannon::rot_MAX = rotDeg + 35.f;
+			break;
+		case SMOLCANNON2:
+			Cannon::shootCooldown = 0.1f;
+			Cannon::damage = 1;
+			Cannon::rotSpeed = 75.f;
+			Cannon::rotDeg = 0.f;
+			Cannon::rot_MIN = rotDeg - 35.f;
+			Cannon::rot_MAX = rotDeg + 35.f;
+			break;
 	}
 	Cannon::type = _type;
 }
