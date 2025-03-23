@@ -17,6 +17,8 @@ namespace Player
 	sf::Vector2f GetPlayerPosition();
 	float GetPlayerRotation();
 
+	int GetHP();
+
 	void Init();
 
 	void Update(std::list<Enemy*>& _EnemyList);

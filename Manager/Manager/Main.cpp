@@ -38,7 +38,7 @@ int main()
 
 		StateMachine::StateUpdate();
 
-		UI::Update();
+		UI::Update(Player::GetHP());
 
 		window.Clear();
 

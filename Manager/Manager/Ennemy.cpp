@@ -1,6 +1,6 @@
 #include "Ennemy.hpp"
 #include "Player.h"
-
+#include "UI.h"
 #include <iostream>
 
 void CreateObstacle(sf::Vector2f _pos, ObstacleType _type, std::vector<Obstacle*>& _list)
@@ -143,6 +143,7 @@ void Enemy::Die(std::list<Enemy*>& _list)
 		if (*it == this)
 		{
 			if ((*it)->getClass() == KAMIKAZE) Explode(_list);
+			UI::KillEnemy();
 			delete this;
 			it = _list.erase(it);
 		}

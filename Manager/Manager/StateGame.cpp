@@ -35,19 +35,21 @@ void StateGame::Init()
 	CreateObstacle(sf::Vector2f(1400.f, 200.f), ROCK, obsList);
 	CreateObstacle(sf::Vector2f(300.f, 600.f), BIG_ROCK, obsList);
 
-	Spawn(sf::Vector2f(10.f, 10.), NORMAL, _EnemyList);
-	Spawn(sf::Vector2f(500.f, 10.), TANK, _EnemyList);
-	Spawn(sf::Vector2f(10.f, 500.), SPEEDSTER, _EnemyList);
-	Spawn(sf::Vector2f(100.f, 100.), TANK, _EnemyList);
-	Spawn(sf::Vector2f(500.f, 100.), TANK, _EnemyList);
-	Spawn(sf::Vector2f(1060.f, 500.), TANK, _EnemyList);
-	Spawn(sf::Vector2f(160.f, 800.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(10.f, 1000.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(600.f, 100.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(600.f, 200.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(600.f, 300.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(600.f, 400.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(600.f, 500.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 100.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 200.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 300.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 400.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 500.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 600.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 700.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 800.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 900.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 1000.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 1100.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 1200.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 1300.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 1400.f), KAMIKAZE, _EnemyList);
+	Spawn(sf::Vector2f(700.f, 1500.f), SPEEDSTER, _EnemyList);
 }
 
 void StateGame::Update()

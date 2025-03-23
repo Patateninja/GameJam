@@ -519,7 +519,7 @@ void UI::Init()
 	spriteKey2.setScale(-1.f, 1.f);
 }
 
-void UI::Update()
+void UI::Update(int _playerHP)
 {
 	//update
 
@@ -527,59 +527,9 @@ void UI::Update()
 
 	time += getDeltaTime();
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && time > 0.2 && number > 0)
-	{
-		number--;
-		time = 0;
-	}
+	UI::secondNumber = (37 - _playerHP) <= 37 ? (37 - _playerHP) : 37;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && time > 0.2)
-	{
-		secondNumber++;
-		time = 0;
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O) && time > 0.2 && IsOverLoadOne == false)
-	{
-		IsPlayerOneShooting = true;
-		thirdNumberOne--;
-		thirdNumberOne--;
-		thirdNumberOne--;
-
-		if (thirdNumberOne < -1)
-			thirdNumberOne = -1;
-
-		time = 0;
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && time > 0.2 && IsOverLoadTwo == false)
-	{
-		// Pas mal le troll Hugo Hugo Hugo
-		IsPlayerTwoShooting = true;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-		thirdNumberTwo--;
-
-		if (thirdNumberTwo < -1)
-			thirdNumberTwo = -1;
-
-		time = 0;
-	}
+	
 
 	UpdateKeyAnim();
 
@@ -634,6 +584,100 @@ void UI::Display(sf::RenderWindow& _window)
 	}
 }
 
+void UI::SmallShot()
+{
+	if (UI::IsOverLoadOne == false)
+	{
+		IsPlayerOneShooting = true;
+		thirdNumberOne--;
+		thirdNumberOne--;
+		thirdNumberOne--;
+
+		if (thirdNumberOne < -1)
+			thirdNumberOne = -1;
+	}
+}
+
+void UI::BigShot()
+{
+	if (UI::IsOverLoadTwo == false)
+	{
+		// Pas mal le troll Hugo Hugo Hugo
+		IsPlayerTwoShooting = true;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+		thirdNumberTwo--;
+
+		if (thirdNumberTwo < -1)
+			thirdNumberTwo = -1;
+	}
+}
+
+bool UI::canSmallShot()
+{
+	return !UI::IsOverLoadOne;
+}
+
+bool UI::canBigShot()
+{
+	return !UI::IsOverLoadTwo;
+}
+
+void UI::KillEnemy()
+{
+	if (UI::number > 0)
+	{
+		number--;
+	}
+}
+
 #pragma endregion
-
-

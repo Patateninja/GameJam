@@ -9,7 +9,6 @@ namespace Player
 	float rotationSpeed = 75.0f;
 	sf::Vector2f position = { 400.f, 400.f };
 	float rotation = 0;
-	float health = 100;
 
 	bool teslaOn = false;
 
@@ -248,7 +247,7 @@ namespace Player
 						Player::hp -= 1;
 						break;
 					case TANK :
-						Player::hp -= 2;
+						Player::hp -= 1;
 						break;
 					case SPEEDSTER :
 						Player::hp -= 1;
@@ -272,6 +271,8 @@ namespace Player
 		}
 	}
 }
+
+int Player::GetHP() { return Player::hp; };
 
 float Player::GetPlayerSpeed()
 {
@@ -329,7 +330,7 @@ void Player::Update(std::list<Enemy*>& _EnemyList)
 {
 	Player::TakeDamage(_EnemyList);
 
-	if (health < 0) return;
+	if (hp < 0) return;
 	UpdateInput();
 	UpdatePosition();
 
@@ -385,7 +386,7 @@ void Player::Update(std::list<Enemy*>& _EnemyList)
 
 void Player::Hurt(float _amount)
 {
-	health -= _amount;
+	hp -= _amount;
 }
 
 void Player::Display(sf::RenderWindow& _window)
