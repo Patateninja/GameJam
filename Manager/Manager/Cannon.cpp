@@ -12,9 +12,11 @@
 
 namespace {
 	sf::Sprite spriteCannon;
+	sf::Sprite spriteFire;
 	sf::Texture bigCannonTexture;
 	sf::Texture smallCannon1Texture;
 	sf::Texture smallCannon2Texture;
+	sf::Texture fireTexture;
 
 	sf::Vector2f smallGun1OffSet = { -smallGunXOffset, -smallGunYOffset };
 	sf::Vector2f smallGun2OffSet = { smallGunXOffset, -smallGunYOffset };
@@ -35,6 +37,7 @@ void initCannon()
 	bigCannonTexture.loadFromFile("../Ressources/Textures/cannonBig.png");
 	smallCannon1Texture.loadFromFile("../Ressources/Textures/cannon1Small.png");
 	smallCannon2Texture.loadFromFile("../Ressources/Textures/cannon2Small.png");
+	smallCannon2Texture.loadFromFile("../Ressources/Textures/SPRITE FLAME.png");
 }
 
 Cannon::Cannon()
@@ -160,7 +163,7 @@ void Cannon::Shoot(TypeTir _type)
 
 	std::list<Tir>& t = getTirList();
 
-	t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleLPos, _type));
+	t.push_back(Tir(Player::GetPlayerRotation() - rotDeg , muzzleLPos, _type));
 	if (!_type == GROS)
 	{
 		UI::SmallShot();
@@ -191,6 +194,7 @@ void Cannon::Display(sf::RenderWindow& _window)
 	{
 		case BIGCANNON:
 			spriteCannon.setTexture(bigCannonTexture, true);
+			spriteFire;
 			break;
 		case SMOLCANNON1:
 			spriteCannon.setTexture(smallCannon1Texture, true);

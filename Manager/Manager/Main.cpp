@@ -21,7 +21,6 @@ int main()
 	View view(window);
 	window.setView(&view);
 
-	Player::Init();
 
 	Ultime::InitUltime();
 
