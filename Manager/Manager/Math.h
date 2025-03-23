@@ -30,6 +30,9 @@ namespace Math
 	sf::Vector2f polarToCartesian(sf::Vector2f v);
 	sf::Vector2f cartesianToPolar(sf::Vector2f v);
 	bool isEquals(float a, float b);
+	bool isEquals(float a, float b, float epsilon);
+	bool isEquals(sf::Vector2f a, sf::Vector2f b);
+	bool isEquals(sf::Vector2f a, sf::Vector2f b, float epsilon);
 	bool isZero(float a);
 	bool isZero(sf::Vector2f a);
 	bool isEquals(sf::Vector2f a, sf::Vector2f b);

@@ -130,6 +130,11 @@ bool Math::isEquals(float a, float b)
 	return fabs(a - b) < EPSILON;
 }
 
+bool Math::isEquals(float a, float b, float epsilon)
+{
+	return fabs(a - b) < epsilon;
+}
+
 bool Math::isZero(float a)
 {
 	return fabs(a) < EPSILON;
@@ -143,4 +148,9 @@ bool Math::isZero(sf::Vector2f a)
 bool Math::isEquals(sf::Vector2f a, sf::Vector2f b)
 {
 	return isZero(a - b);
+}
+
+bool Math::isEquals(sf::Vector2f a, sf::Vector2f b, float epsilon)
+{
+	return isEquals(a.x, b.x, epsilon) && isEquals(a.y, b.y, epsilon);
 }
