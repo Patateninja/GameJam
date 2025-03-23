@@ -5,9 +5,11 @@
 #include "StateCredits.h"
 #include "StateTuto.h"
 #include "StateGameOver.h"
+#include "StateIntro.h"
 
 typedef enum State
 {
+	INTRO,
 	MENU,
 	TUTO,
 	SETTINGS,

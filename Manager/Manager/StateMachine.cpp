@@ -5,7 +5,7 @@
 
 namespace
 {
-	State m_CurrentState = MENU;
+	State m_CurrentState = INTRO;
 	bool isPaused = false;
 }
 
@@ -20,6 +20,9 @@ void StateMachine::ChangeState(State _state)
 	{
 		switch (m_CurrentState)
 		{
+		case INTRO:
+			StateIntro::DeInit();
+			break;
 		case MENU:
 			StateMenu::DeInit();
 			break;
@@ -51,6 +54,9 @@ void StateMachine::StateInit()
 	StateSettings::Init();
 	switch (m_CurrentState)
 	{
+	case INTRO:
+		StateIntro::Init();
+		break;
 	case MENU:
 		StateMenu::Init();
 		break;
@@ -81,6 +87,9 @@ void StateMachine::StateUpdate()
 {
 	switch (m_CurrentState)
 	{
+	case INTRO:
+		StateIntro::Update();
+		break;
 	case MENU:
 		if (!isPaused)
 		{
@@ -121,6 +130,9 @@ void StateMachine::StateDisplay(sf::RenderWindow& _window)
 
 	switch (m_CurrentState)
 	{
+	case INTRO:
+		StateIntro::Display(_window);
+		break;
 	case MENU:
 		if (!isPaused)
 		{

@@ -81,6 +81,9 @@
     <ClCompile Include="StateGameOver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StateIntro.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SoundManager.h">
@@ -141,6 +144,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StateGameOver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StateIntro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
