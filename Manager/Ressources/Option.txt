@@ -1,2 +1,0 @@
-MusicVolume 100
-SoundVolume 38
