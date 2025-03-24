@@ -16,6 +16,8 @@ namespace
 
 void StateMenu::Init()
 {
+	Sound::StopAllMusic();
+	Sound::PlayMusic("MusicMenu");
 	textureMenu.loadFromFile("../Ressources/Textures/main_menu.png");
 	textureMenuHover.loadFromFile("../Ressources/Textures/main_menu_hover.png");
 	

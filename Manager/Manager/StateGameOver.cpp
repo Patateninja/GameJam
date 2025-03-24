@@ -9,6 +9,8 @@ namespace StateGameOver
 
 void StateGameOver::Init()
 {
+	Sound::StopAllMusic();
+	Sound::PlayMusic("MusicCrédits");
 	gameOverFondTexture.loadFromFile("../Ressources/Textures/game_over.png");
 	gameOverFond.setTexture(gameOverFondTexture);
 }

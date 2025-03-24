@@ -163,11 +163,13 @@ void Cannon::Shoot(TypeTir _type)
 	t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleLPos, _type));
 	if (!_type == GROS)
 	{
+		Sound::PlaySound("mitrailleuse");
 		UI::SmallShot();
 		t.push_back(Tir(Player::GetPlayerRotation() - rotDeg, muzzleRPos, _type));
 	}
 	else
 	{
+		Sound::PlaySound("canon");
 		UI::BigShot();
 	}
 	shootTimer = 0.f;

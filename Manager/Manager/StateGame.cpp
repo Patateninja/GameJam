@@ -19,10 +19,15 @@ namespace
 	std::vector<Obstacle*> obsList;
 
 	std::list<Enemy*> _EnemyList;
+
+	sf::Sprite decor;
+	sf::Texture decroTexture;
 }
 
 void StateGame::Init()
 {
+	Sound::StopAllMusic();
+	Sound::PlayMusic("MusicGame");
 	Player::Init();
 	initCannon();
 	initTir();
@@ -40,25 +45,9 @@ void StateGame::Init()
 	backTex.setRepeated(true);
 	back.setTexture(backTex);
 
-	CreateObstacle(sf::Vector2f(1600.f, 800.f), CACTUS, obsList);
-	CreateObstacle(sf::Vector2f(1400.f, 200.f), ROCK, obsList);
-	CreateObstacle(sf::Vector2f(300.f, 600.f), BIG_ROCK, obsList);
+	decroTexture.loadFromFile("../Ressources/Textures/d.png");
+	decor.setTexture(decroTexture);
 
-	/*Spawn(sf::Vector2f(700.f, 100.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 200.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 300.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 400.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 500.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 600.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 700.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 800.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 900.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 1000.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 1100.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 1200.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 1300.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 1400.f), KAMIKAZE, _EnemyList);
-	Spawn(sf::Vector2f(700.f, 1500.f), SPEEDSTER, _EnemyList);*/
 }
 
 void StateGame::Update()
@@ -128,6 +117,22 @@ void StateGame::Display(sf::RenderWindow& _window)
 	{
 		obs->Draw(_window);
 	}
+
+	decor.setPosition(sf::Vector2f(528, 315));
+	decor.setTextureRect(sf::IntRect(6 * 88, 0, 88, 57));
+	_window.draw(decor);
+
+	decor.setPosition(sf::Vector2f(142, 852));
+	decor.setTextureRect(sf::IntRect(2 * 88, 0, 88, 57));
+	_window.draw(decor);
+
+	decor.setPosition(sf::Vector2f(988, 1000));
+	decor.setTextureRect(sf::IntRect(11 * 88, 0, 88, 57));
+	_window.draw(decor);
+
+	decor.setPosition(sf::Vector2f(025, 625));
+	decor.setTextureRect(sf::IntRect(3 * 88, 0, 88, 57));
+	_window.draw(decor);
 
 	for (Enemy* enemy : _EnemyList)
 	{

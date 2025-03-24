@@ -14,6 +14,7 @@ namespace StateIntro
 
 void StateIntro::Init()
 {
+    Sound::PlayMusic("MusicIntro");
 	textureIntro.loadFromFile("../Ressources/Textures/logo_ga.png");
 	textureIntroAnim.loadFromFile("../Ressources/Textures/logo_ga_anim.png");
 	spriteIntro.setTexture(textureIntro);
