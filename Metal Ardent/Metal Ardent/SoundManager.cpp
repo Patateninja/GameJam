@@ -11,8 +11,8 @@ namespace
 	std::vector<sf::SoundBuffer> multiBuffer;
 	std::string currentMusic;
 	std::string futureMusic;
-	int musicVolume = 50;
-	int soundVolume = 50;
+	float musicVolume = 50;
+	float soundVolume = 50;
 }
 
 void Sound::InitSoundManager()
@@ -73,7 +73,7 @@ void Sound::InitSoundManager()
 	}
 }
 
-void Sound::getOption(int& _musicVolume, int& _soundVolume)
+void Sound::getOption(float& _musicVolume, float& _soundVolume)
 {
 	_musicVolume = musicVolume;
 	_soundVolume = soundVolume;

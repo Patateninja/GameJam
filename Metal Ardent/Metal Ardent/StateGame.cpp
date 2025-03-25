@@ -47,7 +47,6 @@ void StateGame::Init()
 
 	decroTexture.loadFromFile("../Ressources/Textures/d.png");
 	decor.setTexture(decroTexture);
-
 }
 
 void StateGame::Update()

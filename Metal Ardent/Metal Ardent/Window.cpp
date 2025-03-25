@@ -1,5 +1,4 @@
 #include "Window.hpp"
-#include "Keys.hpp"
 
 Window::Window(std::string _title, sf::Vector2i _size, bool _isFullscreen, bool _isVSync, bool _isAntialiasing)
 {

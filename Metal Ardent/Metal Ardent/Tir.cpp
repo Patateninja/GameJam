@@ -59,7 +59,7 @@ void Tir::Update() {
 			
 			if (!it.m_alive)
 			{
-				delete &it;
+				//delete &it;
 				it.~Tir();
 			}
 		}

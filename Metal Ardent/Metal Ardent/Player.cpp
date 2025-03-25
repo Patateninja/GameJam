@@ -350,6 +350,7 @@ void Player::Init()
 
 	// Scale the sprite
 	playerSprite.setScale(0.5f, 0.5f);
+	hp = 37.f;
 }
 
 void Player::Update(std::list<Enemy*>& _EnemyList)

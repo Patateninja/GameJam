@@ -8,7 +8,7 @@
 namespace Sound 
 {
 	void InitSoundManager();
-	void getOption(int& _musicVolume, int& _soundVolume);
+	void getOption(float& _musicVolume, float& _soundVolume);
 	void SaveOption();
 	void PlaySound(std::string _name);
 

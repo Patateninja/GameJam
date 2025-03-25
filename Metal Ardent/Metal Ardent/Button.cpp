@@ -56,7 +56,7 @@ std::vector<Button*> ActualMenu::GetList()
 
 Action ActualMenu::Update()
 {
-	if (Keys::isUpPressed)
+ 	if (Keys::isUpPressed())
 	{
 		this->selectedButton--;
 		if (this->selectedButton < 0)
@@ -64,7 +64,7 @@ Action ActualMenu::Update()
 			this->selectedButton = this->ButtonList.size() - 1;
 		}
 	}
-	if (Keys::isDownPressed)
+	if (Keys::isDownPressed())
 	{
 		this->selectedButton++;
 		if (this->selectedButton > this->ButtonList.size() - 1)
@@ -86,7 +86,7 @@ Action ActualMenu::Update()
 	}
 
 
-	if (Keys::isInteractPressed)
+	if (Keys::isInteractPressed())
 	{
 		return this->ButtonList[this->selectedButton]->GetAction();
 	}

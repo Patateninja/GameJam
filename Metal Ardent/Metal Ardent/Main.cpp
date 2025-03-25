@@ -36,8 +36,6 @@ int main()
 			
 		window.Clear();
 
-		std::cout << "Interact :: " << Keys::isInteractPressed + Keys::isInteractHeld << std::endl << "Up :: " << Keys::isUpPressed + Keys::isUpHeld << std::endl << "Down :: " << Keys::isDownPressed + Keys::isDownHeld << std::endl;
-
 		StateMachine::StateDisplay(*window.getWindow());
 	}
 	Sound::SaveOption();

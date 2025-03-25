@@ -18,7 +18,7 @@ void StateTuto::Init()
 void StateTuto::Update()
 {
 	// si touche enter appuyée, retour au menu
-	if (Keys::isInteractPressed)
+	if (Keys::isInteractPressed())
 	{
 		StateMachine::ChangeState(GAME);
 	}

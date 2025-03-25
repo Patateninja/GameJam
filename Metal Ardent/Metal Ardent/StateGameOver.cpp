@@ -17,7 +17,7 @@ void StateGameOver::Init()
 
 void StateGameOver::Update()
 {
-	if (Keys::isInteractPressed)
+	if (Keys::isInteractPressed())
 	{
 		StateMachine::ChangeState(MENU);
 	}

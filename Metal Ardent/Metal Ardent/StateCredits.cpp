@@ -1,6 +1,5 @@
 #include "StateCredits.hpp"
 #include "StateMachine.hpp"
-#include "Keys.hpp"
 
 namespace StateCredits
 {
@@ -20,7 +19,7 @@ void StateCredits::Init()
 
 void StateCredits::Update()
 {
-	if (Keys::isInteractPressed)
+	if (Keys::isInteractPressed())
 	{
 		StateMachine::ChangeState(MENU);
 	}

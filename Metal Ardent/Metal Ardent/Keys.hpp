@@ -1,13 +1,11 @@
 #pragma once
+#include "Tools.hpp"
 
 namespace Keys
 {
-	bool isInteractPressed;
-	bool isUpPressed;
-	bool isDownPressed;
-	bool isInteractHeld;
-	bool isUpHeld;
-	bool isDownHeld;
+	bool isInteractPressed();
+	bool isUpPressed();
+	bool isDownPressed();
 	
 	void updateInteractKey();
 }

@@ -11,8 +11,8 @@ namespace StateSettings
 	sf::Texture hoverTexture;
 
 	int selIndex = 3;
-	int musicVolume;
-	int soundVolume;
+	float musicVolume;
+	float soundVolume;
 
 	float caretMIN = 694.f;
 	float caretMAX = 1415.f;
@@ -33,6 +33,7 @@ void StateSettings::Init()
 
 void StateSettings::Update()
 {
+	float incr = 50 * getDeltaTime();
 	Sound::getOption(musicVolume, soundVolume);
 	caret1Sprite.setTextureRect(sf::IntRect(1146, 75, 25, 110));
 	caret2Sprite.setTextureRect(sf::IntRect(1146, 75, 25, 110));
@@ -41,26 +42,33 @@ void StateSettings::Update()
 	switch (selIndex)
 	{
 	case 1: //SFX
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { Sound::changeSoundVolume(std::min(soundVolume + 1, 100)); };
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { Sound::changeSoundVolume(std::max(soundVolume - 1, 0)); };
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) { soundVolume += incr; };
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) { soundVolume -= incr; };
 		caret1Sprite.setTextureRect(sf::IntRect(1171, 75, 25, 110));
 		break;
 	case 2: //MUS
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { Sound::changeMusicVolume(std::min(musicVolume + 1, 100)); };
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { Sound::changeMusicVolume(std::max(musicVolume - 1, 0)); };
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) { musicVolume += incr; };
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) { musicVolume -= incr; };
 		caret2Sprite.setTextureRect(sf::IntRect(1171, 75, 25, 110));
 		break;
 	case 3: //QUIT
-		if (Keys::isInteractPressed)
+		if (Keys::isInteractPressed())
 		{
 			StateMachine::toggleIsPaused();
 		}
 		backArrowSprite.setTextureRect(sf::IntRect(1196, 75, 599, 110));
 		break;
 	}
+	if (soundVolume > 100.f) soundVolume = 100.f;
+	if (musicVolume > 100.f) musicVolume = 100.f;
+	if (soundVolume < 0.f) soundVolume = 0.f;
+	if (musicVolume < 0.f) musicVolume = 0.f;
 
-	if (Keys::isDownPressed) selIndex = std::min(selIndex + 1, 3);
-	if (Keys::isUpPressed) selIndex = std::max(selIndex - 1, 1);
+	Sound::changeSoundVolume(soundVolume);
+	Sound::changeMusicVolume(musicVolume);
+
+	if (Keys::isDownPressed()) selIndex = std::min(selIndex + 1, 3);
+	if (Keys::isUpPressed()) selIndex = std::max(selIndex - 1, 1);
 }
 
 void StateSettings::Display(sf::RenderWindow& _window)

@@ -1,2 +1,2 @@
-MusicVolume 36
-SoundVolume 34
+MusicVolume 78.6289
+SoundVolume 69.5894
